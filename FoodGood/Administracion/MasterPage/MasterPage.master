@@ -1,0 +1,235 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="Administracion_MasterPage_MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <asp:Literal ID="JqueryAndMainMenuScript" runat="server"></asp:Literal>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <!-- MASKS AND GENERAL CHECKS ----------------------------------------------------------------->
+        <div id="TOP"></div>
+        <!-- Do not remove div#mask, because you'll need it to fill the whole screen -->
+        <div id="feedback_Mask" class="feedback_Mask"></div>
+        <!-- Javascript must be enabled -->
+        <noscript>
+            <style type="text/css">
+                #aspnetForm {
+                    display: none;
+                }
+            </style>
+            <div class="noscriptmsg">
+                <asp:Literal ID="NoJScriptLabel" runat="server"
+                    Text=""></asp:Literal>
+            </div>
+        </noscript>
+        <!-- =========================================================================================-->
+        <div id="wrapper">
+            <nav class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <div class="nav-header">
+                        <div class="profile-element text-center">
+                            <span>
+                                <asp:Image ID="imgHeaderLogo" runat="server" ImageUrl="~/img/gorroChef.png" AlternateText="logo" CssClass="img-circle" />
+                            </span>
+                            <span class="clear"></span>
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">
+                                    <asp:Label ID="Label1" Text="FoodGood" runat="server" />
+                                </strong>
+                            </span>
+                        </div>
+                        <div class="logo-element">
+                            Kd*
+                        </div>
+                    </div>
+                    <ul id="side-menu" class="nav metismenu">
+                        <li><a href="/Administration/MainPage.aspx"><i class="fa fa-home"></i><span class="nav-label">Inicio</span></a></li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-user-secret"></i><span class="nav-label">Seguridad</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                            <li><a href="../Usuario/ListaUsuario.aspx">Lista de Usuarios</a></li>
+                            <li><a href="../Area/ListaArea.aspx">Lista Areas</a></li>
+                            <li><a href="../Modulo/ListaModulo.aspx">Lista Modulos</a></li>
+                            <li><a href="../Acceso/ListaAcceso.aspx">Asignar Acceso</a></li>
+                        </ul>
+                        </li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i><span class="nav-label">Pedidos</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                            <li><a href="/Administration/Pedido/ListaPedidos.aspx">Lista de Pedidos</a></li>
+                            <li><a href="/Administration/Pedido/ListaPedidosAsignados.aspx">Pedidos Asinados para Entrega</a></li>
+                        </ul>
+                        </li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-building"></i><span class="nav-label">Inventario</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                            <li><a href="/Administration/Inventario/TiposArticulos/ListaTiposArticulos.aspx">Tipos de Articulo</a></li>
+                            <li><a href="/Administration/Inventario/Caracteristica/ListaProductoCaracteristica.aspx">Lista Articulo con caracteristica</a></li>
+                            <li><a href="/Administration/Inventario/ImageArticulo/ListaImageArticulo.aspx">Lista Articulo con Imagen</a></li>
+                            <li><a href="/Administration/Inventario/TiposArticulosOfertanga/ListaTiposArticulosOfertanga.aspx">Ofertanga</a></li>
+                            <li><a href="/Administration/Inventario/Caracteristica/AddCaracteristica.aspx">Lista de Caracteristica</a></li>
+                            <li><a href="/Administration/Suscripcion/ListaSuscripciones.aspx">Suscripciones</a></li>
+                        </ul>
+                        </li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-user"></i><span class="nav-label">Mi Cuenta</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                            <li><a href="/Administration/Security/ChangePassword.aspx">Cambiar Contraseña</a></li>
+                        </ul>
+                        </li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-caret-square-o-down"></i><span class="nav-label">Acerca de</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                            <li><a href="/Administration/About/Credits.aspx">Créditos</a></li>
+                            <li><a href="/Administration/About/VersionInformation.aspx">Cambios en la Aplicación</a></li>
+                        </ul>
+                        </li>
+                    </ul>
+                    <asp:Literal ID="sideMenu" runat="server"></asp:Literal>
+                </div>
+            </nav>
+            <div id="page-wrapper" class="gray-bg dashbard-1">
+                <div class="row border-bottom">
+                    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                        <div class="navbar-header">
+                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <ul class="nav navbar-top-links navbar-right">
+                            <%--<li>
+                    <div class="languages">
+                        <lang:LanguageSelector runat="server" ID="LanguageSelector" />
+                    </div>
+                </li>--%>
+                            <li>
+                                <%--<msg:Messages ID="MessagesContent" runat="server" />--%>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink1" NavigateUrl="~/Administration/Security/ChangePassword.aspx" runat="server" Text="<i class='fa fa-key'></i> Change Password" />
+
+                            </li>
+                            <li>
+                                <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Authentication/Login.aspx" />
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="row  border-bottom white-bg dashboard-header">
+                    <h4>Bienvenido
+                            <asp:Label ID="lblUseName" runat="server" Text="a FoodGood"></asp:Label></h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="wrapper wrapper-content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <asp:ContentPlaceHolder ID="cp" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="footer col-md-12">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12 text-right footerImage">
+                                        Powered by 
+                                        <span>Kevin Delgadillo Salazar</span>
+                                        <div style="clear: both"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <asp:HiddenField ID="CurrentUserIDHiddenField" runat="server" />
+            <%--<artexacta:ToolTipManager ID="ToolTipManagerControl" runat="server"
+                NoApplyToSelector="*[class|=ru], *[class|=Rad],*[class|=Rad]"
+                ShouldDisplayToolTipWS="~/ToolTipWS/ToolTipUse.asmx/ShouldDisplayToolTip" />--%>
+
+
+            <!-- Feedback Panel -->
+            <div id="feedbackPanel" class="feedback_Panel frame">
+                <div class="columnHead">
+                    <asp:Label ID="Label2" runat="server" Text="enter"
+                        CssClass="title" />
+                    <div class="commands">
+                        <a href="#" class="secondaryButton" id="cancelFeedbackButton">
+                            <asp:Literal ID="CloseLabel" runat="server" Text="cerrar>"></asp:Literal>
+                        </a>
+                    </div>
+                </div>
+                <div class="columnContent">
+                    <br />
+                    <asp:Literal ID="FeedbackIframeCode" runat="server" Visible="false"></asp:Literal>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#ctl00_LoginStatus1").prepend('<i class="fa fa-sign-out"></i>');
+
+                    updateOnResize();
+
+                    $("#feedbackPanel").hide();
+
+                    // Handler to show the columns selector
+                    $("#feedbackHyperLink").click(function (e) {
+
+                        $.scrollTo($('#TOP'), 800);
+
+                        e.preventDefault();
+
+                        var maskWinH = $(document).height();
+                        var maskWinW = $(window).width();
+                        $("#feedback_Mask").css({ 'width': maskWinW, 'height': maskWinH });
+                        $("#feedback_Mask").css('top', 0);
+                        $("#feedback_Mask").css('left', 0);
+                        $('#feedback_Mask').fadeIn(200);
+                        $('#feedback_Mask').fadeTo('fast', 0.8);
+                        $("#feedback_Mask").fadeIn(500);
+
+                        var winH = $(window).height();
+                        var winW = $(window).width();
+                        $("#feedbackPanel").css('top', winH / 2 - $("#feedbackPanel").height() / 2);
+                        $("#feedbackPanel").css('left', winW / 2 - $("#feedbackPanel").width() / 2);
+                        $("#feedbackPanel").fadeIn(500);
+
+                        return false;
+                    });
+
+                    $("#cancelFeedbackButton").click(function (e) {
+                        e.preventDefault();
+                        $("#feedbackPanel, #feedback_Mask").fadeOut(500);
+                    });
+                });
+
+                function updateOnResize() {
+                    var newWidth = $(".pageContent").outerWidth() - $(".twoColsRight").outerWidth() - 10;
+                    $(".twoColsLeft").css("clear", "none");
+                    $(".twoColsRight").removeClass("columnResize");
+                    if (newWidth < 240) {
+                        newWidth = 240;
+                        $(".twoColsLeft").css("clear", "left");
+                        $(".twoColsRight").addClass("columnResize");
+                    }
+                    $(".twoColsLeft").css("width", newWidth);
+                    $(".twoColsLeft .gridcontainer").css("width", newWidth - 12);
+                    if ($(window).width() <= 535) {
+                        $(".pageContent").addClass("columnResize");
+                    } else {
+                        $(".pageContent").removeClass("columnResize");
+                    }
+                }
+                $(window).resize(function () {
+                    updateOnResize();
+                });
+                $(window).load(function () {
+                    updateOnResize();
+                });
+
+            </script>
+        </div>
+    </form>
+</body>
+</html>
