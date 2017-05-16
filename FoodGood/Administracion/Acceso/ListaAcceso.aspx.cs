@@ -17,7 +17,9 @@ public partial class Administracion_Acceso_ListaAcceso : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            cargarListaUsuario("");
+            string armadoDeQuery = "@tipousuarioId IN(1)";
+            string query = consultaSqlUsuario(armadoDeQuery).SqlQuery();
+            cargarListaUsuario(query);
         }
     }
 
@@ -107,5 +109,11 @@ public partial class Administracion_Acceso_ListaAcceso : System.Web.UI.Page
         string armadoDeQuery = "@nombre \"" + busquedaAccesoTxt.Text + "\" OR @apellido \"" + busquedaAccesoTxt.Text + "\" OR @email \"" + busquedaAccesoTxt.Text + "\"";
         string query = consultaSqlUsuario(armadoDeQuery).SqlQuery();
         cargarListaUsuario(query);
+    }
+
+    protected void ListaAccesoGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        ListaAccesoGridView.PageIndex = e.NewPageIndex;
+        cargarListaUsuario("");
     }
 }

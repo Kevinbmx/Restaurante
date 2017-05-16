@@ -25,13 +25,20 @@ public partial class Administracion_Modulo_RegistrarModulo : System.Web.UI.Page
         }
     }
 
+    //public void llenarComboArea()
+    //{
+
+        
+    //    AreaComboBox.DataSource =
+    //        AreaComboBox.DataBind();
+    //}
     protected void SaveModulo_Click(object sender, EventArgs e)
     {
         Modulo objModulo = new Modulo();
 
         if (!string.IsNullOrEmpty(descripcionTextBox.Text))
         {
-            objModulo.Descripcion = descripcionTextBox.Text;
+            objModulo.Descripcion = descripcionTextBox.Text.ToLower();
             ErrorDescripcion.Visible = false;
         }
         else
@@ -102,7 +109,7 @@ public partial class Administracion_Modulo_RegistrarModulo : System.Web.UI.Page
         objModulo.ModuloId = Convert.ToInt32(ModuloIdHiddenField.Value);
         if (!string.IsNullOrEmpty(descripcionTextBox.Text))
         {
-            objModulo.Descripcion = descripcionTextBox.Text;
+            objModulo.Descripcion = descripcionTextBox.Text.ToLower();
             ErrorDescripcion.Visible = false;
         }
         else

@@ -33,7 +33,10 @@
                 </div>
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <asp:GridView runat="server" ID="ListaUsuariosGridView" CssClass="table table-striped" AutoGenerateColumns="false" OnRowDataBound="ListaUsuariosGridView_RowDataBound" OnRowCommand="ListaUsuariosGridView_RowCommand">
+                        <asp:GridView runat="server" ID="ListaUsuariosGridView" AllowPaging="True" PageSize="10"
+                            OnPageIndexChanging="ListaUsuariosGridView_PageIndexChanging"
+                            PagerSettings-Position="Bottom" PagerSettings-Mode="Numeric" CssClass="table table-striped"
+                            AutoGenerateColumns="false" OnRowDataBound="ListaUsuariosGridView_RowDataBound" OnRowCommand="ListaUsuariosGridView_RowCommand">
                             <Columns>
                                 <asp:TemplateField HeaderText="Editar" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
                                     <ItemTemplate>
@@ -52,14 +55,16 @@
                                     <ItemStyle VerticalAlign="Middle"></ItemStyle>
                                 </asp:TemplateField>
 
-                                <asp:BoundField DataField="nombre" HeaderText="Nombre" />
-                                <asp:BoundField DataField="apellido" HeaderText="Apellido" />
+                                <asp:BoundField DataField="NombreForDisplay" HeaderText="Nombre" />
+                                <asp:BoundField DataField="ApellidoForDisplay" HeaderText="Apellido" />
                                 <asp:BoundField DataField="tipoUsuarioId" HeaderText="tipoUsuario" />
                                 <asp:BoundField DataField="email" HeaderText="E-mail" />
                                 <asp:BoundField DataField="celular1" HeaderText="celular 1 " />
                                 <%--      <asp:BoundField DataField="celular2" HeaderText="cleular 2" />
                                 <asp:BoundField DataField="nit" HeaderText="nit" />--%>
                             </Columns>
+                            <FooterStyle Font-Overline="False" Font-Strikeout="False" Font-Underline="False" />
+                            <PagerSettings Mode="NumericFirstLast" />
                         </asp:GridView>
                         <asp:Panel ID="errorUsuario" runat="server" Visible="false">
                             <asp:Label runat="server">No se encuentra ningun Usuario</asp:Label>

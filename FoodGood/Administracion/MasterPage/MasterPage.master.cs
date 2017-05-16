@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FoodGood.Menus.BLL;
+//using Foodgood.Menus.Clase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +15,8 @@ public partial class Administracion_MasterPage_MasterPage : System.Web.UI.Master
         if (!IsPostBack)
         {
             LoadMainMenuScript();
+            IsUserAuthorizedPage();
+            ConstructMenu();
         }
     }
 
@@ -38,5 +42,97 @@ public partial class Administracion_MasterPage_MasterPage : System.Web.UI.Master
         scriptText.Append(ResolveClientUrl("~/Administracion/Script/jquery.slimscroll.min.js"));
         scriptText.Append("\" type=\"text/javascript\"></script>\n");
         JqueryAndMainMenuScript.Text = scriptText.ToString();
+    }
+
+    private bool IsUserAuthorizedPage()
+    {
+        string currentPage = Page.Request.AppRelativeCurrentExecutionFilePath;
+
+        // The following is a list of all the pages that are open to 
+        // authenticated users.  These users do not need specific permissions
+        // to access the page. 
+        string[] openPages = {
+             "~/Administration/MainPages.aspx",
+             "~Administracion/TipoUsuario/ListaTipoUsuario.aspx",
+             "~Administracion/Cliente/ListaCliente.aspx",
+             "~Administracion/Usuario/ListaUsuario.aspx",
+             "~Administracion/Area/ListaArea.aspx",
+             "~Administracion/Modulo/ListaModulo.aspx",
+             "~Administracion/Acceso/ListaAcceso.aspx",
+             "~/Administracion/Inventario/UnidadMedida/ListaUnidadMedida.aspx",
+             "~/Administracion/Inventario/Familia/ListaFamilia.aspx",
+             "~/Administracion/Inventario/Producto/ListaProducto.aspx"
+             //"~/Administration/Inventario/Caracteristica/AddCaracteristica.aspx",
+             //"~/Administration/Inventario/Caracteristica/ListaProductoCaracteristica.aspx",
+             //"~/Administration/Inventario/Caracteristica/ProductoCaracteristica.aspx",
+             //"~/Administration/Inventario/ImageArticulo/ListaImageArticulo.aspx",
+             //"~/Administration/Inventario/ImageArticulo/ImageArticulo.aspx",
+             //"~/Administration/Inventario/TiposArticulosOfertanga/RegistroOfertanga.aspx",
+             //"~/Administration/Inventario/TiposArticulos/EditarTipoArticulo.aspx",
+             //"~/Administration/Pedido/ListaPedidos.aspx",
+             //"~/Administration/Pedido/DetallePedido.aspx",
+             //"~/Administration/Pedido/ListaPedidosAsignados.aspx",
+             //"~/Administration/Pedido/DetallePedidoAsignado.aspx",
+             //"~/Administration/Suscripcion/ListaSuscripciones.aspx"
+        };
+
+        for (int i = 0; i < openPages.Length; i++)
+        {
+            if (currentPage.Equals(openPages[i]))
+                return true;
+        }
+
+        // SECURITY pages
+        //string[] securityPages = new string[] {
+        //     "~Administracion/TipoUsuario/ListaTipoUsuario.aspx",
+        //     "~Administracion/Cliente/ListaCliente.aspx",
+        //     "~Administracion/Usuario/ListaUsuario.aspx",
+        //     "~Administracion/Area/ListaArea.aspx",
+        //     "~Administracion/Modulo/ListaModulo.aspx",
+        //     "~Administracion/Acceso/ListaAcceso.aspx"
+        //};
+
+        //for (int i = 0; i < securityPages.Length; i++)
+        //{
+        //    if (currentPage.Equals(securityPages[i]) &&
+        //        LoginSecurity.IsUserAuthorizedPermission("MANAGE_SECURITY"))
+        //        return true;
+        //}
+
+        // Nothing else worked.  The user should not be allowed to access the page.
+        return false;
+    }
+
+    private void ConstructMenu()
+    {
+        List<Foodgood.Menus.Clase.Menu> theMenu;
+        List<Foodgood.Menus.Clase.Menu> theVisibleMenu;
+        theMenu = MenuBLL.ReadMenuFromXMLConfiguration();
+
+        List<string> theClases = new List<string>();
+
+        // We have to construct the set of "menu classes" for the user.  These will determine what
+        // menus the user has access to.
+
+        //if (!LoginSecurity.IsUserAuthenticated())
+        //{
+        //    Response.Redirect("~/Authentication/Login.aspx");
+        //}
+
+        //theClases.Add("CHANGEPASS");
+
+        //if (LoginSecurity.IsUserAuthorizedPermission("MANAGE_SECURITY"))
+        theClases.Add("SECURITY");
+
+        //if (LoginSecurity.IsUserAuthorizedPermission("ADMIN_CLASIFICADORES"))
+        //    theClases.Add("CLASIFICADORES");
+
+        //if (LoginSecurity.IsUserAuthorizedPermission("ADMIN_PERSONS"))
+        //    theClases.Add("PERSONAS");
+
+        theVisibleMenu = MenuBLL.RecursiveConstructionOfVisibleMenus(theMenu, theClases);
+        string visibleXML = MenuBLL.GetMenuXML(theVisibleMenu, 0);
+        sideMenu.Text = visibleXML;
+        //MainRadMenu.LoadXml(visibleXML);
     }
 }

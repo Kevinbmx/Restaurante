@@ -19,15 +19,15 @@ public partial class Administracion_Modulo_ListaModulo : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            cargarListaModulos("");
+            cargarListaAreaModulos("");
         }
-
     }
 
-    public void cargarListaModulos(string query)
+    public void cargarListaAreaModulos(string query)
     {
-        List<Modulo> listaModulo = ModuloBLL.GetModuloListForSearch(query);
-        if (listaModulo.Count > 0)
+        List<Area> listaAreaModulo = AreaBLL.GetAreaListForSearch(query);
+        //List<Modulo> listaModulo = ModuloBLL.GetModuloListForSearch(query);
+        if (listaAreaModulo.Count > 0)
         {
             errorUsuario.Visible = false;
         }
@@ -35,8 +35,8 @@ public partial class Administracion_Modulo_ListaModulo : System.Web.UI.Page
         {
             errorUsuario.Visible = true;
         }
-        ListaModuloGridView.DataSource = listaModulo;
-        ListaModuloGridView.DataBind();
+        ListaAreaModuloGridView.DataSource = listaAreaModulo;
+        ListaAreaModuloGridView.DataBind();
 
     }
     public Searcher consultaSql(string query)
@@ -46,35 +46,47 @@ public partial class Administracion_Modulo_ListaModulo : System.Web.UI.Page
         return searcher;
     }
 
+    public Searcher consultaAreaSql(string query)
+    {
+        Searcher searcher = new Searcher(new BusquedaArea());
+        searcher.Query = query;
+        return searcher;
+    }
+
     protected void busquedaBtn_Click(object sender, EventArgs e)
     {
         string armadoDeQuery = "@descripcion \"" + busquedaModuloTxt.Text + "\"";
-        string query = consultaSql(armadoDeQuery).SqlQuery();
-        cargarListaModulos(query);
+        string query = consultaAreaSql(armadoDeQuery).SqlQuery();
+        cargarListaAreaModulos(query);
     }
 
-    protected void ListaModuloGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+    protected void ListaAreaModuloGridView_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        int moduloId = Convert.ToInt32(e.CommandArgument);
+        int areamoduloId = Convert.ToInt32(e.CommandArgument);
+        if (e.CommandName == "Ver")
+        {
+            Session["AreaModuloId"] = areamoduloId;
+            Response.Redirect("~Administracion/Modulo/VerModulo.aspx");
+        }
 
-        if (e.CommandName == "Eliminar")
-        {
-            try
-            {
-                ModuloBLL.DeleteModulo(moduloId);
-                cargarListaModulos("");
-            }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", "alert('No se puede eliminar por que este modulo esta siendo utilizado');", true);
-                log.Error("Error al eliminar el usuario con el id '" + moduloId + "'", ex);
-            }
-        }
-        if (e.CommandName == "Editar")
-        {
-            Session["ModuloId"] = moduloId;
-            Response.Redirect("~/Administracion/Modulo/RegistrarModulo.aspx");
-        }
+        //if (e.CommandName == "Eliminar")
+        //{
+        //    try
+        //    {
+        //        ModuloBLL.DeleteModulo(moduloId);
+        //        cargarListaAreaModulos("");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Page.ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", "alert('No se puede eliminar por que este modulo esta siendo utilizado');", true);
+        //        log.Error("Error al eliminar el usuario con el id '" + moduloId + "'", ex);
+        //    }
+        //}
+        //if (e.CommandName == "Editar")
+        //{
+        //    Session["ModuloId"] = moduloId;
+        //    Response.Redirect("~/Administracion/Modulo/RegistrarModulo.aspx");
+        //}
     }
 
 
@@ -84,25 +96,29 @@ public partial class Administracion_Modulo_ListaModulo : System.Web.UI.Page
         Response.Redirect("~/Administracion/Modulo/RegistrarModulo.aspx");
     }
 
-    protected void ListaModuloGridView_DataBound(object sender, EventArgs e)
-    {
-
-    }
-
-    protected void ListaModuloGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+    protected void ListaAreaModuloGridView_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         try
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 string areaId = e.Row.Cells[2].Text;
-                Area objArea = AreaBLL.GetAreaById(Convert.ToInt32(areaId));
-                e.Row.Cells[2].Text = objArea.Descripcion;
+                string armadoDeQuery = "@areaId IN(" + areaId + ")";
+                string query = consultaSql(armadoDeQuery).SqlQuery();
+                List<Modulo> objModulolista = ModuloBLL.GetModuloListForSearch(query);
+
+                e.Row.Cells[2].Text = objModulolista.Count.ToString();
             }
         }
         catch (Exception ex)
         {
             log.Error("Error al conseguir el nombre del Tipo de Usuario", ex);
         }
+    }
+
+    protected void ListaAreaModuloGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        ListaAreaModuloGridView.PageIndex = e.NewPageIndex;
+        cargarListaAreaModulos("");
     }
 }

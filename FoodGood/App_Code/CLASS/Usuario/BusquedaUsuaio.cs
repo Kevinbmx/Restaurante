@@ -36,5 +36,15 @@ public class BusquedaUsuaio : ConfigColumns
         col.DisplayHelp = true;
         this.Cols.Add(col);
 
+        //BUSCAR POR EL Tipo DE USUARIO
+        col = new Column("[tu].[tipoUsuarioId]", "tipousuarioId", Column.ColumnType.Numeric);
+        col.AppearInStandardSearch = true;
+        col.DisplayHelp = true;
+        this.Cols.Add(col);
+
+        col = new Column("[tu].[descripcion]", "descripcion", Column.ColumnType.String);
+        col.AppearInStandardSearch = true;
+        col.DisplayHelp = true;
+        this.Cols.Add(col);
     }
 }

@@ -59,7 +59,7 @@ public partial class Administracion_Area_RegistrarArea : System.Web.UI.Page
             }
             catch
             {
-                log.Error("no se pudo realizar la conversion del UsuarioId: " + Session["UsuarioId"]);
+                log.Error("no se pudo realizar la conversion del UsuarioId: " + Session["AreaId"]);
             }
             if (ususrioId > 0)
             {
@@ -79,7 +79,7 @@ public partial class Administracion_Area_RegistrarArea : System.Web.UI.Page
 
         if (!string.IsNullOrEmpty(descripcionTextBox.Text))
         {
-            objModulo.Descripcion = descripcionTextBox.Text;
+            objModulo.Descripcion = descripcionTextBox.Text.ToLower();
             ErrorDescripcion.Visible = false;
         }
         else
@@ -101,7 +101,7 @@ public partial class Administracion_Area_RegistrarArea : System.Web.UI.Page
 
         if (!string.IsNullOrEmpty(descripcionTextBox.Text))
         {
-            objModulo.Descripcion = descripcionTextBox.Text;
+            objModulo.Descripcion = descripcionTextBox.Text.ToLower();
             ErrorDescripcion.Visible = false;
         }
         else

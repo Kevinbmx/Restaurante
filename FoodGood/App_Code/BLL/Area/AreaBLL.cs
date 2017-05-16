@@ -72,28 +72,28 @@ namespace FoodGood.Areas.BLL
                 throw;
             }
         }
-        public static Area GetArea()
-        {
-            AreaTableAdapter localAdapter = new AreaTableAdapter();
+        //public static Area GetArea()
+        //{
+        //    AreaTableAdapter localAdapter = new AreaTableAdapter();
 
-            Area theUser = null;
-            try
-            {
-                AreaDS.AreaDataTable table = localAdapter.GetArea();
+        //    Area theUser = null;
+        //    try
+        //    {
+        //        AreaDS.AreaDataTable table = localAdapter.GetArea();
 
-                if (table != null && table.Rows.Count > 0)
-                {
-                    AreaDS.AreaRow row = table[0];
-                    theUser = FillUserRecord(row);
-                }
-            }
-            catch (Exception q)
-            {
-                log.Error("Un error ocurrio mientras obtenia el Area de la base de dato", q);
-                return null;
-            }
-            return theUser;
-        }
+        //        if (table != null && table.Rows.Count > 0)
+        //        {
+        //            AreaDS.AreaRow row = table[0];
+        //            theUser = FillUserRecord(row);
+        //        }
+        //    }
+        //    catch (Exception q)
+        //    {
+        //        log.Error("Un error ocurrio mientras obtenia el Area de la base de dato", q);
+        //        return null;
+        //    }
+        //    return theUser;
+        //}
         public static Area GetAreaById(int idArea)
         {
             AreaTableAdapter localAdapter = new AreaTableAdapter();
@@ -119,12 +119,12 @@ namespace FoodGood.Areas.BLL
             }
             return theUser;
         }
-
-
-        public static List<Area> GetModuloListForSearch(string whereSql)
+        public static List<Area> GetAreaListForSearch(string whereSql)
         {
             if (string.IsNullOrEmpty(whereSql))
+            {
                 whereSql = "1 = 1";
+            }
 
             List<Area> theList = new List<Area>();
             Area theUser = null;
@@ -132,6 +132,63 @@ namespace FoodGood.Areas.BLL
             try
             {
                 AreaDS.AreaDataTable table = theAdapter.GetAreaForSearch(whereSql);
+
+                if (table != null && table.Rows.Count > 0)
+                {
+                    foreach (AreaDS.AreaRow row in table.Rows)
+                    {
+                        theUser = FillUserRecord(row);
+                        theList.Add(theUser);
+                    }
+                }
+            }
+            catch (Exception q)
+            {
+                log.Error("el error ocurrio mientras obtenia la lista del Area de la base de datos", q);
+                //return null;
+            }
+            return theList;
+        }
+
+        public static List<Area> GetAreaJoinModuloListForSearch(string whereSql)
+        {
+            if (string.IsNullOrEmpty(whereSql))
+            {
+                whereSql = "1 = 1";
+            }
+
+            List<Area> theList = new List<Area>();
+            Area theUser = null;
+            AreaTableAdapter theAdapter = new AreaTableAdapter();
+            try
+            {
+                AreaDS.AreaDataTable table = theAdapter.GetAreaJoinModuloForSearch(whereSql);
+
+                if (table != null && table.Rows.Count > 0)
+                {
+                    foreach (AreaDS.AreaRow row in table.Rows)
+                    {
+                        theUser = FillUserRecord(row);
+                        theList.Add(theUser);
+                    }
+                }
+            }
+            catch (Exception q)
+            {
+                log.Error("el error ocurrio mientras obtenia la lista del Area de la base de datos", q);
+                //return null;
+            }
+            return theList;
+        }
+
+        public static List<Area> GetArea()
+        {
+            List<Area> theList = new List<Area>();
+            Area theUser = null;
+            AreaTableAdapter theAdapter = new AreaTableAdapter();
+            try
+            {
+                AreaDS.AreaDataTable table = theAdapter.GetArea();
 
                 if (table != null && table.Rows.Count > 0)
                 {

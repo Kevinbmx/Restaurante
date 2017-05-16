@@ -25,7 +25,7 @@ public class BusquedaModulo : ConfigColumns
         this.Cols.Add(col);
 
         //BUSCAR POR LA DESCRIPCION 
-        col = new Column("[m].[descripcion]", "descripcion", Column.ColumnType.Numeric);
+        col = new Column("[m].[descripcion]", "descripcion", Column.ColumnType.String);
         col.AppearInStandardSearch = true;
         col.DisplayHelp = true;
         this.Cols.Add(col);

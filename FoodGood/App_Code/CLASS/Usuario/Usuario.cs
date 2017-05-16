@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 namespace Foodgood.User.Clase
@@ -17,11 +18,14 @@ namespace Foodgood.User.Clase
         public string Email { get; set; }
         public string Celular1 { get; set; }
         public string Celular2 { get; set; }
-        public int Nit { get; set; }
+        public long Nit { get; set; }
+
+        public string NombreForDisplay { get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Nombre); } }
+        public string ApellidoForDisplay { get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Apellido); } }
 
         public Usuario(int usuarioId, string nombre, string apellido,
             string password, int tipoUsuarioId, string email, string celular1,
-            string celular2, int nit)
+            string celular2, long nit)
         {
             UsuarioId = usuarioId;
             Nombre = nombre;

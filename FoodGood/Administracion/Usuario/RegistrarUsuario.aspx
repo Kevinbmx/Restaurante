@@ -40,14 +40,16 @@
                             </div>
                             <div class="form-group">
                                 <label id="PedidoLabel">Tipo Usuario: </label>
-                                <asp:DropDownList ID="PedidoComboBox" runat="server" CssClass="form-control"
+                                <asp:TextBox ID="TipoUsuarioTextBox" runat="server" CssClass="form-control" Text="administrador" Enabled="false"></asp:TextBox>
+                                <asp:HiddenField ID="tipoUsuarioIdHiddenField" runat="server" />
+                                <%-- <asp:DropDownList ID="PedidoComboBox" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="PedidoComboBox_SelectedIndexChanged"
                                     DataSourceID="tipoUsuarioDataSet"
                                     DataValueField="tipoUsuarioId"
                                     DataTextField="descripcion">
                                 </asp:DropDownList>
                                 <asp:ObjectDataSource ID="tipoUsuarioDataSet" runat="server"
                                     SelectMethod="GetTipoUser"
-                                    TypeName="FoodGood.TipoUser.BLL.TipoUsuarioBll"></asp:ObjectDataSource>
+                                    TypeName="FoodGood.TipoUser.BLL.TipoUsuarioBll"></asp:ObjectDataSource>--%>
                             </div>
                             <div class="form-group">
                                 <label id="EmailLabel">Correo Electrónico: </label>
@@ -64,13 +66,13 @@
                                 <asp:TextBox ID="CellPhoneTextBox2" runat="server" CssClass="form-control"></asp:TextBox>
 
                             </div>
-                            <%--  <div class="form-group">
-                                    <asp:Label ID="numeroNitLabel" runat="server" Text="Numero de Nit:"></asp:Label>
-                                    <asp:TextBox ID="numeroNitTextBox" runat="server" CssClass="form-control"></asp:TextBox>
-                                </div>--%>
+                           <%-- <div class="form-group">
+                                <asp:Label ID="numeroNitLabel" runat="server" Text="Numero de Nit:"></asp:Label>
+                                <asp:TextBox ID="numeroNitTextBox" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>--%>
 
                             <div class="text-center" style="margin-top: 15px;">
-                                <asp:LinkButton ID="SaveUsers" runat="server" CssClass="btn btn-primary" OnClick="SaveUsers_Click">
+                                <asp:LinkButton ID="SaveUsersAdmin" runat="server" CssClass="btn btn-primary" OnClick="SaveUsersAdmin_Click">
 										<i class="fa fa-plus"></i> Crear Usuario
                                 </asp:LinkButton>
                                 <asp:LinkButton ID="UpdateButton" runat="server" CssClass="btn btn-primary" Visible="false" OnClick="UpdateButton_Click">
@@ -86,6 +88,6 @@
         </div>
     </div>
 
-    <asp:HiddenField runat="server"  ID="UsuarioIdHiddenField"/>
+    <asp:HiddenField runat="server" ID="UsuarioIdHiddenField" />
 </asp:Content>
 

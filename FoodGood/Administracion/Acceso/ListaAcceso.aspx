@@ -34,7 +34,8 @@
                 </div>
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <asp:GridView runat="server" ID="ListaAccesoGridView" CssClass="table table-striped" OnRowCommand="ListaAccesoGridView_RowCommand" OnRowDataBound="ListaAccesoGridView_RowDataBound" AutoGenerateColumns="false">
+                        <asp:GridView runat="server" ID="ListaAccesoGridView" CssClass="table table-striped" OnRowCommand="ListaAccesoGridView_RowCommand" OnRowDataBound="ListaAccesoGridView_RowDataBound" AutoGenerateColumns="false"
+                            AllowPaging="true" PageSize="10" PagerSettings-Position="Bottom" PagerSettings-Mode="Numeric" OnPageIndexChanging="ListaAccesoGridView_PageIndexChanging">
                             <Columns>
                                 <asp:TemplateField HeaderText="Ver" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
                                     <ItemTemplate>
@@ -43,10 +44,9 @@
                                     <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                     <ItemStyle VerticalAlign="Middle"></ItemStyle>
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="nombre" HeaderText="Nombre de Usuario" />
+                                <asp:BoundField DataField="NombreForDisplay" HeaderText="Nombre de Usuario" />
                                 <asp:BoundField DataField="email" HeaderText="E-mail" />
                                 <asp:BoundField DataField="usuarioId" HeaderText="Cantidad de acceso" />
-
                             </Columns>
                         </asp:GridView>
                         <asp:Panel ID="errorUsuario" runat="server" Visible="false">

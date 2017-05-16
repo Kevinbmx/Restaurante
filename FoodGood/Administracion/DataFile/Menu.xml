@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+This is a hierarchical menue definition, where each menu is specified as follows:
+
+A Menu node can have other children Menu nodes and each node has the following
+attributes defined:
+
+resourceFile:  The name of the Global Resource file where we can find the menu text
+resourceItem:  The name of the Global Resource item where we can find the menu text
+url:           The URL for the menu.  This is optional.
+public:        true/false indicates if access to the menu is public.
+class:         if the menu is not public, the name of the class that the user 
+               must have for the menu to be visible.
+-->
+
+<Home>
+  <!-- First Menu: Inicio -->
+  <Menu resourceFile="InitMasterPage"
+				resourceItem="MenuInicio"
+				url="~/Administracion/MainPages.aspx"
+				public="true"
+        icon="fa fa-home">
+  </Menu>
+
+  <!-- Second Menu: Seguridad -->
+  <Menu resourceFile="InitMasterPage"
+		  resourceItem="MenuSeguridad"
+		  public="true"
+		  class="SECURITY"
+      icon="fa fa-user-secret">
+    <Menu resourceFile="InitMasterPage"
+			  resourceItem="MenuListaTipoUsuairo"
+			  public="false"
+			  class="SECURITY"
+			  url="~/Administracion/TipoUsuario/ListaTipoUsuario.aspx">
+    </Menu>
+    <Menu resourceFile="InitMasterPage"
+			  resourceItem="MenuListaCliente"
+			  public="false"
+			  class="SECURITY"
+			  url="~/Administracion/Cliente/ListaCliente.aspx">
+    </Menu>
+    <Menu resourceFile="InitMasterPage"
+			  resourceItem="MenuListaUsuario"
+			  public="false"
+			  class="SECURITY"
+			  url="~/Administracion/Usuario/ListaUsuario.aspx">
+    </Menu>
+    <Menu resourceFile="InitMasterPage"
+			  resourceItem="MenuListaArea"
+			  public="false"
+			  class="SECURITY"
+			  url="~/Administracion/Area/ListaArea.aspx">
+    </Menu>
+    <Menu resourceFile="InitMasterPage"
+			  resourceItem="MenuListaModulo"
+			  public="false"
+			  class="SECURITY"
+			  url="~/Administracion/Modulo/ListaModulo.aspx">
+    </Menu>
+    <Menu resourceFile="InitMasterPage"
+			  resourceItem="MenuAsignarAcceso"
+			  public="false"
+			  class="SECURITY"
+			  url="~/Administracion/Acceso/ListaAcceso.aspx">
+    </Menu>
+  </Menu>
+
+  <!--<Menu resourceFile="InitMasterPage"
+			  resourceItem="MenuPedidos"
+			  public="true"
+        icon="fa fa-shopping-cart">
+    <Menu resourceFile="InitMasterPage"
+					resourceItem="MenuListaPedidos"
+					public="true"
+					url="~/Administration/Pedido/ListaPedidos.aspx">
+    </Menu>
+    <Menu resourceFile="InitMasterPage"
+       resourceItem="MenuPedidosAsignados"
+       public="true"
+       url="~/Administration/Pedido/ListaPedidosAsignados.aspx">
+    </Menu>
+  </Menu>-->
+
+  <Menu resourceFile="InitMasterPage"
+			  resourceItem="MenuInventario"
+			  public="true"
+        icon="fa fa-building">
+    <Menu resourceFile="InitMasterPage"
+         resourceItem="MenuUnidadMedida"
+         public="true"
+         url="~/Administracion/Inventario/UnidadMedida/ListaUnidadMedida.aspx">
+    </Menu>
+    <Menu resourceFile="InitMasterPage"
+					resourceItem="MenuTipoFamilia"
+					public="true"
+					url="~/Administracion/Inventario/Familia/ListaFamilia.aspx">
+    </Menu>
+   
+
+    <Menu resourceFile="InitMasterPage"
+       resourceItem="MenuListaProducto"
+       public="true"
+       url="~/Administracion/Inventario/Producto/ListaProducto.aspx">
+    </Menu>
+
+    <!--<Menu resourceFile="InitMasterPage"
+        resourceItem="MenuTipoArticuloOfertanga"
+        public="true"
+        url="~/Administracion/Inventario/TiposArticulosOfertanga/ListaTiposArticulosOfertanga.aspx">
+    </Menu>
+    
+    <Menu resourceFile="InitMasterPage"
+          resourceItem="MenuListaCaracteristica"
+          public="true"
+          url="~/Administracion/Inventario/Caracteristica/AddCaracteristica.aspx">
+    </Menu>-->
+     <!--Suscripciones 
+    <Menu resourceFile="InitMasterPage"
+					resourceItem="MenuSuscripciones"
+					public="true"
+					url="~/Administracion/Suscripcion/ListaSuscripciones.aspx">
+    </Menu>-->
+
+  </Menu>
+
+  <!-- Fifth Menu: My Account -->
+  <!--<Menu resourceFile="InitMasterPage"
+			  resourceItem="MenuAccount"
+			  public="true"
+        icon="fa fa-user">
+    <Menu resourceFile="InitMasterPage"
+					resourceItem="MenuChangePassword"
+					public="true"
+					url="~/Administration/Security/ChangePassword.aspx">
+    </Menu>
+  </Menu>-->
+
+  <!-- Sixth Menu: About -->
+  <!--<Menu resourceFile="InitMasterPage"
+			  resourceItem="MenuAbout"
+			  public="true"
+        icon="fa fa-caret-square-o-down">
+    <Menu resourceFile="InitMasterPage"
+					resourceItem="MenuCredits"
+					public="true"
+					url="~/Administration/About/Credits.aspx">
+    </Menu>
+    <Menu resourceFile="InitMasterPage"
+					resourceItem="MenuChanges"
+					public="true"
+					url="~/Administration/About/VersionInformation.aspx">
+    </Menu>
+  </Menu>-->
+
+</Home>

@@ -5,6 +5,7 @@ using log4net;
 using SearchComponent;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -17,7 +18,9 @@ public partial class Administracion_Usuario_ListaUsuario : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            cargarListaUsuario("");
+            string armadoDeQuery = "@descripcion Administrador";
+            string query = consultaSql(armadoDeQuery).SqlQuery();
+            cargarListaUsuario(query);
         }
     }
 
@@ -32,6 +35,7 @@ public partial class Administracion_Usuario_ListaUsuario : System.Web.UI.Page
 
     public void cargarListaUsuario(string query)
     {
+
         List<Usuario> ListaUsuario = UsuariosBLL.GetUsuarioListForSearch(query);
         if (ListaUsuario.Count > 0)
         {
@@ -62,7 +66,9 @@ public partial class Administracion_Usuario_ListaUsuario : System.Web.UI.Page
             try
             {
                 UsuariosBLL.DeleteUsuario(usuarioId);
-                cargarListaUsuario("");
+                string armadoDeQuery = "@descripcion Administrador";
+                string query = consultaSql(armadoDeQuery).SqlQuery();
+                cargarListaUsuario(query);
             }
             catch (Exception ex)
             {
@@ -96,7 +102,7 @@ public partial class Administracion_Usuario_ListaUsuario : System.Web.UI.Page
                 string email = e.Row.Cells[5].Text;
                 string celular = e.Row.Cells[5].Text;
                 TipoUsuario objTipoUsuario = TipoUsuarioBLL.GetTipoUserById(Convert.ToInt32(IdTipoUsuario));
-                e.Row.Cells[4].Text = objTipoUsuario.Descripcion;
+                e.Row.Cells[4].Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(objTipoUsuario.Descripcion);
                 if (apellido.Equals("&nbsp;"))
                 {
                     e.Row.Cells[3].Text = "-";
@@ -116,5 +122,13 @@ public partial class Administracion_Usuario_ListaUsuario : System.Web.UI.Page
         {
             log.Error("Error al conseguir el nombre del Tipo de Usuario", ex);
         }
+    }
+
+
+
+    protected void ListaUsuariosGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        ListaUsuariosGridView.PageIndex = e.NewPageIndex;
+        cargarListaUsuario("");
     }
 }

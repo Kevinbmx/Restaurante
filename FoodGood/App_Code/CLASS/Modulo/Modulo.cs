@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 namespace Foodgood.Modulo.Clase
@@ -12,7 +13,7 @@ namespace Foodgood.Modulo.Clase
         public int ModuloId { get; set; }
         public int AreaId { get; set; }
         public string Descripcion { get; set; }
-
+        public string DescripcionForDisplay { get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Descripcion); } }
 
         public Modulo(int moduloId, int areaId, string descripcion)
         {

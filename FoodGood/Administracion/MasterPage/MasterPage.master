@@ -26,7 +26,7 @@
             </style>
             <div class="noscriptmsg">
                 <asp:Literal ID="NoJScriptLabel" runat="server"
-                    Text=""></asp:Literal>
+                    Text="<%$ Resources: InitMasterPage, NoJScriptLabel %>"></asp:Literal>
             </div>
         </noscript>
         <!-- =========================================================================================-->
@@ -49,21 +49,23 @@
                             Kd*
                         </div>
                     </div>
-                    <ul id="side-menu" class="nav metismenu">
-                        <li><a href="/Administration/MainPage.aspx"><i class="fa fa-home"></i><span class="nav-label">Inicio</span></a></li>
+                   <%-- <ul id="side-menu" class="nav metismenu">
+                        <li><a href="~Administracion/MainPage.aspx"><i class="fa fa-home"></i><span class="nav-label">Inicio</span></a></li>
                         <li><a href="javascript:void(0)"><i class="fa fa-user-secret"></i><span class="nav-label">Seguridad</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
-                            <li><a href="../Usuario/ListaUsuario.aspx">Lista de Usuarios</a></li>
-                            <li><a href="../Area/ListaArea.aspx">Lista Areas</a></li>
-                            <li><a href="../Modulo/ListaModulo.aspx">Lista Modulos</a></li>
-                            <li><a href="../Acceso/ListaAcceso.aspx">Asignar Acceso</a></li>
+                            <li><a href="~Administracion/TipoUsuario/ListaTipoUsuario.aspx">Lista Tipo Usuarios</a></li>
+                            <li><a href="~Administracion/Cliente/ListaCliente.aspx">Lista de Clientes</a></li>
+                            <li><a href="~Administracion/Usuario/ListaUsuario.aspx">Lista de Usuarios</a></li>
+                            <li><a href="~Administracion/Area/ListaArea.aspx">Lista Areas</a></li>
+                            <li><a href="~Administracion/Modulo/ListaModulo.aspx">Lista Modulos</a></li>
+                            <li><a href="~Administracion/Acceso/ListaAcceso.aspx">Asignar Acceso</a></li>
                         </ul>
-                        </li>
-                        <li><a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i><span class="nav-label">Pedidos</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                        </li>--%>
+                        <%-- <li><a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i><span class="nav-label">Pedidos</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
                             <li><a href="/Administration/Pedido/ListaPedidos.aspx">Lista de Pedidos</a></li>
                             <li><a href="/Administration/Pedido/ListaPedidosAsignados.aspx">Pedidos Asinados para Entrega</a></li>
                         </ul>
-                        </li>
-                        <li><a href="javascript:void(0)"><i class="fa fa-building"></i><span class="nav-label">Inventario</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                        </li>--%>
+                        <%-- <li><a href="javascript:void(0)"><i class="fa fa-building"></i><span class="nav-label">Inventario</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
                             <li><a href="/Administration/Inventario/TiposArticulos/ListaTiposArticulos.aspx">Tipos de Articulo</a></li>
                             <li><a href="/Administration/Inventario/Caracteristica/ListaProductoCaracteristica.aspx">Lista Articulo con caracteristica</a></li>
                             <li><a href="/Administration/Inventario/ImageArticulo/ListaImageArticulo.aspx">Lista Articulo con Imagen</a></li>
@@ -71,17 +73,18 @@
                             <li><a href="/Administration/Inventario/Caracteristica/AddCaracteristica.aspx">Lista de Caracteristica</a></li>
                             <li><a href="/Administration/Suscripcion/ListaSuscripciones.aspx">Suscripciones</a></li>
                         </ul>
-                        </li>
-                        <li><a href="javascript:void(0)"><i class="fa fa-user"></i><span class="nav-label">Mi Cuenta</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                        </li>--%>
+                        <%--                        <li><a href="javascript:void(0)"><i class="fa fa-user"></i><span class="nav-label">Mi Cuenta</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
                             <li><a href="/Administration/Security/ChangePassword.aspx">Cambiar Contraseña</a></li>
                         </ul>
-                        </li>
-                        <li><a href="javascript:void(0)"><i class="fa fa-caret-square-o-down"></i><span class="nav-label">Acerca de</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                        </li>--%>
+                        <%-- <li><a href="javascript:void(0)"><i class="fa fa-caret-square-o-down"></i><span class="nav-label">Acerca de</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
                             <li><a href="/Administration/About/Credits.aspx">Créditos</a></li>
                             <li><a href="/Administration/About/VersionInformation.aspx">Cambios en la Aplicación</a></li>
                         </ul>
-                        </li>
-                    </ul>
+                        </li>--%>
+                    <%--</ul>--%>
+
                     <asp:Literal ID="sideMenu" runat="server"></asp:Literal>
                 </div>
             </nav>
@@ -101,7 +104,7 @@
                                 <%--<msg:Messages ID="MessagesContent" runat="server" />--%>
                             </li>
                             <li>
-                                <asp:HyperLink ID="HyperLink1" NavigateUrl="~/Administration/Security/ChangePassword.aspx" runat="server" Text="<i class='fa fa-key'></i> Change Password" />
+                                <%--<asp:HyperLink ID="HyperLink1" NavigateUrl="~/Administration/Security/ChangePassword.aspx" runat="server" Text="<i class='fa fa-key'></i> Change Password" />--%>
 
                             </li>
                             <li>

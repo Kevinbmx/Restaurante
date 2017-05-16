@@ -8,6 +8,7 @@ using log4net;
 using SearchComponent;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -256,7 +257,7 @@ public partial class Administracion_Acceso_RegistrarAcceso : System.Web.UI.Page
         {
             int valorIdModulo = Convert.ToInt32(item.Text);
             theData = ModuloBLL.GetModuloById(valorIdModulo);
-            item.Text = theData.Descripcion;
+            item.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(theData.Descripcion);
         }
     }
 }

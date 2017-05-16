@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 namespace Foodgood.Areas.Clase
@@ -11,6 +12,7 @@ namespace Foodgood.Areas.Clase
     {
         public int AreaId { get; set; }
         public string Descripcion { get; set; }
+        public string DescripcionForDisplay { get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Descripcion); } }
 
         public Area(int areaId, string descripcion)
         {

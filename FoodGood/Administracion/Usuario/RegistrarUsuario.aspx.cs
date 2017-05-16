@@ -1,6 +1,8 @@
 ﻿using Foodgood.User.Clase;
+using FoodGood.TipoUser.BLL;
 using FoodGood.User.BLL;
 using log4net;
+using SearchComponent;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,10 +54,11 @@ public partial class Administracion_Usuario_RegistrarUsuario : System.Web.UI.Pag
     public void cargarDatosUsuario()
     {
         Usuario theData = null;
+        TipoUsuario objTipoUsuario = null;
         try
         {
             theData = UsuariosBLL.GetUserById(Convert.ToInt32(UsuarioIdHiddenField.Value));
-
+            objTipoUsuario = TipoUsuarioBLL.GetTipoUserById(theData.TipoUsuarioId);
             if (theData == null)
             {
                 Response.Redirect("~/Administracion/Usuario/ListaUsuario.aspx");
@@ -70,9 +73,11 @@ public partial class Administracion_Usuario_RegistrarUsuario : System.Web.UI.Pag
                 ConfirmPassword.Visible = false;
                 PasswordLabel.Visible = false;
                 ConfirmPasswordLabel.Visible = false;
-                SaveUsers.Visible = false;
+                SaveUsersAdmin.Visible = false;
                 UpdateButton.Visible = true;
-                PedidoComboBox.SelectedValue = Convert.ToString(theData.TipoUsuarioId);
+                TipoUsuarioTextBox.Text = objTipoUsuario.Descripcion;
+                tipoUsuarioIdHiddenField.Value = Convert.ToString(objTipoUsuario.TipoUsuarioId);
+                //PedidoComboBox.SelectedValue = Convert.ToString(theData.TipoUsuarioId);
                 EmailText.Text = theData.Email;
                 CellPhoneTextBox.Text = theData.Celular1;
                 CellPhoneTextBox2.Text = theData.Celular2;
@@ -140,7 +145,7 @@ public partial class Administracion_Usuario_RegistrarUsuario : System.Web.UI.Pag
             {
                 objUsuario.Celular2 = "";
             }
-            objUsuario.TipoUsuarioId = Convert.ToInt16(PedidoComboBox.SelectedValue);
+            objUsuario.TipoUsuarioId = Convert.ToInt16(tipoUsuarioIdHiddenField.Value);
             objUsuario.Celular2 = CellPhoneTextBox2.Text;
             objUsuario.Nit = 0;
             if (!string.IsNullOrEmpty(objUsuario.Nombre) && !string.IsNullOrEmpty(objUsuario.Apellido) &&
@@ -157,7 +162,7 @@ public partial class Administracion_Usuario_RegistrarUsuario : System.Web.UI.Pag
         }
     }
 
-    protected void SaveUsers_Click(object sender, EventArgs e)
+    protected void SaveUsersAdmin_Click(object sender, EventArgs e)
     {
         try
         {
@@ -165,7 +170,7 @@ public partial class Administracion_Usuario_RegistrarUsuario : System.Web.UI.Pag
 
             if (!string.IsNullOrEmpty(UserName.Text))
             {
-                objUsuario.Nombre = UserName.Text;
+                objUsuario.Nombre = UserName.Text.ToLower();
                 ErrorNombre.Visible = false;
             }
             else
@@ -175,7 +180,7 @@ public partial class Administracion_Usuario_RegistrarUsuario : System.Web.UI.Pag
 
             if (!string.IsNullOrEmpty(ApellidoTextBox.Text))
             {
-                objUsuario.Apellido = ApellidoTextBox.Text;
+                objUsuario.Apellido = ApellidoTextBox.Text.ToLower();
                 ErrorApellido.Visible = false;
             }
             else
@@ -217,7 +222,17 @@ public partial class Administracion_Usuario_RegistrarUsuario : System.Web.UI.Pag
             {
                 objUsuario.Celular2 = "";
             }
-            objUsuario.TipoUsuarioId = Convert.ToInt16(PedidoComboBox.SelectedValue);
+            List<TipoUsuario> objTipoUsuario = TipoUsuarioBLL.GetTipoUser();
+            for (int i = 0; i < objTipoUsuario.Count; i++)
+            {
+                if (objTipoUsuario[i].Descripcion.Equals(TipoUsuarioTextBox.Text))
+                {
+                    tipoUsuarioIdHiddenField.Value = Convert.ToString(objTipoUsuario[i].TipoUsuarioId);
+                }
+
+            }
+
+            objUsuario.TipoUsuarioId = Convert.ToInt16(tipoUsuarioIdHiddenField.Value);
             objUsuario.Celular2 = CellPhoneTextBox2.Text;
             objUsuario.Nit = 0;
             if (!string.IsNullOrEmpty(objUsuario.Nombre) && !string.IsNullOrEmpty(objUsuario.Apellido) &&
@@ -235,7 +250,6 @@ public partial class Administracion_Usuario_RegistrarUsuario : System.Web.UI.Pag
                     ErrorConfirmar.Text = "No coincidió su contraseña";
                     ErrorConfirmar.Visible = true;
                 }
-
             }
 
         }
@@ -247,8 +261,35 @@ public partial class Administracion_Usuario_RegistrarUsuario : System.Web.UI.Pag
 
     }
 
+    public Searcher consultaSql(string query)
+    {
+        Searcher searcher = new Searcher(new BusquedaTipoUsuario());
+        searcher.Query = query;
+        return searcher;
+    }
+
+
     protected void UpdateButton_Click(object sender, EventArgs e)
     {
         UpdateUsuario();
     }
+
+    //protected void PedidoComboBox_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    int idTipoUsuarioId = Convert.ToInt32(tipoUsuarioIdHiddenField);
+    //    TipoUsuario theData = null;
+    //    try
+    //    {
+    //        theData = TipoUsuarioBLL.GetTipoUserById(idTipoUsuarioId);
+
+    //        if (theData.Descripcion.Equals("Administrador"))
+    //        {
+
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        log.Error("Error al obtener la información del tipo de Usuario");
+    //    }
+    //}
 }

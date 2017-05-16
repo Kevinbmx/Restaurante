@@ -54,6 +54,7 @@ namespace FoodGood.User.BLL
                 object resutl = localAdapter.UpdateUsuario(
                     string.IsNullOrEmpty(objUsuario.Nombre) ? "" : objUsuario.Nombre,
                     string.IsNullOrEmpty(objUsuario.Apellido) ? "" : objUsuario.Apellido,
+                    string.IsNullOrEmpty(objUsuario.Password) ? "" : objUsuario.Password,
                     objUsuario.TipoUsuarioId,
                     string.IsNullOrEmpty(objUsuario.Email) ? "" : objUsuario.Email,
                     string.IsNullOrEmpty(objUsuario.Celular1) ? "" : objUsuario.Celular1,

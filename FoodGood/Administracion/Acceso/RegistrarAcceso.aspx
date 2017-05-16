@@ -28,7 +28,7 @@
                             <asp:Label ID="UsersInLabel" runat="server" CssClass="font-bold" Text="Lista de Modulos"></asp:Label>
                             <asp:ListBox ID="ListaAccesosListBox" runat="server" Height="250px" SelectionMode="Multiple" CssClass="form-control full-width"
                                 AutoPostBack="True" OnSelectedIndexChanged="ListaAccesosListBox_SelectedIndexChanged"
-                                DataTextField="descripcion" DataValueField="moduloId"></asp:ListBox>
+                                DataTextField="descripcionForDisplay" DataValueField="moduloId"></asp:ListBox>
                             <asp:Label runat="server" ID="errorAcceso" Text="no se encuentra lista de Modulos"></asp:Label>
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-2">

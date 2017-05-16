@@ -22,14 +22,14 @@ public partial class Administracion_Area_ListaArea : System.Web.UI.Page
 
     public void cargarListaAreas(string query)
     {
-        List<Area> listaArea = AreaBLL.GetModuloListForSearch(query);
+        List<Area> listaArea = AreaBLL.GetAreaListForSearch(query);
         if (listaArea.Count > 0)
         {
-            errorUsuario.Visible = false;
+            errorArea.Visible = false;
         }
         else
         {
-            errorUsuario.Visible = true;
+            errorArea.Visible = true;
         }
         ListaAreaGridView.DataSource = listaArea;
         ListaAreaGridView.DataBind();
@@ -81,5 +81,11 @@ public partial class Administracion_Area_ListaArea : System.Web.UI.Page
             Session["AreaId"] = moduloId;
             Response.Redirect("~/Administracion/Area/RegistrarArea.aspx");
         }
+    }
+
+    protected void ListaAreaGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        ListaAreaGridView.PageIndex = e.NewPageIndex;
+        cargarListaAreas("");
     }
 }

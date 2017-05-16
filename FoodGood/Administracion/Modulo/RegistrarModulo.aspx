@@ -19,8 +19,6 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-6">
-
-
                             <div class="form-group">
                                 <label id="PedidoLabel">Area: </label>
                                 <asp:DropDownList ID="AreaComboBox" runat="server" CssClass="form-control"
@@ -30,11 +28,7 @@
                                 </asp:DropDownList>
                                 <asp:ObjectDataSource ID="tipoUsuarioDataSet" runat="server"
                                     SelectMethod='GetArea'
-                                    TypeName="FoodGood.Areas.BLL.AreaBLL">
-                                    <%--<SelectParameters>
-                                        <asp:Parameter Type="String" Name="whereSql" DefaultValue=" " />
-                                    </SelectParameters>--%>
-                                </asp:ObjectDataSource>
+                                    TypeName="FoodGood.Areas.BLL.AreaBLL"></asp:ObjectDataSource>
                             </div>
 
                             <div class="form-group">

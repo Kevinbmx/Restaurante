@@ -34,7 +34,8 @@
                 </div>
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <asp:GridView runat="server" ID="ListaAreaGridView" CssClass="table table-striped" OnRowCommand="ListaAreaGridView_RowCommand" AutoGenerateColumns="false">
+                        <asp:GridView runat="server" ID="ListaAreaGridView" CssClass="table table-striped" OnRowCommand="ListaAreaGridView_RowCommand" AutoGenerateColumns="false"
+                            AllowPaging="true" PageSize="10" PagerSettings-Position="Bottom" PagerSettings-Mode="Numeric" OnPageIndexChanging="ListaAreaGridView_PageIndexChanging">
                             <Columns>
                                 <asp:TemplateField HeaderText="Editar" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
                                     <ItemTemplate>
@@ -53,11 +54,11 @@
                                     <ItemStyle VerticalAlign="Middle"></ItemStyle>
                                 </asp:TemplateField>
 
-                                <asp:BoundField DataField="descripcion" HeaderText="Descripcion" />
+                                <asp:BoundField DataField="DescripcionForDisplay" HeaderText="Descripcion" />
                             </Columns>
                         </asp:GridView>
-                        <asp:Panel ID="errorUsuario" runat="server" Visible="false">
-                            <asp:Label runat="server">No se encuentra ninguna Area</asp:Label>
+                        <asp:Panel ID="errorArea" runat="server" Visible="false">
+                            <asp:Label runat="server">No se encuentra ninguna Categoria</asp:Label>
                         </asp:Panel>
 
                     </div>
