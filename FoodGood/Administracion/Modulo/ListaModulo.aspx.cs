@@ -66,7 +66,8 @@ public partial class Administracion_Modulo_ListaModulo : System.Web.UI.Page
         if (e.CommandName == "Ver")
         {
             Session["AreaModuloId"] = areamoduloId;
-            Response.Redirect("~Administracion/Modulo/VerModulo.aspx");
+            //Session["booleanHabilitaArea"] = "false";
+            Response.Redirect("~/Administracion/Modulo/VerModulo.aspx");
         }
 
         //if (e.CommandName == "Eliminar")
@@ -93,6 +94,7 @@ public partial class Administracion_Modulo_ListaModulo : System.Web.UI.Page
     protected void NewModuloButton_Click(object sender, EventArgs e)
     {
         Session["ModuloId"] = 0;
+        Session["booleanHabilitaArea"] = "false";
         Response.Redirect("~/Administracion/Modulo/RegistrarModulo.aspx");
     }
 

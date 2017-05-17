@@ -28,7 +28,7 @@ public partial class Administracion_Modulo_RegistrarModulo : System.Web.UI.Page
     //public void llenarComboArea()
     //{
 
-        
+
     //    AreaComboBox.DataSource =
     //        AreaComboBox.DataBind();
     //}
@@ -71,6 +71,10 @@ public partial class Administracion_Modulo_RegistrarModulo : System.Web.UI.Page
                 SaveModulo.Visible = false;
                 UpdateModuloButton.Visible = true;
                 AreaComboBox.SelectedValue = Convert.ToString(theData.AreaId);
+                if (Session["booleanHabilitaArea"].Equals("true"))
+                {
+                    AreaComboBox.Enabled = false;
+                }
             }
         }
         catch
@@ -82,6 +86,7 @@ public partial class Administracion_Modulo_RegistrarModulo : System.Web.UI.Page
     private void ProcessSessionParameteres()
     {
         int ususrioId = 0;
+
         if (Session["ModuloId"] != null && !string.IsNullOrEmpty(Session["ModuloId"].ToString()))
         {
             try
@@ -101,7 +106,9 @@ public partial class Administracion_Modulo_RegistrarModulo : System.Web.UI.Page
         {
             Response.Redirect("~/Administracion/Modulo/ListaModulo.aspx");
         }
+
         Session["ModuloId"] = null;
+
     }
     protected void UpdateModuloButton_Click(object sender, EventArgs e)
     {
@@ -117,10 +124,31 @@ public partial class Administracion_Modulo_RegistrarModulo : System.Web.UI.Page
             ErrorDescripcion.Visible = true;
         }
 
-        if (!string.IsNullOrEmpty(objModulo.Descripcion) )
+        if (!string.IsNullOrEmpty(objModulo.Descripcion))
         {
             objModulo.AreaId = Convert.ToInt32(AreaComboBox.SelectedValue);
             ModuloBLL.UpdateModulo(objModulo);
+            if (Session["booleanHabilitaArea"].Equals("true"))
+            {
+                Session["AreaModuloId"] = objModulo.AreaId;
+                Response.Redirect("~/Administracion/Modulo/VerModulo.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/Administracion/Modulo/ListaModulo.aspx");
+            }
+        }
+    }
+    protected void cancelBoton_Click(object sender, EventArgs e)
+    {
+        if (Session["booleanHabilitaArea"].Equals("true"))
+        {
+            Session["AreaModuloId"] = ModuloIdHiddenField.Value;
+            //Session["booleanHabilitaArea"] = "false";
+            Response.Redirect("~/Administracion/Modulo/VerModulo.aspx");
+        }
+        else
+        {
             Response.Redirect("~/Administracion/Modulo/ListaModulo.aspx");
         }
     }

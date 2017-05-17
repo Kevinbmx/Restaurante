@@ -15,9 +15,10 @@
         <div class="ibox-content">
             <div class="row">
                 <div class="col-md-12">
-                    <p>
-                        <asp:LinkButton ID="NewModuloButton" runat="server" OnClick="NewModuloButton_Click" CssClass="btn btn-primary "><i class='fa fa-user-plus'></i> Nuevo Modulo</asp:LinkButton>
-                    </p>
+                    <asp:HyperLink ID="HyperLink1" runat="server" CssClass="btn btn-warning min-letter"
+                        NavigateUrl="~/Administracion/Modulo/ListaModulo.aspx">
+                            <i class='fa fa-arrow-left'></i> Ir a la Lista de Modulos
+                    </asp:HyperLink>
                 </div>
                 <div class="col-md-12">
                     <div class="row">
@@ -36,11 +37,20 @@
                         <asp:GridView runat="server" ID="ListaModuloAreaGridView" CssClass="table table-striped" AutoGenerateColumns="false" OnRowCommand="ListaModuloAreaGridView_RowCommand"
                             AllowPaging="true" PageSize="10" PagerSettings-Position="Bottom" PagerSettings-Mode="Numeric" OnPageIndexChanging="ListaModuloAreaGridView_PageIndexChanging">
                             <Columns>
-                                <asp:TemplateField HeaderText="Ver" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
+                                <asp:TemplateField HeaderText="Editar" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="VerImageButton" runat="server" CommandName="Ver" CommandArgument='<%# Eval("moduloId") %>' CssClass="text-success img-buttons" Text="<i class='fa fa-eye'></i>" />
+                                        <asp:LinkButton ID="VerImageButton" runat="server" CommandName="Editar" CommandArgument='<%# Eval("moduloId") %>' CssClass="text-success img-buttons" Text="<i class='fa fa-pencil'></i>" />
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                                    <ItemStyle VerticalAlign="Middle"></ItemStyle>
+                                </asp:TemplateField>
+                                     <asp:TemplateField HeaderText="Eliminar" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="DeleteImageButton" runat="server" CommandName="Eliminar" CssClass="text-danger img-buttons" Text="<i class='fa fa-trash-o'></i>"
+                                            CommandArgument='<%# Eval("moduloId") %>'
+                                            OnClientClick="return confirm('¿Está seguro de eliminar este Modulo de tu Area?')" />
+                                    </ItemTemplate>
+                                    <ItemStyle HorizontalAlign="Center" Width="50px"></ItemStyle>
                                     <ItemStyle VerticalAlign="Middle"></ItemStyle>
                                 </asp:TemplateField>
 
@@ -49,7 +59,7 @@
                             </Columns>
                         </asp:GridView>
                         <asp:Panel ID="errorUsuario" runat="server" Visible="false">
-                            <asp:Label runat="server">No se encuentra ningun Modulo</asp:Label>
+                            <asp:Label runat="server">No se encuentra ningun Modulo de esta Area</asp:Label>
                         </asp:Panel>
 
                     </div>

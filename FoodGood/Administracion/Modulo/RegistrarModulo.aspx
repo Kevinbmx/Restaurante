@@ -24,7 +24,7 @@
                                 <asp:DropDownList ID="AreaComboBox" runat="server" CssClass="form-control"
                                     DataSourceID="tipoUsuarioDataSet"
                                     DataValueField="areaId"
-                                    DataTextField="descripcion">
+                                    DataTextField="descripcion" Enabled="true">
                                 </asp:DropDownList>
                                 <asp:ObjectDataSource ID="tipoUsuarioDataSet" runat="server"
                                     SelectMethod='GetArea'
@@ -44,7 +44,8 @@
                                 <asp:LinkButton ID="UpdateModuloButton" runat="server" CssClass="btn btn-primary" Visible="false" OnClick="UpdateModuloButton_Click">
 										<i class="fa fa-plus"></i> Actualizar Modulo
                                 </asp:LinkButton>
-                                <asp:HyperLink ID="cancelBoton" runat="server" NavigateUrl="~/Administracion/Modulo/ListaModulo.aspx" CssClass="btn btn-danger"><i class="fa fa-times"></i> Cancelar	</asp:HyperLink>
+                                <asp:LinkButton ID="cancelBoton" runat="server" OnClick="cancelBoton_Click" CssClass="btn btn-danger"><i class="fa fa-times"></i> Cancelar </asp:LinkButton>
+                                <%--<asp:HyperLink ID="cancelBoton" runat="server" NavigateUrl="~/Administracion/Modulo/ListaModulo.aspx" CssClass="btn btn-danger"><i class="fa fa-times"></i> Cancelar	</asp:HyperLink>--%>
                             </div>
                         </div>
                     </div>
@@ -55,5 +56,6 @@
     </div>
 
     <asp:HiddenField runat="server" ID="ModuloIdHiddenField" />
+    <asp:HiddenField runat="server" ID="booleanVerModulo" />
 </asp:Content>
 

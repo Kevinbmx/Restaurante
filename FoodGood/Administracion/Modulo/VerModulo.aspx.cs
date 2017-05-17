@@ -17,7 +17,7 @@ public partial class Administracion_Modulo_VerModulo : System.Web.UI.Page
             ProcessSessionParameteres();
             if (!string.IsNullOrEmpty(AreadeModuloIdHiddenField.Value))
             {
-                cargarListaModulosdeArea("");
+                cargarListaModulosdeArea(AreadeModuloIdHiddenField.Value);
             }
         }
     }
@@ -43,7 +43,7 @@ public partial class Administracion_Modulo_VerModulo : System.Web.UI.Page
         {
             Response.Redirect("~/Administracion/Modulo/ListaModulo.aspx");
         }
-        Session["ModuloId"] = null;
+        Session["AreaModuloId"] = null;
     }
 
     public void cargarListaModulosdeArea(string query)
@@ -73,10 +73,38 @@ public partial class Administracion_Modulo_VerModulo : System.Web.UI.Page
     }
     protected void ListaModuloAreaGridView_RowCommand(object sender, GridViewCommandEventArgs e)
     {
+        int areamoduloId = Convert.ToInt32(e.CommandArgument);
+        if (e.CommandName == "Eliminar")
+        {
+            try
+            {
+                ModuloBLL.DeleteModulo(areamoduloId);
+                cargarListaModulosdeArea(AreadeModuloIdHiddenField.Value);
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", "alert('No se puede eliminar por que este modulo esta siendo utilizado');", true);
+                //log.Error("Error al eliminar el usuario con el id '" + moduloId + "'", ex);
+            }
+        }
+        if (e.CommandName == "Editar")
+        {
+            Session["ModuloId"] = areamoduloId;
+            Session["booleanHabilitaArea"] = "true";
 
+            Response.Redirect("~/Administracion/Modulo/RegistrarModulo.aspx");
+        }
     }
 
     protected void ListaModuloAreaGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+
+    }
+    protected void NewModuloButton_Click(object sender, EventArgs e)
+    {
+
+    }
+    protected void busquedaBtn_Click(object sender, EventArgs e)
     {
 
     }

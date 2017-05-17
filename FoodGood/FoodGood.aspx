@@ -54,10 +54,10 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1 id="homeHeading">Your Favorite Source of Free Bootstrap Themes</h1>
+                <h1 id="homeHeading">BIENVENIDO A FOOGOOD</h1>
                 <hr />
-                <p>Start Bootstrap can help you build better websites using the Bootstrap CSS framework! Just download your template and start going, no strings attached!</p>
-                <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
+                <p>Comer hasta chuparse los dedos</p>
+                <%--<a href="#about" class="btn btn-primary btn-xl page-scroll">Ver Menu</a>--%>
             </div>
         </div>
     </header>
@@ -66,10 +66,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">We've got what you need!</h2>
+                    <h2 class="section-heading">Quieres algo rico? est&aacutes en el lugar</h2>
                     <hr class="light" />
-                    <p class="text-faded">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
-                    <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
+                    <p class="text-faded">Saborearas la mejor comida jamas Imaginada</p>
+                    <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Ver Menu</a>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">At Your Service</h2>
+                    <h2 class="section-heading">Service</h2>
                     <hr class="primary" />
                 </div>
             </div>
@@ -88,30 +88,30 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-4x fa-diamond text-primary sr-icons"></i>
-                        <h3>Sturdy Templates</h3>
-                        <p class="text-muted">Our templates are updated regularly so they don't break.</p>
+                        <i class="fa fa-diamond" aria-hidden="true"></i>
+                        <h3>Glamour</h3>
+                        <p class="text-muted">Te sentiras igual o a&uacuten mejor que en tu casa</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-paper-plane text-primary sr-icons"></i>
-                        <h3>Ready to Ship</h3>
-                        <p class="text-muted">You can use this theme as is, or you can make changes!</p>
+                        <h3>Atencion</h3>
+                        <p class="text-muted">como jamas Imaginado y al instante</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
-                        <h3>Up to Date</h3>
-                        <p class="text-muted">We update dependencies to keep things fresh.</p>
+                        <h3>Pide donde estes</h3>
+                        <p class="text-muted">quedate y pide que "FOODGOOD" te lo lleva</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-heart text-primary sr-icons"></i>
-                        <h3>Made with Love</h3>
-                        <p class="text-muted">You have to make your websites with love these days!</p>
+                        <h3>Comodidad</h3>
+                        <p class="text-muted">Que no querras no irte</p>
                     </div>
                 </div>
             </div>
