@@ -7,14 +7,138 @@
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    <asp:Literal ID="JqueryAndMainMenuScript" runat="server"></asp:Literal>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css' />
 </head>
-<body>
+<body id="page-top">
     <form id="form1" runat="server">
         <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+            <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+                <div class="row " id="headerTop" style="border-bottom: 1px solid; border-color: beige;">
+
+                    <div class="col-md-12">
+                        <div style="float: left;" id="socialTop">
+                            <a href="http://plus.google.com" class="googleplus"></a>
+                            <a href="http://www.youtube.com" class="youtube"></a>
+                            <a href="http://www.facebook.com" class="facebook"></a>
+                        </div>
+                        <div id="info-sesion" style="float: right; display: flex;">
+                            <div class="top-menu" style="border-right: 1px solid; padding-right: 5px; margin-right: 5px;">
+                                <asp:HyperLink runat="server" NavigateUrl="~/Ayuda.aspx">Ayuda</asp:HyperLink>
+                            </div>
+
+                            <div id="sesion" class="top-menu">
+
+                                <div id="usuarioNoLogueado" runat="server" visible="true">
+                                    <div style="display: flex;">
+                                        <ul>
+                                            <li class="login-option login">
+                                                <asp:HyperLink runat="server" NavigateUrl="~/Autentificacion/Login.aspx" Text="Iniciar Sesión   - "></asp:HyperLink>
+                                            </li>
+
+                                            <li class="register-option login">
+                                                <asp:HyperLink runat="server" NavigateUrl="~/Autentificacion/Registrar.aspx" Text="Regístrate"></asp:HyperLink>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div id="opcionesUsuairo" runat="server" visible="false">
+                                    <ul>
+                                        <li class="dropdown user-menu login">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <asp:Literal ID="UserFullNameLiteral" runat="server">olaaa</asp:Literal>
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li>
+                                                    <asp:HyperLink runat="server" NavigateUrl="~/Account/ClientData.aspx">Mis Datos</asp:HyperLink></li>
+                                                <li>
+                                                    <asp:HyperLink runat="server" NavigateUrl="~/UserAccount/ChangePassword.aspx">Cambiar Contraseña</asp:HyperLink></li>
+                                                <li>
+                                                    <asp:HyperLink runat="server" NavigateUrl="~/Account/Orders.aspx">Mis Pedidos</asp:HyperLink></li>
+                                                <li>
+                                                    <asp:LinkButton runat="server" ID="CerrarSesion" Text="Cerrar Secion" OnClick="CerrarSesion_Click"></asp:LinkButton>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container-fluid" style="max-height: auto;">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                            </button>
+                            <asp:HyperLink runat="server" CssClass="navbar-brand page-scroll" NavigateUrl="~/Default.aspx">
+                                <%--<img src="img/gorroChef.png" />--%>
+                                <asp:Literal ID="logo_imag" runat="server"></asp:Literal>
+                                <%--                    <label class="titulo-first">Food</label>
+                    <label class="titulo-second">Good</label>--%>
+                            </asp:HyperLink>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div runat="server" id="listaDefaultd">
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right" style="margin-top: 10px;">
+                                    <li>
+                                        <a class="page-scroll" href="#about">About</a>
+                                    </li>
+                                    <li>
+                                        <a class="page-scroll" href="#services">Services</a>
+                                    </li>
+                                    <li>
+                                        <a class="page-scroll" href="#portfolio">Portfolio</a>
+                                    </li>
+                                    <li>
+                                        <a class="page-scroll" href="#contact">Contact</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
             </asp:ContentPlaceHolder>
+            <footer class="page-footer">
+                <div class="center-content footer-content footer-text">
+                    <div class=" ">
+                        <label class="">
+                            All Content FoodGood - All Rights Reserved. 
+                        </label>
+                    </div>
+                    <div class="quitar">
+                        <div class="paginas">
+                            <a href="http://plus.google.com" class="googleplus"></a>
+                            <a href="http://www.youtube.com" class="youtube"></a>
+                            <a href="http://www.facebook.com" class="facebook"></a>
+                        </div>
+                    </div>
+                    <div class="">
+                        <label>
+                            <strong>Site Developed by </strong><span>Kevin Delgadillo</span>
+                        </label>
+                    </div>
+                </div>
+            </footer>
+            <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+            <asp:Literal ID="JqueryAndMainMenuScript" runat="server"></asp:Literal>
         </div>
     </form>
+
 </body>
 </html>

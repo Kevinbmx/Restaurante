@@ -57,5 +57,6 @@
 
     <asp:HiddenField runat="server" ID="ModuloIdHiddenField" />
     <asp:HiddenField runat="server" ID="booleanVerModulo" />
+    <%--<asp:HiddenField runat="server" ID="AreaIdHiddenField" />--%>
 </asp:Content>
 

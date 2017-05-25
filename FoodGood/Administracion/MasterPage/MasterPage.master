@@ -49,7 +49,7 @@
                             Kd*
                         </div>
                     </div>
-                   <%-- <ul id="side-menu" class="nav metismenu">
+                    <%-- <ul id="side-menu" class="nav metismenu">
                         <li><a href="~Administracion/MainPage.aspx"><i class="fa fa-home"></i><span class="nav-label">Inicio</span></a></li>
                         <li><a href="javascript:void(0)"><i class="fa fa-user-secret"></i><span class="nav-label">Seguridad</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
                             <li><a href="~Administracion/TipoUsuario/ListaTipoUsuario.aspx">Lista Tipo Usuarios</a></li>
@@ -60,12 +60,12 @@
                             <li><a href="~Administracion/Acceso/ListaAcceso.aspx">Asignar Acceso</a></li>
                         </ul>
                         </li>--%>
-                        <%-- <li><a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i><span class="nav-label">Pedidos</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                    <%-- <li><a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i><span class="nav-label">Pedidos</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
                             <li><a href="/Administration/Pedido/ListaPedidos.aspx">Lista de Pedidos</a></li>
                             <li><a href="/Administration/Pedido/ListaPedidosAsignados.aspx">Pedidos Asinados para Entrega</a></li>
                         </ul>
                         </li>--%>
-                        <%-- <li><a href="javascript:void(0)"><i class="fa fa-building"></i><span class="nav-label">Inventario</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                    <%-- <li><a href="javascript:void(0)"><i class="fa fa-building"></i><span class="nav-label">Inventario</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
                             <li><a href="/Administration/Inventario/TiposArticulos/ListaTiposArticulos.aspx">Tipos de Articulo</a></li>
                             <li><a href="/Administration/Inventario/Caracteristica/ListaProductoCaracteristica.aspx">Lista Articulo con caracteristica</a></li>
                             <li><a href="/Administration/Inventario/ImageArticulo/ListaImageArticulo.aspx">Lista Articulo con Imagen</a></li>
@@ -74,11 +74,11 @@
                             <li><a href="/Administration/Suscripcion/ListaSuscripciones.aspx">Suscripciones</a></li>
                         </ul>
                         </li>--%>
-                        <%--                        <li><a href="javascript:void(0)"><i class="fa fa-user"></i><span class="nav-label">Mi Cuenta</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                    <%--                        <li><a href="javascript:void(0)"><i class="fa fa-user"></i><span class="nav-label">Mi Cuenta</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
                             <li><a href="/Administration/Security/ChangePassword.aspx">Cambiar Contraseña</a></li>
                         </ul>
                         </li>--%>
-                        <%-- <li><a href="javascript:void(0)"><i class="fa fa-caret-square-o-down"></i><span class="nav-label">Acerca de</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
+                    <%-- <li><a href="javascript:void(0)"><i class="fa fa-caret-square-o-down"></i><span class="nav-label">Acerca de</span><span class="fa arrow"></span></a><ul class="nav nav-second-level collapse">
                             <li><a href="/Administration/About/Credits.aspx">Créditos</a></li>
                             <li><a href="/Administration/About/VersionInformation.aspx">Cambios en la Aplicación</a></li>
                         </ul>
@@ -108,7 +108,8 @@
 
                             </li>
                             <li>
-                                <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Authentication/Login.aspx" />
+                                <asp:LinkButton runat="server" ID="cerrarSesion" OnClick="cerrarSesion_Click" Text="Cerrar Sesion"></asp:LinkButton>
+                                <%--<asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Autentificacion/Login.aspx" />--%>
                             </li>
                         </ul>
                     </nav>
@@ -168,70 +169,6 @@
                     <asp:Literal ID="FeedbackIframeCode" runat="server" Visible="false"></asp:Literal>
                 </div>
             </div>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    $("#ctl00_LoginStatus1").prepend('<i class="fa fa-sign-out"></i>');
-
-                    updateOnResize();
-
-                    $("#feedbackPanel").hide();
-
-                    // Handler to show the columns selector
-                    $("#feedbackHyperLink").click(function (e) {
-
-                        $.scrollTo($('#TOP'), 800);
-
-                        e.preventDefault();
-
-                        var maskWinH = $(document).height();
-                        var maskWinW = $(window).width();
-                        $("#feedback_Mask").css({ 'width': maskWinW, 'height': maskWinH });
-                        $("#feedback_Mask").css('top', 0);
-                        $("#feedback_Mask").css('left', 0);
-                        $('#feedback_Mask').fadeIn(200);
-                        $('#feedback_Mask').fadeTo('fast', 0.8);
-                        $("#feedback_Mask").fadeIn(500);
-
-                        var winH = $(window).height();
-                        var winW = $(window).width();
-                        $("#feedbackPanel").css('top', winH / 2 - $("#feedbackPanel").height() / 2);
-                        $("#feedbackPanel").css('left', winW / 2 - $("#feedbackPanel").width() / 2);
-                        $("#feedbackPanel").fadeIn(500);
-
-                        return false;
-                    });
-
-                    $("#cancelFeedbackButton").click(function (e) {
-                        e.preventDefault();
-                        $("#feedbackPanel, #feedback_Mask").fadeOut(500);
-                    });
-                });
-
-                function updateOnResize() {
-                    var newWidth = $(".pageContent").outerWidth() - $(".twoColsRight").outerWidth() - 10;
-                    $(".twoColsLeft").css("clear", "none");
-                    $(".twoColsRight").removeClass("columnResize");
-                    if (newWidth < 240) {
-                        newWidth = 240;
-                        $(".twoColsLeft").css("clear", "left");
-                        $(".twoColsRight").addClass("columnResize");
-                    }
-                    $(".twoColsLeft").css("width", newWidth);
-                    $(".twoColsLeft .gridcontainer").css("width", newWidth - 12);
-                    if ($(window).width() <= 535) {
-                        $(".pageContent").addClass("columnResize");
-                    } else {
-                        $(".pageContent").removeClass("columnResize");
-                    }
-                }
-                $(window).resize(function () {
-                    updateOnResize();
-                });
-                $(window).load(function () {
-                    updateOnResize();
-                });
-
-            </script>
         </div>
     </form>
 </body>

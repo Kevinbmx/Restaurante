@@ -9,7 +9,7 @@
     -moz-transition: all .35s;
 }
 
-header, header .header-content {
+.header-fondo, .header-fondo .header-content {
     position: relative;
     width: 100%;
     text-align: center;
@@ -172,22 +172,22 @@ aside {
                 }
 }
 
-header {
+.header-fondo {
     min-height: auto;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
     background-position: center;
-    background-image: url(../../img/intro.jpg);
+    background-image: url(../../img/Fondo3.jpg);
     color: #fff;
 }
 
-    header .header-content {
+    .header-fondo .header-content {
         padding: 100px 15px;
     }
 
-        header .header-content .header-content-inner h1 {
+        .header-fondo .header-content .header-content-inner h1 {
             font-weight: 700;
             text-transform: uppercase;
             margin-top: 0;
@@ -195,11 +195,11 @@ header {
             font-size: 30px;
         }
 
-        header .header-content .header-content-inner hr {
+        .header-fondo .header-content .header-content-inner hr {
             margin: 30px auto;
         }
 
-        header .header-content .header-content-inner p {
+        .header-fondo .header-content .header-content-inner p {
             font-weight: 300;
             color: rgba(255,255,255,.7);
             font-size: 16px;
@@ -207,11 +207,11 @@ header {
         }
 
 @media (min-width:768px) {
-    header {
-        min-height: 100%;
+    .header-fondo {
+        min-height: 900px;
     }
 
-        header .header-content {
+        .header-fondo .header-content {
             position: absolute;
             top: 50%;
             -webkit-transform: translateY(-50%);
@@ -220,17 +220,17 @@ header {
             padding: 0 50px;
         }
 
-            header .header-content .header-content-inner {
+            .header-fondo .header-content .header-content-inner {
                 max-width: 1000px;
                 margin-left: auto;
                 margin-right: auto;
             }
 
-                header .header-content .header-content-inner h1 {
+                .header-fondo .header-content .header-content-inner h1 {
                     font-size: 50px;
                 }
 
-                header .header-content .header-content-inner p {
+                .header-fondo .header-content .header-content-inner p {
                     font-size: 18px;
                     max-width: 80%;
                     margin-left: auto;
@@ -418,17 +418,367 @@ img::-moz-selection {
 
 
 .navbar {
-    height: 91px;
+    height: auto;
 }
 
 .navbar-brand img {
-    width: 90%;
+    width: 50%;
 }
 
 .navbar-brand {
     width: 140px;
-    height: 82px;
+    height: auto;
     padding: 10px;
 }
 
 
+
+@media (max-width:425px) {
+    .header-content {
+        margin-top: 23%;
+    }
+
+    .collapse {
+        background: white;
+    }
+
+    .navbar-brand img {
+        width: 60%;
+    }
+}
+
+.fondo-login {
+    padding: 40px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,0.2);
+}
+
+.navbar-header {
+    margin-right: 5px !important;
+    margin-left: 5px !important;
+}
+
+.navbar-collapse {
+    margin-left: 5px !important;
+}
+
+
+
+/*///////////////////////////////////////////**/
+#socialTop a {
+    float: right;
+    width: 19px;
+    height: 19px;
+    margin: 5px;
+    text-decoration: none;
+    /*color: #AFAEAE;*/
+    color: #37617C;
+    background-image: url('../../img/iconos.svg');
+}
+
+#socialTop .facebook {
+    background-position: -26px -4px;
+}
+
+#socialTop .youtube {
+    background-position: -26px -33px;
+}
+
+#socialTop .googleplus {
+    background-position: -27px -62px;
+}
+
+#socialTop .mail {
+    background-position: -28px -89px;
+    margin-right: 20px;
+}
+
+
+.facebookShareButton {
+    color: white;
+    background-color: #3A5897;
+}
+
+.twitterShareButton {
+    color: white;
+    background-color: #1DA1F2;
+}
+
+.googlePlusShareButton {
+    color: white;
+    background-color: #DC5044;
+}
+
+.linkedinShareButton {
+    color: white;
+    background-color: #0274B3;
+}
+
+.whatsappShareButton {
+    color: white;
+    background-color: #0F9D58;
+}
+
+
+.mailShareButton {
+    color: white;
+    background-color: #515151;
+}
+
+#headerTop {
+    /*background: rgba(255,235,215,0.3);*/
+    background: white;
+}
+
+
+#header #headerTop .top-menu {
+    padding: 0px;
+    font-family: "Avenir_Light";
+    margin: 10px 0px;
+    line-height: 11px;
+    float: left;
+}
+
+a {
+    color: #0063d1;
+    text-decoration: none;
+}
+
+.login {
+    list-style: none;
+    padding: 0px 3px;
+}
+
+#header #headerTop .top-menu {
+    padding: 0px;
+    font-family: "Avenir_Light";
+    margin: 10px 0px;
+    line-height: 11px;
+    float: left;
+}
+
+#info-sesion {
+    margin-top: 5px;
+    font-size: 12px;
+    margin-right: 15px;
+}
+
+
+.header-content {
+    background: rgba(255,255,255,0.2);
+}
+
+.header-content-inner {
+    margin-top: 36px;
+}
+
+/*-----------------------------------------*/ /**/
+
+
+
+.page-footer {
+    /*background-color: #05939D;*/
+    /*background-color: rgba(248,248,248,0.8);*/
+    /*background-color: #BBAC97;*/
+    /*background-color: #C6B397;*/
+    background-color: #474747;
+    border-radius: 2px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    line-height: 2;
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.footer-text {
+    color: #FFFFFF;
+    /*color: #454545;*/
+    font-size: 11px;
+}
+
+.page-footer span {
+    color: #C3C3C3;
+    /*color: #454545;*/
+}
+
+.quitar a {
+    text-decoration: none;
+    color: #FFFFFF;
+    /*color: #454545;*/
+    font-size: 11px;
+}
+
+@media screen and (min-width: 426px) {
+    .capa-header {
+        position: fixed;
+        z-index: 1;
+        width: 100%;
+        left: 0px;
+        margin-top: 40px;
+    }
+
+    .fixed {
+        position: fixed;
+        z-index: 1;
+    }
+
+    .fondo-slider {
+        padding-top: 25px;
+    }
+
+        .fondo-slider img {
+            transform: skew(0deg,-2deg);
+        }
+
+    .pri-tipo-letra h1 {
+        font-size: 42px;
+    }
+
+    .pri-tipo-letra h1 {
+        font-size: 32px;
+    }
+
+    .pri-tipo-letra h3 {
+        font-size: 18px;
+    }
+
+
+
+    .pri-tipo-letra {
+        /*position: relative;*/
+        /*color: white;*/
+        margin-top: -20%;
+    }
+
+        .pri-tipo-letra h1, .pri-tipo-letra p, .pri-tipo-letra h3 {
+            color: white;
+        }
+
+    .pri-borde {
+        border: initial;
+    }
+}
+
+
+@media screen and (min-width: 769px) {
+
+    #mobile-menu {
+        display: none;
+    }
+
+    nav {
+        overflow: inherit;
+        margin: 0px 10px 0px 10px;
+    }
+
+
+
+        nav li {
+            display: inline-block !important;
+            padding: 0px 10px;
+        }
+
+    .search-form {
+        width: 15%;
+        float: right;
+    }
+
+    /*footer*/
+
+    .page-footer {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .footer-text {
+        font-size: 14px;
+    }
+
+
+
+    .quitar a {
+        font-size: 14px;
+    }
+
+    .pri-borde {
+        border-bottom: solid;
+        border-color: #AC9E84;
+        border-width: 1px;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+    nav ul {
+        display: inline-block !important;
+        padding-left: 2px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+
+
+
+
+    .center-content {
+        margin: 0 auto;
+        width: 980PX;
+    }
+
+    nav {
+        margin: 0px 0px 0px 0px;
+    }
+
+    .search-form {
+        width: 18%;
+    }
+
+    /*footer*/
+    .footer-content {
+        display: flex;
+    }
+
+        .footer-content div {
+            width: 33.33%;
+            margin: auto;
+        }
+}
+
+
+.paginas a {
+    float: right;
+    width: 19px;
+    height: 19px;
+    margin: 5px;
+    text-decoration: none;
+    /*color: #AFAEAE;*/
+    color: #37617C;
+    background-image: url('../../img/iconos.svg');
+}
+
+.paginas .facebook {
+    background-position: -26px -4px;
+}
+
+.paginas .youtube {
+    background-position: -26px -33px;
+}
+
+.paginas .googleplus {
+    background-position: -27px -62px;
+}
+
+
+#usuarioNoLogueado ul {
+    padding-left: 0px;
+    display: flex;
+}
+
+.dropdown-menu {
+    top: 149%;
+    left: -135px !important;
+}

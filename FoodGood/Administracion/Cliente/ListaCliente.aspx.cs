@@ -1,4 +1,6 @@
-﻿using Foodgood.User.Clase;
+﻿using Foodgood.Accesos.Clase;
+using Foodgood.User.Clase;
+using FoodGood.Modulos.BLL;
 using FoodGood.TipoUser.BLL;
 using FoodGood.User.BLL;
 using log4net;
@@ -21,12 +23,55 @@ public partial class Administracion_Cliente_ListaCliente : System.Web.UI.Page
 
         if (!IsPostBack)
         {
+
             string armadoDeQuery = "@tipousuarioId IN(2,3)";
             string query = consultaSql(armadoDeQuery).SqlQuery();
             cargarListaUsuario(query);
+            validarUsuario();
+        }
+
+    }
+
+    public void validarUsuario()
+    {
+        Usuario objUsuario = LoginUtilities.GetUserLogged();
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Cliente) &&
+            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Cliente) &&
+            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Cliente) &&
+            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Cliente))
+        {
+            Response.Redirect("~/Administracion/Error.aspx");
+        }
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Cliente))
+        {
+            NewUsuarioButton.Visible = false;
+        }
+
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Cliente))
+        {
+            ListaUsuariosGridView.Visible = false;
+        }
+        else
+        {
+
+
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Cliente))
+            {
+                this.ListaUsuariosGridView.Columns[0].Visible = false;
+            }
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Cliente))
+            {
+                this.ListaUsuariosGridView.Columns[1].Visible = false;
+            }
         }
     }
 
+    public Searcher consultaModuloSql(string query)
+    {
+        Searcher searcher = new Searcher(new BusquedaModulo());
+        searcher.Query = query;
+        return searcher;
+    }
 
     public Searcher consultaSql(string query)
     {

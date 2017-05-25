@@ -1,5 +1,6 @@
 ﻿using Foodgood.Areas.Clase;
 using Foodgood.Modulo.Clase;
+using Foodgood.User.Clase;
 using FoodGood.Areas.BLL;
 using FoodGood.Modulos.BLL;
 using log4net;
@@ -20,6 +21,27 @@ public partial class Administracion_Modulo_ListaModulo : System.Web.UI.Page
         if (!IsPostBack)
         {
             cargarListaAreaModulos("");
+            validarUsuario();
+        }
+    }
+
+    public void validarUsuario()
+    {
+        Usuario objUsuario = LoginUtilities.GetUserLogged();
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Modulo) &&
+            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Modulo) &&
+            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Modulo) &&
+            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Modulo))
+        {
+            Response.Redirect("~/Administracion/Error.aspx");
+        }
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Modulo))
+        {
+            this.ListaAreaModuloGridView.Columns[0].Visible = false;
+        }
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Modulo))
+        {
+            this.ListaAreaModuloGridView.Columns[1].Visible = false;
         }
     }
 
@@ -70,8 +92,15 @@ public partial class Administracion_Modulo_ListaModulo : System.Web.UI.Page
             Response.Redirect("~/Administracion/Modulo/VerModulo.aspx");
         }
 
-        //if (e.CommandName == "Eliminar")
-        //{
+        if (e.CommandName == "Nuevo")
+        {
+            Session["ModuloId"] = 0;
+            Session["areaIdCombo"] = areamoduloId;
+            Session["booleanHabilitaArea"] = "true";
+
+            Response.Redirect("~/Administracion/Modulo/RegistrarModulo.aspx");
+
+        }
         //    try
         //    {
         //        ModuloBLL.DeleteModulo(moduloId);
@@ -91,12 +120,12 @@ public partial class Administracion_Modulo_ListaModulo : System.Web.UI.Page
     }
 
 
-    protected void NewModuloButton_Click(object sender, EventArgs e)
-    {
-        Session["ModuloId"] = 0;
-        Session["booleanHabilitaArea"] = "false";
-        Response.Redirect("~/Administracion/Modulo/RegistrarModulo.aspx");
-    }
+    //protected void NewModuloButton_Click(object sender, EventArgs e)
+    //{
+    //    Session["ModuloId"] = 0;
+    //    Session["booleanHabilitaArea"] = "false";
+    //    Response.Redirect("~/Administracion/Modulo/RegistrarModulo.aspx");
+    //}
 
     protected void ListaAreaModuloGridView_RowDataBound(object sender, GridViewRowEventArgs e)
     {
@@ -104,12 +133,12 @@ public partial class Administracion_Modulo_ListaModulo : System.Web.UI.Page
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                string areaId = e.Row.Cells[2].Text;
+                string areaId = e.Row.Cells[3].Text;
                 string armadoDeQuery = "@areaId IN(" + areaId + ")";
                 string query = consultaSql(armadoDeQuery).SqlQuery();
                 List<Modulo> objModulolista = ModuloBLL.GetModuloListForSearch(query);
 
-                e.Row.Cells[2].Text = objModulolista.Count.ToString();
+                e.Row.Cells[3].Text = objModulolista.Count.ToString();
             }
         }
         catch (Exception ex)

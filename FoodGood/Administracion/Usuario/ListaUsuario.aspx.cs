@@ -1,4 +1,5 @@
 ﻿using Foodgood.User.Clase;
+using FoodGood.Modulos.BLL;
 using FoodGood.TipoUser.BLL;
 using FoodGood.User.BLL;
 using log4net;
@@ -21,6 +22,40 @@ public partial class Administracion_Usuario_ListaUsuario : System.Web.UI.Page
             string armadoDeQuery = "@descripcion Administrador";
             string query = consultaSql(armadoDeQuery).SqlQuery();
             cargarListaUsuario(query);
+            validarUsuario();
+        }
+    }
+
+
+    public void validarUsuario()
+    {
+        Usuario objUsuario = LoginUtilities.GetUserLogged();
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Usuario) &&
+            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Ususario) &&
+            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Usuario) &&
+            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Usuario))
+        {
+            Response.Redirect("~/Administracion/Error.aspx");
+        }
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Usuario))
+        {
+            NewUsuarioButton.Visible = false;
+        }
+
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Usuario))
+        {
+            ListaUsuariosGridView.Visible = false;
+        }
+        else
+        {
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Ususario))
+            {
+                this.ListaUsuariosGridView.Columns[0].Visible = false;
+            }
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Usuario))
+            {
+                this.ListaUsuariosGridView.Columns[1].Visible = false;
+            }
         }
     }
 
@@ -35,19 +70,25 @@ public partial class Administracion_Usuario_ListaUsuario : System.Web.UI.Page
 
     public void cargarListaUsuario(string query)
     {
-
-        List<Usuario> ListaUsuario = UsuariosBLL.GetUsuarioListForSearch(query);
-        if (ListaUsuario.Count > 0)
+        try
         {
-            errorUsuario.Visible = false;
+            List<Usuario> ListaUsuario = UsuariosBLL.GetUsuarioListForSearch(query);
+            if (ListaUsuario.Count > 0)
+            {
+                errorUsuario.Visible = false;
+            }
+            else
+            {
+                errorUsuario.Visible = true;
+            }
+            ListaUsuariosGridView.DataSource = ListaUsuario;
+            ListaUsuariosGridView.DataBind();
         }
-        else
+        catch (Exception ex)
         {
-            errorUsuario.Visible = true;
+            log.Error("error al llenar la lista de usuario");
+            throw ex;
         }
-        ListaUsuariosGridView.DataSource = ListaUsuario;
-        ListaUsuariosGridView.DataBind();
-
     }
 
     protected void busquedaBtn_Click(object sender, EventArgs e)
@@ -59,28 +100,37 @@ public partial class Administracion_Usuario_ListaUsuario : System.Web.UI.Page
 
     protected void ListaUsuariosGridView_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        int usuarioId = Convert.ToInt32(e.CommandArgument);
+        try
+        {
+            int usuarioId = Convert.ToInt32(e.CommandArgument);
 
-        if (e.CommandName == "Eliminar")
-        {
-            try
+            if (e.CommandName == "Eliminar")
             {
-                UsuariosBLL.DeleteUsuario(usuarioId);
-                string armadoDeQuery = "@descripcion Administrador";
-                string query = consultaSql(armadoDeQuery).SqlQuery();
-                cargarListaUsuario(query);
+                try
+                {
+                    UsuariosBLL.DeleteUsuario(usuarioId);
+                    string armadoDeQuery = "@descripcion Administrador";
+                    string query = consultaSql(armadoDeQuery).SqlQuery();
+                    cargarListaUsuario(query);
+                }
+                catch (Exception ex)
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", "alert('No se puede eliminar por que este Usuario esta siendo utilizado');", true);
+                    log.Error("Error al eliminar el usuario con el id '" + usuarioId + "'", ex);
+                }
             }
-            catch (Exception ex)
+            if (e.CommandName == "Editar")
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", "alert('No se puede eliminar por que este Usuario esta siendo utilizado');", true);
-                log.Error("Error al eliminar el usuario con el id '" + usuarioId + "'", ex);
+                Session["UsuarioId"] = usuarioId;
+                Response.Redirect("~/Administracion/Usuario/RegistrarUsuario.aspx");
             }
         }
-        if (e.CommandName == "Editar")
+        catch (Exception ex)
         {
-            Session["UsuarioId"] = usuarioId;
-            Response.Redirect("~/Administracion/Usuario/RegistrarUsuario.aspx");
+            log.Error("error al eliminar el usuario");
+            throw ex;
         }
+
     }
 
     protected void NewUsuarioButton_Click(object sender, EventArgs e)

@@ -23,5 +23,14 @@ public class BusquedaAcceso : ConfigColumns
         col.AppearInStandardSearch = true;
         col.DisplayHelp = true;
         this.Cols.Add(col);
+
+        //BUSCAR POR EL areaIs
+        col = new Column("[a].[areaID]", "areaId", Column.ColumnType.Numeric);
+        col.AppearInStandardSearch = true;
+        col.DisplayHelp = true;
+        this.Cols.Add(col);
+
+
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Foodgood.Accesos.Clase;
 using Foodgood.User.Clase;
+using FoodGood.Modulos.BLL;
 using FoodGood.User.BLL;
 using log4net;
 using SearchComponent;
@@ -19,24 +20,47 @@ public partial class Administracion_Acceso_ListaAcceso : System.Web.UI.Page
         {
             string armadoDeQuery = "@tipousuarioId IN(1)";
             string query = consultaSqlUsuario(armadoDeQuery).SqlQuery();
-            cargarListaUsuario(query);
+            cargarListaUsuarioparaAcceso(query);
+            validarUsuario();
         }
     }
 
 
-    public void cargarListaUsuario(string query)
+    public void validarUsuario()
     {
-        List<Usuario> ListaUsuario = UsuariosBLL.GetUsuarioListForSearch(query);
-        if (ListaUsuario.Count > 0)
+        Usuario objUsuario = LoginUtilities.GetUserLogged();
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Acceso))
         {
-            errorUsuario.Visible = false;
+            Response.Redirect("~/Administracion/Error.aspx");
         }
-        else
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Acceso))
         {
-            errorUsuario.Visible = true;
+            this.ListaAccesoGridView.Columns[0].Visible = false;
         }
-        ListaAccesoGridView.DataSource = ListaUsuario;
-        ListaAccesoGridView.DataBind();
+    }
+
+
+    public void cargarListaUsuarioparaAcceso(string query)
+    {
+        try
+        {
+            List<Usuario> ListaUsuario = UsuariosBLL.GetUsuarioListForSearch(query);
+            if (ListaUsuario.Count > 0)
+            {
+                errorUsuario.Visible = false;
+            }
+            else
+            {
+                errorUsuario.Visible = true;
+            }
+            ListaAccesoGridView.DataSource = ListaUsuario;
+            ListaAccesoGridView.DataBind();
+        }
+        catch (Exception ex)
+        {
+            log.Error("erro al cargar la lista de usuario");
+            throw ex;
+        }
     }
 
 
@@ -108,12 +132,12 @@ public partial class Administracion_Acceso_ListaAcceso : System.Web.UI.Page
     {
         string armadoDeQuery = "@nombre \"" + busquedaAccesoTxt.Text + "\" OR @apellido \"" + busquedaAccesoTxt.Text + "\" OR @email \"" + busquedaAccesoTxt.Text + "\"";
         string query = consultaSqlUsuario(armadoDeQuery).SqlQuery();
-        cargarListaUsuario(query);
+        cargarListaUsuarioparaAcceso(query);
     }
 
     protected void ListaAccesoGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         ListaAccesoGridView.PageIndex = e.NewPageIndex;
-        cargarListaUsuario("");
+        cargarListaUsuarioparaAcceso("");
     }
 }

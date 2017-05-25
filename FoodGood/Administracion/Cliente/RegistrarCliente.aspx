@@ -24,13 +24,11 @@
                                 <asp:TextBox ID="UserName" runat="server" CssClass="form-control"></asp:TextBox>
                                 <asp:Label runat="server" ID="ErrorNombre" Text="el nombre es requerido" ForeColor="Red" Visible="false"></asp:Label>
                             </div>
-                            <div class="form-group" >
+                            <div class="form-group">
                                 <label id="ApellidoLabel">Apellido: </label>
                                 <asp:TextBox ID="ApellidoTextBox" runat="server" CssClass="form-control"></asp:TextBox>
                                 <asp:Label runat="server" ID="ErrorApellido" Text="el apellido es requerido" ForeColor="Red" Visible="false"></asp:Label>
                             </div>
-
-
 
                             <div class="form-group" id="password" runat="server">
                                 <label id="PasswordLabel" runat="server">Contraseña: </label>
@@ -43,28 +41,19 @@
                                 <asp:Label runat="server" ID="ErrorConfirmar" Text="Debe confirmar su contraseña" ForeColor="Red" Visible="false"></asp:Label>
                             </div>
 
-
-
                             <div class="form-group">
                                 <label id="PedidoLabel">Tipo Usuario: </label>
-                                <%--<asp:TextBox ID="TipoUsuarioTextBox" runat="server" CssClass="form-control" Text="cliente" Enabled="false"></asp:TextBox>
-                                <asp:HiddenField ID="tipoUsuarioIdHiddenField" runat="server" />--%>
-
-                                <asp:DropDownList ID="TipoUsuarioComboBox" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="TipoUsuarioComboBox_SelectedIndexChanged">
+                                <asp:DropDownList ID="TipoUsuarioComboBox" runat="server" CssClass="form-control"
+                                    AutoPostBack="true" OnSelectedIndexChanged="TipoUsuarioComboBox_SelectedIndexChanged">
                                     <asp:ListItem Text="cliente" Value="2" Selected="True"></asp:ListItem>
                                     <asp:ListItem Text="visita" Value="3"></asp:ListItem>
                                 </asp:DropDownList>
-                                <%-- <asp:ObjectDataSource ID="tipoUsuarioDataSet" runat="server"
-                                    SelectMethod="GetTipoUser"
-                                    TypeName="FoodGood.TipoUser.BLL.TipoUsuarioBll"></asp:ObjectDataSource>--%>
                             </div>
                             <div class="form-group" id="email" runat="server">
                                 <label id="EmailLabel">Correo Electrónico: </label>
                                 <asp:TextBox ID="EmailText" runat="server" CssClass="form-control"></asp:TextBox>
                                 <asp:Label runat="server" ID="ErrorEmail" Text="su E-mail es requerido" ForeColor="Red" Visible="false"></asp:Label>
                             </div>
-
-
 
                             <div class="form-group">
                                 <label id="CellPhoneLabel">Teléfono Móvil: </label>
@@ -76,7 +65,7 @@
                                 <asp:TextBox ID="CellPhoneTextBox2" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
                             <div class="form-group">
-                                <asp:Label ID="numeroNitLabel" runat="server" Text="Numero de Nit:"></asp:Label>
+                                <label id="numeroNitLabel" runat="server">Numero de Nit:</label>
                                 <asp:TextBox ID="numeroNitTextBox" runat="server" CssClass="form-control"></asp:TextBox>
                                 <asp:Label runat="server" ID="ErrorNit" Text="su Numero de Nit es requerido" ForeColor="Red" Visible="false"></asp:Label>
                             </div>

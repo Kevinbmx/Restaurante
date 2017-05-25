@@ -134,7 +134,29 @@ namespace FoodGood.Modulos.BLL
             return theList;
         }
 
-       
+        public static bool validarSiExisteModulo(int usuarioId, string moduloDescripcion)
+        {
+            try
+            {
+                bool existe = false;
+                List<string> listaAccesos = AccesoBLL.ListaModuloDescripcionPorUsuarioId(usuarioId);
+                for (int i = 0; i < listaAccesos.Count; i++)
+                {
+                    string descripcion = listaAccesos[i].ToString();
+                    if (descripcion.Equals(moduloDescripcion))
+                    {
+                        return existe = true;
+                    }
+                }
+                return existe;
+            }
+            catch (Exception ex)
+            {
+                log.Error("error al obtener la lsita de descripcion de los modulos " + ex);
+                throw ex;
+            }
+        }
+
 
         private static Modulo FillUserRecord(ModuloDS.ModuloIdRow row)
         {

@@ -1,0 +1,133 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/MasterPage.master" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Autentificacion_Login" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="Server">
+    <div class="header-fondo">
+        <%--     <div class="fondo-login col-md-4">
+            <div>
+                <h2>Ingresar</h2>
+                <asp:TextBox runat="server" ID="UsuarioTxt" CssClass="form-control" placeholder="ingrese su correo"></asp:TextBox>
+                <asp:Label runat="server" Text="ingrese su E-mail" ID="errorUsuario" Visible="false"></asp:Label>
+                <br />
+                <asp:TextBox runat="server" ID="PasswordTxt" TextMode="Password" placeholder="contraseña" CssClass="form-control"></asp:TextBox>
+                <asp:Label runat="server" Text="ingrese su Contraseña" ID="ErrorPassword" Visible="false"></asp:Label>
+                <br />
+                <div>
+                    <asp:LinkButton runat="server" ID="ingresarBotton" OnClick="ingresarBotton_Click" Text="Ingresar" CssClass="btn btn-primary"></asp:LinkButton>
+                </div>
+
+            </div>
+
+        </div>--%>
+
+
+        <div class="row">
+            <div class="col-sm-6 col-lg-5 col-lg-offset-1">
+                <div class="account-box login-box box-with-help">
+                    <h1>Inicia sesión con tu cuenta</h1>
+                    <asp:Login ID="Login1" runat="server" OnLoggingIn="Login1_LoggingIn" OnLoggedIn="Login1_LoggedIn"
+                        OnLoginError="Login1_LoginError" FailureText="Su inicio de sesión no fue exitoso. Por favor intente nuevamente."
+                        FailureTextStyle-CssClass="has-error"
+                        RenderOuterTable="false">
+
+                        <LayoutTemplate>
+                            <asp:Panel ID="pnlLoginControl" runat="server" DefaultButton="LoginButton" CssClass="form-horizontal login-form">
+                                <div class="form-group">
+                                    <label for="inputEmail" class="control-label sr-only"><%--Nombre de Usuario--%>Correo</label>
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <asp:TextBox ID="UserName" runat="server" CssClass="form-control"
+                                                placeholder="Nombre de Usuario" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="validation">
+                                    <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" Display="Dynamic"
+                                        ControlToValidate="UserName" ErrorMessage="El nombre de usuario es requerido"
+                                        Text="El nombre de usuario es requerido" CssClass="validation"
+                                        ToolTip="El nombre de usuario es requerido" ValidationGroup="Login1">
+                                    </asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator runat="server" ID="UserNameLengthValidator" ControlToValidate="UserName"
+                                        ValidationExpression="[\w\W]{0,50}" CssClass="validation"
+                                        Display="Dynamic" ValidationGroup="Login1" ErrorMessage="El nombre de usuario puede contener como máximo 50 caracteres">
+                                    </asp:RegularExpressionValidator>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPassword" class="control-label sr-only">Password</label>
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                            <asp:TextBox ID="Password" runat="server" TextMode="Password" CssClass="form-control"
+                                                placeholder="Contraseña" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="validation">
+                                    <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" Display="Dynamic"
+                                        ControlToValidate="Password" Text="La contraseña es requerida"
+                                        CssClass="validation" ErrorMessage="La contraseña es requerida"
+                                        ToolTip="La contraseña es requerida" ValidationGroup="Login1">
+                                    </asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator runat="server" ID="PasswordLengthValidator" ControlToValidate="Password"
+                                        ValidationExpression="[\w\W]{0,50}" CssClass="validation"
+                                        Display="Dynamic" ValidationGroup="Login1" ErrorMessage="El password puede contener como máximo 50 caracteres">
+                                    </asp:RegularExpressionValidator>
+                                </div>
+
+                                <%--<div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label class="fancy-checkbox">
+                                                <asp:CheckBox ID="RememberCheckBox" runat="server" />
+                                                <span>Remember me</span>
+                                            </label>
+                                        </div>
+                                    </div>--%>
+
+                                <asp:Label ID="FailureText" runat="server" CssClass="error" EnableViewState="False" ForeColor="red" Style="margin-bottom: 10px; display: block" />
+
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <asp:LinkButton ID="LoginButton" runat="server" CssClass="btn btn-primary btn-block"
+                                            CommandName="Login" ValidationGroup="Login1">
+                                            <i class="fa fa-sign-in"></i>
+                                            <asp:Literal ID="Label1" runat="server" Text="Ingresar" />
+                                        </asp:LinkButton>
+
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <asp:HyperLink runat="server" NavigateUrl="~/Authentication/RecoverPassword.aspx"><em>¿Olvidaste tu contraseña?</em></asp:HyperLink>
+                                    </div>
+                                </div>
+                                <p>
+                                    <em>¿Aun no tienes una cuenta?</em>
+                                    <asp:HyperLink runat="server" NavigateUrl="~/Authentication/RegisterUser.aspx"><strong>Crea una cuenta</strong></asp:HyperLink>
+                                </p>
+
+                            </asp:Panel>
+                        </LayoutTemplate>
+                    </asp:Login>
+
+                    <button type="button" class="btn btn-link btn-login-help"><i class="fa fa-question-circle" title="Click for help"></i></button>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-5">
+                <div class="login-copytext">
+                    <h2><i class="fa fa-lock"></i>Inicio de sesión seguro</h2>
+                    <p>Estructurar completamente el capital humano de misión crítica antes de instalar el capital intelectual de base. Proactivamente crea arquitecturas omnipresentes y soluciones de valor añadido.</p>
+                    <h2><i class="fa fa-key"></i>Protegemos su privacidad</h2>
+                    <p>Personalizar adecuadamente las mejoras de proceso activadas a través de métodos de maximización de recursos de empoderamiento. Mantenga de manera dramática el comercio electrónico interactivo antes de que los recursos centrados en el proceso.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</asp:Content>
+

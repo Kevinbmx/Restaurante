@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <asp:GridView runat="server" ID="ListaUsuariosGridView" CssClass="table table-striped" AutoGenerateColumns="false" 
+                        <asp:GridView runat="server" ID="ListaUsuariosGridView" CssClass="table table-striped" AutoGenerateColumns="false"
                             AllowPaging="true" PageSize="10" PagerSettings-Position="Bottom" PagerSettings-Mode="Numeric" OnPageIndexChanging="ListaUsuariosGridView_PageIndexChanging"
                             OnRowDataBound="ListaUsuariosGridView_RowDataBound" OnRowCommand="ListaUsuariosGridView_RowCommand">
                             <Columns>
@@ -74,6 +74,6 @@
             </div>
         </div>
     </div>
-
+    <%--<h2>Usted no tiene acceso a esta pagina</h2>--%>
 </asp:Content>
 

@@ -22,6 +22,14 @@ public partial class Administracion_Modulo_RegistrarModulo : System.Web.UI.Page
             {
                 cargarDatosArea();
             }
+            else
+            {
+                AreaComboBox.SelectedValue = Session["areaIdCombo"].ToString();
+                if (Session["booleanHabilitaArea"].Equals("true"))
+                {
+                    AreaComboBox.Enabled = false;
+                }
+            }
         }
     }
 
@@ -58,10 +66,12 @@ public partial class Administracion_Modulo_RegistrarModulo : System.Web.UI.Page
         Modulo theData = null;
         try
         {
+
             theData = ModuloBLL.GetModuloById(Convert.ToInt32(ModuloIdHiddenField.Value));
 
             if (theData == null)
             {
+
                 Response.Redirect("~/Administracion/Modulo/ListaModulo.aspx");
             }
 
@@ -105,6 +115,7 @@ public partial class Administracion_Modulo_RegistrarModulo : System.Web.UI.Page
         else
         {
             Response.Redirect("~/Administracion/Modulo/ListaModulo.aspx");
+
         }
 
         Session["ModuloId"] = null;
@@ -128,7 +139,7 @@ public partial class Administracion_Modulo_RegistrarModulo : System.Web.UI.Page
         {
             objModulo.AreaId = Convert.ToInt32(AreaComboBox.SelectedValue);
             ModuloBLL.UpdateModulo(objModulo);
-            if (Session["booleanHabilitaArea"].Equals("true"))
+            if (!string.IsNullOrEmpty(ModuloIdHiddenField.Value))
             {
                 Session["AreaModuloId"] = objModulo.AreaId;
                 Response.Redirect("~/Administracion/Modulo/VerModulo.aspx");
@@ -141,9 +152,10 @@ public partial class Administracion_Modulo_RegistrarModulo : System.Web.UI.Page
     }
     protected void cancelBoton_Click(object sender, EventArgs e)
     {
-        if (Session["booleanHabilitaArea"].Equals("true"))
+        if (!string.IsNullOrEmpty(ModuloIdHiddenField.Value))
         {
-            Session["AreaModuloId"] = ModuloIdHiddenField.Value;
+            Modulo objModulo = ModuloBLL.GetModuloById(Convert.ToInt32(ModuloIdHiddenField.Value));
+            Session["AreaModuloId"] = objModulo.AreaId;
             //Session["booleanHabilitaArea"] = "false";
             Response.Redirect("~/Administracion/Modulo/VerModulo.aspx");
         }

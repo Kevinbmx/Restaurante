@@ -117,28 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ValidacionDecimal" xml:space="preserve">
-    <value>^[0-9\.\,]+$</value>
+  <data name="CrearTipo_Usuario" xml:space="preserve">
+    <value>crear tipo usuario</value>
   </data>
-  <data name="ValidacionEmail" xml:space="preserve">
-    <value>^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&amp;'\*\+/=\?\^`\{\}\|~\w])*)(?&lt;=[0-9a-zA-Z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$</value>
+  <data name="Crear_Acceso" xml:space="preserve">
+    <value>crear acceso</value>
   </data>
-  <data name="ValidacionNit" xml:space="preserve">
-    <value>^[0-9}\-]+$</value>
+  <data name="Crear_Area" xml:space="preserve">
+    <value>crear area</value>
   </data>
-  <data name="ValidacionNombre" xml:space="preserve">
-    <value>^[a-zA-Z''-'\s]{1,40}$</value>
+  <data name="Crear_Cliente" xml:space="preserve">
+    <value>crear cliente</value>
   </data>
-  <data name="ValidacionNumero" xml:space="preserve">
-    <value>^[01]?[- .]?(\([2-9]\d{2}\)|[2-9]\d{2})[- .]?\d{3}[- .]?\d{4}$</value>
+  <data name="Crear_Modulo" xml:space="preserve">
+    <value>crear modulo</value>
   </data>
-  <data name="ValidacionPassword" xml:space="preserve">
-    <value>^.*(?=.{6,})(?=.*\d)(?=.*[A-Za-z]).*$</value>
+  <data name="Crear_Usuario" xml:space="preserve">
+    <value>crear usuario</value>
   </data>
-  <data name="ValidacionTarjeta" xml:space="preserve">
-    <value>^[A-Za-z]+$</value>
+  <data name="Editar_Area" xml:space="preserve">
+    <value>editar area</value>
   </data>
-  <data name="ValidacionURL" xml:space="preserve">
-    <value>^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;amp;%\$#_]*)?$</value>
+  <data name="Editar_Cliente" xml:space="preserve">
+    <value>editar cliente</value>
+  </data>
+  <data name="Editar_Modulo" xml:space="preserve">
+    <value>editar modulo</value>
+  </data>
+  <data name="Editar_Ususario" xml:space="preserve">
+    <value>editar usuario</value>
+  </data>
+  <data name="Eliminar_Acceso" xml:space="preserve">
+    <value>eliminar acceso</value>
+  </data>
+  <data name="Eliminar_Area" xml:space="preserve">
+    <value>eliminar area</value>
+  </data>
+  <data name="Eliminar_Cliente" xml:space="preserve">
+    <value>eliminar cliente</value>
+  </data>
+  <data name="Eliminar_Modulo" xml:space="preserve">
+    <value>eliminar modulo</value>
+  </data>
+  <data name="Eliminar_Usuario" xml:space="preserve">
+    <value>eliminar usuario</value>
+  </data>
+  <data name="Ver_Acceso" xml:space="preserve">
+    <value>ver acceso</value>
+  </data>
+  <data name="Ver_Area" xml:space="preserve">
+    <value>ver area</value>
+  </data>
+  <data name="Ver_Cliente" xml:space="preserve">
+    <value>ver cliente</value>
+  </data>
+  <data name="Ver_Modulo" xml:space="preserve">
+    <value>ver modulo</value>
+  </data>
+  <data name="Ver_Usuario" xml:space="preserve">
+    <value>ver usuario</value>
   </data>
 </root>

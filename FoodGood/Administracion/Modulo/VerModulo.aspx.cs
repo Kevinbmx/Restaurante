@@ -1,4 +1,5 @@
 ﻿using Foodgood.Modulo.Clase;
+using Foodgood.User.Clase;
 using FoodGood.Modulos.BLL;
 using SearchComponent;
 using System;
@@ -19,8 +20,31 @@ public partial class Administracion_Modulo_VerModulo : System.Web.UI.Page
             {
                 cargarListaModulosdeArea(AreadeModuloIdHiddenField.Value);
             }
+            validarUsuario();
         }
     }
+
+
+    public void validarUsuario()
+    {
+        Usuario objUsuario = LoginUtilities.GetUserLogged();
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Modulo) &&
+            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Modulo) &&
+            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Modulo) &&
+            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Modulo))
+        {
+            Response.Redirect("~/Administracion/Error.aspx");
+        }
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Modulo))
+        {
+            this.ListaModuloAreaGridView.Columns[0].Visible = false;
+        }
+        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Modulo))
+        {
+            this.ListaModuloAreaGridView.Columns[1].Visible = false;
+        }
+    }
+
     private void ProcessSessionParameteres()
     {
         int ususrioId = 0;

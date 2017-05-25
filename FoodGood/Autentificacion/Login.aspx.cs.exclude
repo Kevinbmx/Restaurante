@@ -1,0 +1,222 @@
+﻿using Foodgood.User.Clase;
+using FoodGood.User.BLL;
+using FoodGood.Utilities.Security;
+using log4net;
+using SearchComponent;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+//using System.Web.Profile;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Autentificacion_Login : System.Web.UI.Page
+{
+    private static readonly ILog log = LogManager.GetLogger("Standard");
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            Usuario user = LoginUtilities.GetUserLogged();
+            if (user != null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+
+        }
+
+    }
+
+    //protected void ingresarBotton_Click(object sender, EventArgs e)
+    //{
+    //    Usuario user = new Usuario();
+    //    if (!string.IsNullOrEmpty(UsuarioTxt.Text))
+    //    {
+    //        errorUsuario.Visible = false;
+    //        user.Email = UsuarioTxt.Text;
+    //    }
+    //    else
+    //    {
+    //        errorUsuario.Visible = true;
+    //    }
+
+    //    if (!string.IsNullOrEmpty(PasswordTxt.Text))
+    //    {
+    //        ErrorPassword.Visible = false;
+    //        user.Password = PasswordTxt.Text;
+    //    }
+    //    else
+    //    {
+    //        ErrorPassword.Visible = true;
+    //    }
+
+    //    if (!string.IsNullOrEmpty(user.Email) && !string.IsNullOrEmpty(user.Password))
+    //    {
+    //        verificarUsuario(user);
+    //    }
+    //}
+
+    public void verificarUsuario(Usuario objUsuario)
+    {
+        string clave = CryptographyFunctions.SHA1HashTheString(objUsuario.Email + objUsuario.Password);
+        Usuario user = LoginUtilities.LoginUser(clave);
+        if (user != null)
+        {
+            if (user.TipoUsuarioId == 1)
+            {
+                Response.Redirect("~/Administracion/MainPages.aspx");
+            }
+            else
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
+    }
+
+    protected void Login1_LoggingIn(object sender, LoginCancelEventArgs e)
+    {
+
+        // If the user that is authenticating is not approved, then we need to re-direct
+        // him to the page where he/she can confirm the user
+        MembershipUser theUser = Membership.GetUser(Login1.UserName);
+
+        if (theUser == null)
+            return;
+
+        if (!theUser.IsApproved)
+        {
+            // The user needs to be approved, but if there is no confirmation code then 
+            // there is no point asking the user to confirm the user.
+            //noooooooooooooooooo  seeeeeeeeeee comooooooooooo usarrrrr
+            //if (String.IsNullOrEmpty(Profile.GetProfileGroup(theUser.UserName)))
+            //{
+            //    log.Warn("User loged in correctly, but is not approved and does not have a validation code. " +
+            //        "Assuming user was disabled manually by administrator");
+            //    e.Cancel = true;
+
+            //    Response.Redirect("~/Authentication/AccountDisabled.aspx");
+            //}
+        }
+        if (theUser.IsLockedOut)
+        {
+            DateTime fiveMinutesBefore = DateTime.Now.Subtract(new TimeSpan(0, 5, 0));
+            if (theUser.LastLockoutDate > fiveMinutesBefore)
+            {
+                log.Debug("User " + Login1.UserName + " is locked");
+                Response.Redirect("~/Authentication/UserIsLocked.aspx");
+            }
+            else
+            {
+                log.Debug("User " + Login1.UserName + " is unlocking");
+                theUser.UnlockUser();
+                Response.Redirect("~/Authentication/UserIsUnlocked.aspx");
+            }
+        }
+    }
+
+    protected void Login1_LoginError(object sender, EventArgs e)
+    {
+
+    }
+
+    public static Searcher consultaSqlUsuario(string query)
+    {
+        Searcher searcher = new Searcher(new BusquedaUsuaio());
+        searcher.Query = query;
+        return searcher;
+    }
+
+    protected void Login1_LoggedIn(object sender, EventArgs e)
+    {
+        int userId = 0;
+
+        try
+        {
+            string armadoDeQuery = "@nombre \"" + Login1.UserName + "\"";
+            string query = consultaSqlUsuario(armadoDeQuery).SqlQuery();
+            //string clave = CryptographyFunctions.SHA1HashTheString(objUsuario.Email + objUsuario.Password);
+            //Usuario objuser = LoginUtilities.LoginUser(clave);
+            List<Usuario> listaUsuario = UsuariosBLL.GetUsuarioListForSearch(query);
+
+            userId = listaUsuario[0].UsuarioId;
+        }
+        catch (Exception q)
+        {
+            log.Error("Cannot determine the User Id", q);
+            Session["ErrorMessage"] = "error al obtener el id del usuario";
+            FormsAuthentication.SignOut();
+            Response.Redirect("~/Error.aspx");
+        }
+
+        if (userId <= 0)
+        {
+            log.Error("Cannot determine the User Id");
+            Session["ErrorMessage"] = "error al obtener el id del usuario";
+            FormsAuthentication.SignOut();
+            Response.Redirect("~/Error.aspx");
+        }
+
+        Usuario user = null;
+        try
+        {
+            user = UsuariosBLL.GetUserById(userId);
+        }
+        catch (Exception ex)
+        {
+            log.Error("Error getting user information", ex);
+        }
+
+
+        //string loggedOutUser = (string)Session["LoggedOutUser"];
+        //Session["LoggedOutUser"] = null;
+        //if (!string.IsNullOrEmpty(loggedOutUser))
+        //{
+        //    if (Login1.UserName != loggedOutUser)
+        //    {
+        //        theBitacora.RecordTrace(Artexacta.App.Utilities.Bitacora.Bitacora.TraceType.UserLogin, Login1.UserName, "Seguridad", userId.ToString(), "Inicio de sesión de usuario " + Login1.UserName);
+        //        if (user != null && user.IsAdministrator)
+        //        {
+        //            Response.Redirect("~/Administration/MainPage.aspx");
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            if (PedidoUtilities.GetCarritoIdForUsuarioIniciado(userId))
+        //            {
+        //                Response.Redirect("~/Carrito.aspx");
+        //            }
+        //            Response.Redirect("~/Default.aspx");
+        //            return;
+        //        }
+        //    }
+        //}
+
+        string page = (string)Session["RequestPage"];
+        Session["RequestPage"] = null;
+        if (!String.IsNullOrEmpty(page))
+        {
+            Response.Redirect(page);
+        }
+        else
+        {
+            //theBitacora.RecordTrace(Bitacora.TraceType.UserLogin, Login1.UserName, "Seguridad", userId.ToString(), "Inicio de sesión de usuario " + Login1.UserName);
+            //theBitacora.RecordTrace(Artexacta.App.Utilities.Bitacora.Bitacora.TraceType.UserLogin, Login1.UserName, "Seguridad", userId.ToString(), "Inicio de sesión de usuario " + Login1.UserName);
+            if (user != null && user.TipoUsuarioId == 1)
+            {
+                Response.Redirect("~/Administracion/MainPage.aspx");
+                return;
+            }
+            else
+            {
+                //if (PedidoUtilities.GetCarritoIdForUsuarioIniciado(userId))
+                //{
+                //    Response.Redirect("~/Carrito.aspx");
+                //}
+                Response.Redirect("~/Default.aspx");
+                return;
+            }
+        }
+    }
+}

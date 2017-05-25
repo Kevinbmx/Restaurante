@@ -135,4 +135,10 @@ public partial class Administracion_MasterPage_MasterPage : System.Web.UI.Master
         sideMenu.Text = visibleXML;
         //MainRadMenu.LoadXml(visibleXML);
     }
+
+    protected void cerrarSesion_Click(object sender, EventArgs e)
+    {
+        LoginUtilities.CloseSesion();
+        Response.Redirect("~/Default.aspx");
+    }
 }
