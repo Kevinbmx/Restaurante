@@ -1,6 +1,6 @@
-﻿using Foodgood.User.Clase;
-using FoodGood.TipoUser.BLL;
-using FoodGood.User.BLL;
+﻿using FoodGood.Usuario;
+using FoodGood.TipoUsuario.BLL;
+using FoodGood.Usuario.BLL;
 using log4net;
 using SearchComponent;
 using System;
@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using FoodGood.TipoUsuario;
 
 public partial class Administracion_Usuario_RegistrarUsuario : System.Web.UI.Page
 {

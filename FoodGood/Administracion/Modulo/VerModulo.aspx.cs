@@ -1,6 +1,7 @@
-﻿using Foodgood.Modulo.Clase;
-using Foodgood.User.Clase;
-using FoodGood.Modulos.BLL;
+﻿using FoodGood.Modulo;
+using FoodGood.Usuario;
+using FoodGood.Modulo.BLL;
+using log4net;
 using SearchComponent;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Web.UI.WebControls;
 
 public partial class Administracion_Modulo_VerModulo : System.Web.UI.Page
 {
+    private static readonly ILog log = LogManager.GetLogger("Standard");
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -108,7 +110,7 @@ public partial class Administracion_Modulo_VerModulo : System.Web.UI.Page
             catch (Exception ex)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "ErrorAlert", "alert('No se puede eliminar por que este modulo esta siendo utilizado');", true);
-                //log.Error("Error al eliminar el usuario con el id '" + moduloId + "'", ex);
+                log.Error("Error al eliminar el usuario con el id '", ex);
             }
         }
         if (e.CommandName == "Editar")
@@ -122,12 +124,9 @@ public partial class Administracion_Modulo_VerModulo : System.Web.UI.Page
 
     protected void ListaModuloAreaGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-
+        cargarListaModulosdeArea(AreadeModuloIdHiddenField.Value);
     }
-    protected void NewModuloButton_Click(object sender, EventArgs e)
-    {
 
-    }
     protected void busquedaBtn_Click(object sender, EventArgs e)
     {
 

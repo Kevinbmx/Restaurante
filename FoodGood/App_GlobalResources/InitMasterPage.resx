@@ -150,6 +150,11 @@
   <data name="MenuListaProducto" xml:space="preserve">
     <value>Lista Productos</value>
   </data>
+
+  <data name="MenuListaImageProducto" xml:space="preserve">
+    <value>Lista Imagen Productos</value>
+  </data>
+
   <data name="MenuListaTipoUsuairo" xml:space="preserve">
     <value>Lista Tipo Usuario</value>
   </data>
@@ -160,7 +165,7 @@
     <value>Seguridad</value>
   </data>
   <data name="MenuTipoFamilia" xml:space="preserve">
-    <value>Tipo Caracteristica</value>
+    <value>Familia</value>
   </data>
   <data name="MenuUnidadMedida" xml:space="preserve">
     <value>Unidad de Medida</value>

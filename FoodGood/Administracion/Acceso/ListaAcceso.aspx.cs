@@ -1,7 +1,7 @@
-﻿using Foodgood.Accesos.Clase;
-using Foodgood.User.Clase;
-using FoodGood.Modulos.BLL;
-using FoodGood.User.BLL;
+﻿using FoodGood.Acceso;
+using FoodGood.Usuario;
+using FoodGood.Modulo.BLL;
+using FoodGood.Usuario.BLL;
 using log4net;
 using SearchComponent;
 using System;
@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using FoodGood.Acceso.BLL;
 
 public partial class Administracion_Acceso_ListaAcceso : System.Web.UI.Page
 {
@@ -28,15 +29,32 @@ public partial class Administracion_Acceso_ListaAcceso : System.Web.UI.Page
 
     public void validarUsuario()
     {
-        Usuario objUsuario = LoginUtilities.GetUserLogged();
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Acceso))
+        try
         {
-            Response.Redirect("~/Administracion/Error.aspx");
+            Usuario objUsuario = LoginUtilities.GetUserLogged();
+            if (objUsuario != null)
+            {
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Acceso))
+                {
+                    Response.Redirect("~/Administracion/Error.aspx");
+                }
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Acceso))
+                {
+                    this.ListaAccesoGridView.Columns[0].Visible = false;
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Autentificacion/Login.aspx");
+            }
+
         }
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Acceso))
+        catch (Exception ex)
         {
-            this.ListaAccesoGridView.Columns[0].Visible = false;
+            log.Error("error al obtener el usuario logueado");
+            throw ex;
         }
+
     }
 
 
@@ -138,6 +156,8 @@ public partial class Administracion_Acceso_ListaAcceso : System.Web.UI.Page
     protected void ListaAccesoGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         ListaAccesoGridView.PageIndex = e.NewPageIndex;
-        cargarListaUsuarioparaAcceso("");
+        string armadoDeQuery = "@tipousuarioId IN(1)";
+        string query = consultaSqlUsuario(armadoDeQuery).SqlQuery();
+        cargarListaUsuarioparaAcceso(query);
     }
 }

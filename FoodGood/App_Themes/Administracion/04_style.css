@@ -9720,7 +9720,7 @@ body.md-skin {
 
     #searchBar input[type='text'] {
         padding: 4px 0px 3px 28px;
-        background-image: url('images/iconos.svg');
+        background-image: url('../../img/iconos.svg');
         background-color: #ffffff;
         background-position: -23px -431px;
         background-repeat: no-repeat;
@@ -9762,6 +9762,7 @@ body.md-skin {
     padding: 8px;
     position: relative;
 }
+
 .img-buttons {
     font-size: 18px !important;
 }

@@ -6,7 +6,7 @@ using System.Web;
 using TipoUsuarioDSTableAdapters;
 
 
-namespace FoodGood.TipoUser.BLL
+namespace FoodGood.TipoUsuario.BLL
 {
     /// <summary>
     /// Summary description for TipoUsuarioBLL

@@ -1,17 +1,22 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage_MasterPage" %>
 
+<%@ Register Src="~/UserControl/Carrito/ItemCarrito.ascx" TagName="ItemCarrito" TagPrefix="app" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css' />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <asp:Literal ID="JqueryAndMainMenuScript" runat="server"></asp:Literal>
+
 </head>
 <body id="page-top">
+
     <form id="form1" runat="server">
         <div>
 
@@ -61,6 +66,7 @@
                                                 <li>
                                                     <asp:LinkButton runat="server" ID="CerrarSesion" Text="Cerrar Secion" OnClick="CerrarSesion_Click"></asp:LinkButton>
                                                 </li>
+
                                             </ul>
                                         </li>
                                     </ul>
@@ -71,6 +77,10 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
                 <div class="row">
                     <div class="container-fluid" style="max-height: auto;">
                         <!-- Brand and toggle get grouped for better mobile display -->
@@ -87,30 +97,59 @@
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div runat="server" id="listaDefaultd">
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right" style="margin-top: 10px;">
+                                <li>
+                                    <a href="javascript:void(0)" id="btnOpenCart">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        <asp:Literal Text="carrito" runat="server" />
+                                        (<span class="CantItem" style="padding: 0px; margin: 0px;"></span>)
+                                    </a>
+                                </li>
+                            </ul>
+                            <div runat="server" id="listaDefaultd">
                                 <ul class="nav navbar-nav navbar-right" style="margin-top: 10px;">
-                                    <li>
-                                        <a class="page-scroll" href="#about">About</a>
-                                    </li>
-                                    <li>
-                                        <a class="page-scroll" href="#services">Services</a>
-                                    </li>
-                                    <li>
-                                        <a class="page-scroll" href="#portfolio">Portfolio</a>
-                                    </li>
-                                    <li>
-                                        <a class="page-scroll" href="#contact">Contact</a>
-                                    </li>
 
+                                    <li>
+                                        <a class="page-scroll" href="#about">Inicio</a>
+                                    </li>
+                                    <li>
+                                        <a class="page-scroll" href="#services">Servicios</a>
+                                    </li>
+                                    <li>
+                                        <a class="page-scroll" href="#Categoria">Categorias</a>
+                                    </li>
+                                    <li>
+                                        <a class="page-scroll" href="#contact">Contactenos</a>
+                                    </li>
                                 </ul>
                             </div>
+
                         </div>
                         <!-- /.navbar-collapse -->
                     </div>
                 </div>
                 <!-- /.container-fluid -->
             </nav>
+
+            <div id="popupBack"></div>
+            <app:ItemCarrito runat="server" ID="itemCarrito" />
+
+
+
+            <%--popup--%>
+            <div class="popupContainer anadidoPopup" id="AnadidoAlContadoPopup" style="display: none;">
+                <div style="width: 100px; margin: 10px auto; padding: 25px; background-color: #0063D1; color: white; border-radius: 100%;">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true" style="font-size: 50px;"></span>
+                </div>
+                <div style="margin: 20px 0px;">
+                    Se ha anadido un item al carrito para compra al contado. Desea ir al carrito de compras o seguir viendo productos?
+                </div>
+                <asp:HyperLink ID="HyperLink1" NavigateUrl="~/Carrito.aspx" runat="server" Text="Ir al carrito" class="btn btn-primary" />
+                <a href="javascript:anadidoAlContadoPopupClose()" class="btn btn-default">Continuar</a>
+            </div>
+            <%------------------%>
+
 
             <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
             </asp:ContentPlaceHolder>
@@ -136,9 +175,195 @@
                 </div>
             </footer>
             <asp:Literal ID="Literal1" runat="server"></asp:Literal>
-            <asp:Literal ID="JqueryAndMainMenuScript" runat="server"></asp:Literal>
+
         </div>
     </form>
+
+
+
+
+    <script>
+
+        function conteoCarrito() {
+            var cantCarrito = $("#itemCarrito_cantItem2").val();
+            if (cantCarrito != 0)
+                $("#btnOpenCart").text("Carrito" + cantCarrito);
+        }
+
+        function addItem(articuloId) {
+
+            var obj = {
+                itemId: articuloId,
+            };
+            $.ajax({
+                url: "<%= VirtualPathUtility.ToAbsolute("~/Menu.aspx/agregarItemCarrito") %>",
+                data: JSON.stringify(obj),
+                dataType: 'json',
+                type: 'POST',
+                async: true,
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data.d == 'error')
+                        alert('Error');
+                    else {
+                        $("#itemCarrito_CartHiddenField").val(data.d);
+
+                        //anadidoAlContadoPopupOpen();
+                        cargarCarritoAlContado();
+                        $('.SumaDelCarrito').css({ 'display': 'block' });
+                        sumarTotal();
+                        loadSpinner();
+                    }
+                }
+            });
+        }
+
+        var formatNumber = {
+            separador: ",", // separador para los miles
+            sepDecimal: '.', // separador para los decimales
+            formatear: function (num) {
+                num += '';
+                var splitStr = num.split('.');
+                var splitLeft = splitStr[0];
+                var splitRight = splitStr.length > 1 ? this.sepDecimal + splitStr[1] : '';
+                var regx = /(\d+)(\d{3})/;
+                while (regx.test(splitLeft)) {
+                    splitLeft = splitLeft.replace(regx, '$1' + this.separador + '$2');
+                }
+                return this.simbol + splitLeft + splitRight;
+            },
+            new: function (num, simbol) {
+                this.simbol = simbol || '';
+                return this.formatear(num);
+            }
+        }
+
+
+        function cargarCarritoAlContado() {
+            $('#carritoProductsList').html('');
+            var carrito = JSON.parse($("#itemCarrito_CartHiddenField").val());
+            for (var i in carrito) {
+                $('#carritoProductsList').append(
+                    '<div id="ItemCarrito_P_' + carrito[i].ProductoId + '" class="itemCarrito">' +
+                        '<div class="row">' +
+                            '<div class="col-xs-3">' +
+                                '<img id="itemCarrito_PedidolistRepeater_ProductImage_0" src="~/img/ImgRestaurante/noImage.jpg" alt="' + carrito[i].ImagenId + '" CssClass="img-responsive">' +
+                            '</div>' +
+                            '<div class="col-xs-7">' +
+                                '<a class="nombreCarrito" href="UnProducto.aspx?id=' + carrito[i].ProductoId + '">' + carrito[i].Nombre + '</a>' +
+                                //'<div class="modeloCarrito">' + carrito[i].modelo + '</div>' +
+                                '<div id="itemCarrito_PedidolistRepeater_precioPanel_0" class="precioCarrito alinear-precio">Bs. ' + carrito[i].PrecioForDisplay + '</div>' +
+                                '<div id="itemCarrito_PedidolistRepeater_subtotalPanel_0">' +
+                                    'Sub-Total: Bs <span id="itemCarrito_PedidolistRepeater_SubtotalLiteral_0" class="Subtotal-' + carrito[i].ProductoId + '">' + carrito[i].SubTotalForDisplay + '</span>' +
+                                '</div>' +
+                                '<div id="itemCarrito_PedidolistRepeater_TextboxPanel_0">' +
+                                    '<div class="input-group bootstrap-touchspin input-group-sm">' +
+                                        '<span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>' +
+                                        '<input name="ctl00$itemCarrito$PedidolistRepeater$ctl00$CantidadTextBox" value="' + carrito[i].Cantidad + '" id="itemCarrito_PedidolistRepeater_CantidadTextBox_0" class="form-control input-sm qty-spinner input-number_noSpinners text-center" type="number" min="1" max="' + carrito[i].Stock + '" data-articuloid="' + carrito[i].ProductoId + '" style="display: block;">' +
+                                        '<span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="col-xs-2 eliminarCarritoContainer">' +
+                                '<a id="itemCarrito_PedidolistRepeater_Eliminar_0" href="javascript:__doPostBack(\'ctl00$itemCarrito$PedidolistRepeater$ctl00$Eliminar\',\'\')" style="display: none;">x</a>' +
+                                '<a href="javascript:removeItem(' + carrito[i].ProductoId + ')" class="btn redButton cursor-transition cursor-zoom-1-05" style="border-radius: 100%; padding: 2px 6px;"><i class="fa fa-times" aria-hidden="true"></i></a>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="row borderBottom"></div>' +
+                    '</div>'
+                );
+            }
+        }
+
+        //<div id="CarritoDerecha_PedidolistRepeater_TextboxPanel_0">
+        //     <div class="input-group bootstrap-touchspin input-group-sm">
+        //         <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span><span class="input-group-btn">
+        //             <button class="btn btn-default bootstrap-touchspin-down" type="button">-</button>
+        //         </span>
+        //         <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
+        //         <input name="ctl00$CarritoDerecha$PedidolistRepeater$ctl00$CantidadTextBox" value="1" id="CarritoDerecha_PedidolistRepeater_CantidadTextBox_0" class="form-control input-sm qty-spinner input-number_noSpinners text-center" type="number" min="1" max="100" data-articuloid="149" style="display: block;" />
+        //         <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
+        //         <span class="input-group-btn">
+        //             <button class="btn btn-default bootstrap-touchspin-up" type="button">+</button></span>
+        //         <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
+        //     </div>
+        // </div>
+        function removeItem(id) {
+            var obj = {
+                id: id
+            };
+            $.ajax({
+                url: "<%= VirtualPathUtility.ToAbsolute("~/Menu.aspx/removeItemCart") %>",
+                data: JSON.stringify(obj),
+                dataType: 'json',
+                type: 'POST',
+                async: true,
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data.d == 'error')
+                        alert('Error');
+                    else {
+                        $('#ItemCarrito_P_' + id).remove();
+                        $('#ItemCarrito_G_' + id).remove();
+                        var carrito = JSON.parse($("#itemCarrito_CartHiddenField").val());
+                        delete carrito['' + id];
+                        $("#itemCarrito_CartHiddenField").val(JSON.stringify(carrito));
+                        sumarTotal();
+                    }
+                }
+            });
+        }
+
+
+
+        function sumarTotal() {
+            //var itemcarr = $("#itemCarrito_CartHiddenField").val();
+            var carrito = JSON.parse($("#itemCarrito_CartHiddenField").val());
+            //if (carrito != null) {
+            var total = 0;
+            var cantidad = 0;
+            for (var i in carrito) {
+                total += carrito[i].SubTotal;
+                cantidad++;
+            }
+            //debugger;
+            var obj = {
+                articuloId: 0,
+                cantidad: 0,
+                subtotal: 0
+            };
+            $.ajax({
+                url: "<%= VirtualPathUtility.ToAbsolute("~/Menu.aspx/actualizarCookiesAndHidden") %>",
+                data: JSON.stringify(obj),
+                dataType: 'json',
+                type: 'POST',
+                async: true,
+                contentType: 'application/json; charset=utf-8',
+                success: function (mydata) {
+                    //console.log("carrito derecha")
+                    //console.log(mydata);
+                    $(".CantItem").html(cantidad);
+                    $(".total").html(formatNumber.new(total.toFixed(2)));
+
+                    $("#itemCarrito_CartHiddenField").val(mydata.d);
+                    if (total == 0) {
+                        $('.carritoSinItems').css({ 'display': 'block' });
+                        //$('.encabezadoCarrito').css({ 'display': 'none' });
+                        //$('.siguientePaso').css({ 'display': 'none' });
+                        $('.SumaDelCarrito').css({ 'display': 'none' });
+                    } else {
+                        $('.carritoSinItems').css({ 'display': 'none' });
+                        //$('.encabezadoCarrito').css({ 'display': 'block' });
+                        //$('.siguientePaso').css({ 'display': 'block' });
+                        $('.SumaDelCarrito').css({ 'display': 'block' });
+                    }
+                }
+            });
+        }
+        //}
+
+    </script>
+    <asp:Literal ID="loadScripMenuliteral" runat="server"></asp:Literal>
 
 </body>
 </html>

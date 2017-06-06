@@ -1,4 +1,4 @@
-﻿using Foodgood.User.Clase;
+﻿using FoodGood.Usuario;
 using FoodGood.Utilities.Security;
 using System;
 using System.Collections.Generic;

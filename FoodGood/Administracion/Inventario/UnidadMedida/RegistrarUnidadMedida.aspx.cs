@@ -1,5 +1,5 @@
-﻿using Foodgood.UnidadesMedidas.Clase;
-using FoodGood.UnidadesMedidas.BLL;
+﻿using FoodGood.UnidadMedida;
+using FoodGood.UnidadMedida.BLL;
 using log4net;
 using System;
 using System.Collections.Generic;

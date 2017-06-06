@@ -1,5 +1,7 @@
-﻿using Foodgood.Familias.Clase;
-using FoodGood.Familias.BLL;
+﻿using FoodGood.Familia;
+using FoodGood.Usuario;
+using FoodGood.Familia.BLL;
+using FoodGood.Modulo.BLL;
 using log4net;
 using SearchComponent;
 using System;
@@ -16,14 +18,66 @@ public partial class Administracion_Inventario_Familia_ListaFamilia : System.Web
     {
         if (!IsPostBack)
         {
+            validarUsuario();
             cargarListaFamilia("");
         }
 
     }
+
+
+    public void validarUsuario()
+    {
+        try
+        {
+            Usuario objUsuario = LoginUtilities.GetUserLogged();
+            if (objUsuario != null)
+            {
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Tipo_Caracteristica) &&
+          !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Tipo_Caracteristica) &&
+          !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Tipo_Caracteristica) &&
+          !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Tipo_Caracteristica))
+                {
+                    Response.Redirect("~/Administracion/Error.aspx");
+                }
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Tipo_Caracteristica))
+                {
+                    NewFamiliaButton.Visible = false;
+                }
+
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Tipo_Caracteristica))
+                {
+                    ListaFamiliaGridView.Visible = false;
+                }
+                else
+                {
+
+                    if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Tipo_Caracteristica))
+                    {
+                        this.ListaFamiliaGridView.Columns[0].Visible = false;
+                    }
+                    if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Tipo_Caracteristica))
+                    {
+                        this.ListaFamiliaGridView.Columns[1].Visible = false;
+                    }
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Autentificacion/Login.aspx");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            log.Error("erro al validar al Usuario");
+            throw ex;
+        }
+    }
+
     public void cargarListaFamilia(string query)
     {
-        List<Familia> listaArea = FamiliaBLL.GetFamiliaListForSearch(query);
-        if (listaArea.Count > 0)
+        List<Familia> listaFamilia = FamiliaBLL.GetFamiliaListForSearch(query);
+        if (listaFamilia.Count > 0)
         {
             errorFamilia.Visible = false;
         }
@@ -31,7 +85,7 @@ public partial class Administracion_Inventario_Familia_ListaFamilia : System.Web
         {
             errorFamilia.Visible = true;
         }
-        ListaFamiliaGridView.DataSource = listaArea;
+        ListaFamiliaGridView.DataSource = listaFamilia;
         ListaFamiliaGridView.DataBind();
 
     }

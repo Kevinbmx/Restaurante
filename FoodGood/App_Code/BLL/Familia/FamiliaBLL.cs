@@ -1,11 +1,10 @@
 ﻿using FamiliaDSTableAdapters;
-using Foodgood.Familias.Clase;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-namespace FoodGood.Familias.BLL
+namespace FoodGood.Familia.BLL
 {
     /// <summary>
     /// Summary description for FamiliaBLL
@@ -26,7 +25,8 @@ namespace FoodGood.Familias.BLL
             {
                 FamiliaTableAdapter localAdapter = new FamiliaTableAdapter();
                 object resutl = localAdapter.InsertFamilia(
-                    string.IsNullOrEmpty(objfamilia.Descripcion) ? "" : objfamilia.Descripcion);
+                    string.IsNullOrEmpty(objfamilia.Descripcion) ? "" : objfamilia.Descripcion,
+                    objfamilia.ImagenId);
 
                 log.Debug("Se insertó la Familia" + objfamilia.Descripcion);
             }
@@ -47,6 +47,7 @@ namespace FoodGood.Familias.BLL
                 FamiliaTableAdapter localAdapter = new FamiliaTableAdapter();
                 object resutl = localAdapter.UpdateFamilia(
                     string.IsNullOrEmpty(objFamilia.Descripcion) ? "" : objFamilia.Descripcion,
+                    objFamilia.ImagenId,
                     objFamilia.FamiliaId);
 
                 log.Debug("Se actualizo la familia con el id " + objFamilia.FamiliaId);
@@ -137,7 +138,8 @@ namespace FoodGood.Familias.BLL
         {
             Familia theNewRecord = new Familia(
                 row.familiaId,
-                row.IsdescripcionNull() ? "" : row.descripcion);
+                row.IsdescripcionNull() ? "" : row.descripcion,
+                row.IsimagenIdNull() ? 0 : row.imagenId);
             return theNewRecord;
         }
 

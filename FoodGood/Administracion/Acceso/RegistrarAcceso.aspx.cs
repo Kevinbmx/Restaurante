@@ -1,11 +1,11 @@
-﻿using Foodgood.Accesos.Clase;
-using Foodgood.Areas.Clase;
-using Foodgood.Modulo.Clase;
-using Foodgood.User.Clase;
-using FoodGood.Areas.BLL;
-using FoodGood.Modulos.BLL;
-using FoodGood.TipoUser.BLL;
-using FoodGood.User.BLL;
+﻿using FoodGood.Acceso;
+using FoodGood.Area;
+using FoodGood.Modulo;
+using FoodGood.Usuario;
+using FoodGood.Area.BLL;
+using FoodGood.Modulo.BLL;
+using FoodGood.TipoUsuario.BLL;
+using FoodGood.Usuario.BLL;
 using log4net;
 using SearchComponent;
 using System;
@@ -15,6 +15,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using FoodGood.Acceso.BLL;
+using FoodGood.TipoUsuario;
 
 public partial class Administracion_Acceso_RegistrarAcceso : System.Web.UI.Page
 {
@@ -39,20 +41,27 @@ public partial class Administracion_Acceso_RegistrarAcceso : System.Web.UI.Page
     public void validarUsuario()
     {
         Usuario objUsuario = LoginUtilities.GetUserLogged();
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Acceso) &&
+        if (objUsuario != null)
+        {
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Acceso) &&
             !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Acceso))
-        {
-            Response.Redirect("~/Administracion/Error.aspx");
+            {
+                Response.Redirect("~/Administracion/Error.aspx");
+            }
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Acceso))
+            {
+                addAllModuloButton.Visible = false;
+                AddAccesoButton.Visible = false;
+            }
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Acceso))
+            {
+                RemoveAllModuloButton.Visible = false;
+                removeAccesoButton.Visible = false;
+            }
         }
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Acceso))
+        else
         {
-            addAllModuloButton.Visible = false;
-            AddAccesoButton.Visible = false;
-        }
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Acceso))
-        {
-            RemoveAllModuloButton.Visible = false;
-            removeAccesoButton.Visible = false;
+            Response.Redirect("~/Autentificacion/Login.aspx");
         }
     }
 

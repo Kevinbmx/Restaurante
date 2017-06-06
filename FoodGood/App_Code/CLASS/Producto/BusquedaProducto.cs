@@ -43,7 +43,10 @@ public class BusquedaProducto : ConfigColumns
         col.DisplayHelp = true;
         this.Cols.Add(col);
 
-
+        col = new Column("[p].[familiaId]", "familiaId", Column.ColumnType.Numeric);
+        col.AppearInStandardSearch = true;
+        col.DisplayHelp = true;
+        this.Cols.Add(col);
 
 
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
-namespace Foodgood.Familias.Clase
+namespace FoodGood.Familia
 {
     /// <summary>
     /// Summary description for Familia
@@ -12,13 +12,17 @@ namespace Foodgood.Familias.Clase
     {
         public int FamiliaId { get; set; }
         public string Descripcion { get; set; }
+        public int ImagenId { get; set; }
+
         public string DescripcionForDisplay { get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Descripcion); } }
 
-        public Familia(int familiaId, string descripcion)
+        public Familia(int familiaId, string descripcion, int imagenId)
         {
             FamiliaId = familiaId;
             Descripcion = descripcion;
+            ImagenId = imagenId;
         }
+
 
         public Familia()
         {

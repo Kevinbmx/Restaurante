@@ -1,12 +1,12 @@
-﻿using log4net;
+﻿using FoodGood.Acceso.BLL;
+using log4net;
 using ModuloDSTableAdapters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Foodgood.Modulo.Clase;
 
-namespace FoodGood.Modulos.BLL
+namespace FoodGood.Modulo.BLL
 {
     /// <summary>
     /// Summary description for ModuloBLL

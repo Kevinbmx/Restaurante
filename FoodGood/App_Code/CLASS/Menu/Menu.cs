@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 
-namespace Foodgood.Menus.Clase
+namespace FoodGood.Menu
 {
     /// <summary>
     /// Represents a menu option for the main system menu

@@ -1,12 +1,11 @@
-﻿using Foodgood.UnidadesMedidas.Clase;
-using log4net;
+﻿using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UnidadMedidaDSTableAdapters;
 
-namespace FoodGood.UnidadesMedidas.BLL
+namespace FoodGood.UnidadMedida.BLL
 {
     /// <summary>
     /// Summary description for UnidadMedidaBLL

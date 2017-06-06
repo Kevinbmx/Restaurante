@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
-namespace Foodgood.Modulo.Clase
+namespace FoodGood.Modulo
 {
     /// <summary>
     /// Summary description for Modulo

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-namespace Foodgood.Accesos.Clase
+namespace FoodGood.Acceso
 {
     /// <summary>
     /// Summary description for Acceso

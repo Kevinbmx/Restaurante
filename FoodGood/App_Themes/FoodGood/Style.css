@@ -21,7 +21,7 @@ body, html {
 }
 
 body {
-    font-family: Merriweather,'Helvetica Neue',Arial,sans-serif;
+    /*font-family: Merriweather,'Helvetica Neue',Arial,sans-serif;*/
     webkit-tap-highlight-color: #222;
 }
 
@@ -68,7 +68,7 @@ p {
 }
 
 section {
-    padding: 100px 0;
+    padding: 24px 0;
 }
 
 aside {
@@ -536,7 +536,7 @@ img::-moz-selection {
 
 #header #headerTop .top-menu {
     padding: 0px;
-    font-family: "Avenir_Light";
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     margin: 10px 0px;
     line-height: 11px;
     float: left;
@@ -554,7 +554,7 @@ a {
 
 #header #headerTop .top-menu {
     padding: 0px;
-    font-family: "Avenir_Light";
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     margin: 10px 0px;
     line-height: 11px;
     float: left;
@@ -567,7 +567,7 @@ a {
 }
 
 
-.header-content {
+.fondo-content {
     background: rgba(255,255,255,0.2);
 }
 
@@ -720,10 +720,6 @@ a {
 }
 
 @media screen and (min-width: 1024px) {
-
-
-
-
     .center-content {
         margin: 0 auto;
         width: 980PX;
@@ -781,4 +777,253 @@ a {
 .dropdown-menu {
     top: 149%;
     left: -135px !important;
+}
+
+.panelHeader {
+    padding: 3px 0;
+    text-align: center;
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    font-size: 11px;
+    padding: 5px 20px;
+}
+
+#carritoDeComprasTitle {
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    font-size: 18px;
+}
+
+
+.carritoSinItems {
+    text-align: center;
+    background-color: white;
+}
+
+    .carritoSinItems div {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: gray;
+    }
+
+
+/*Item Carrito*/
+.itemCarrito {
+    padding: 15px !important;
+}
+
+    .itemCarrito .img-responsive {
+        margin: 0 auto;
+    }
+
+    .itemCarrito select {
+        width: 100%;
+    }
+
+    .itemCarrito .nombreCarrito {
+        font-weight: bold;
+        color: #323232;
+        font-size: 14px;
+        max-height: 42px;
+        overflow: hidden;
+        display: block;
+        line-height: 14px;
+    }
+
+    .itemCarrito .eliminarCarritoContainer {
+        text-align: right;
+    }
+
+    .itemCarrito .precioCarrito {
+        color: #e30048;
+        font-size: 14px;
+    }
+
+    .itemCarrito .modeloCarrito {
+        padding: 8px 0px 3px 0;
+        line-height: 9px;
+    }
+
+.precioTotalCarrito {
+    color: #e30048;
+}
+
+.totalCarrito {
+    padding: 10px 15px;
+    font-size: 18px;
+    background: #FFF;
+}
+
+.borderBottom {
+    width: 100%;
+    height: 1px;
+    background: #D0D2D3 none repeat scroll 0% 0%;
+    margin: 20px auto 0;
+}
+
+#carritoTitleText {
+    display: inline-block;
+    padding: 0 30px;
+    line-height: 17px;
+}
+
+.closePopup {
+    color: white;
+    font-size: 24px;
+}
+/*End Item Carrito*/
+
+/*#carritoRight {
+    visibility: hidden;
+}*/
+
+/*.redContainer {
+    background: #e30048;
+    color: #ffffff;
+}*/
+.redContainer {
+    padding: 10px;
+    background-color: #F05F40;
+    color: white;
+}
+
+    .redContainer a {
+        color: #ffffff;
+    }
+
+#carritoTitle {
+    padding: 5% 0;
+}
+
+#carritoRight {
+    padding: 0;
+    height: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 2017;
+    background: #F1F2F9;
+    display: none;
+}
+
+#carritoClose {
+    display: inline-block;
+}
+
+.product {
+    display: block;
+    background: #ffffff;
+    position: relative;
+    padding: 5px;
+    height: 430px;
+}
+
+    .product .carrito {
+        content: "";
+        width: 27px;
+        height: 27px;
+        position: absolute;
+        right: 1px;
+        bottom: 3px;
+        background-image: url('images/iconos.svg');
+        background-repeat: no-repeat;
+        background-position: right -169px;
+    }
+
+    .product .product-name {
+        color: #3a607b;
+        /*max-height: 52px;*/
+        overflow: hidden;
+    }
+
+    .product .oneclick {
+        position: absolute;
+        left: 10px;
+        bottom: 5px;
+        background: #e30048;
+        text-decoration: none;
+        color: #FFFFFF;
+        padding: 2px 5px;
+    }
+
+    .product .oneclickCuota {
+        position: absolute;
+        left: 110px;
+        bottom: 5px;
+        background: #F4AE01;
+        text-decoration: none;
+        color: #FFFFFF;
+        padding: 2px 5px;
+    }
+
+
+
+#popupBack {
+    background: rgba(58, 96, 123, 0.4);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    display: none;
+    /*display: block;*/
+}
+
+/*@font-face {
+    font-family: "DancingScript";
+    src: url(fonts/DancingScript-Bold.ttf) format('ttf');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "DancingScript";
+    src: url(fonts/DancingScript-Regular.ttf) format('ttf');
+    font-weight: normal;
+}*/
+
+
+.headMenu span {
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    font-weight: bold;
+}
+
+.centrar-table {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.fondo-menu {
+    background: url("../../img/menu.jpg") !important;
+}
+
+.menuImagen {
+    width: 20%;
+}
+
+.colo-menu {
+    background: #222;
+}
+
+
+#categoria {
+    margin-top: 20px;
+}
+
+
+.size-image-menu {
+    width: 100%;
+}
+
+
+.panelMenu {
+    text-align: center;
+}
+
+.seccion1 {
+    padding-bottom: 0px;
+}
+
+.size-item-Menu {
+    height: 550px;
 }

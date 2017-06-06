@@ -1,5 +1,7 @@
-﻿using Foodgood.Productos.Clase;
-using FoodGood.Productos.BLL;
+﻿using FoodGood.Producto;
+using FoodGood.Usuario;
+using FoodGood.Modulo.BLL;
+using FoodGood.Producto.BLL;
 using log4net;
 using SearchComponent;
 using System;
@@ -17,8 +19,59 @@ public partial class Administracion_Inventario_Producto_ListaProducto : System.W
         if (!IsPostBack)
         {
             cargarListaProducto("");
+            validarUsuario();
         }
 
+    }
+
+
+    public void validarUsuario()
+    {
+        try
+        {
+            Usuario objUsuario = LoginUtilities.GetUserLogged();
+            if (objUsuario != null)
+            {
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Lista_Producto) &&
+          !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Lista_Producto) &&
+          !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Lista_Producto) &&
+          !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Lista_Producto))
+                {
+                    Response.Redirect("~/Administracion/Error.aspx");
+                }
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Lista_Producto))
+                {
+                    NewProductoButton.Visible = false;
+                }
+
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Lista_Producto))
+                {
+                    ListaProductosGridView.Visible = false;
+                }
+                else
+                {
+
+                    if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Lista_Producto))
+                    {
+                        this.ListaProductosGridView.Columns[0].Visible = false;
+                    }
+                    if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Lista_Producto))
+                    {
+                        this.ListaProductosGridView.Columns[1].Visible = false;
+                    }
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Autentificacion/Login.aspx");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            log.Error("erro al validar al Usuario");
+            throw ex;
+        }
     }
 
     public void cargarListaProducto(string query)

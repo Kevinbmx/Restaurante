@@ -1,5 +1,7 @@
-﻿using Foodgood.UnidadesMedidas.Clase;
-using FoodGood.UnidadesMedidas.BLL;
+﻿using FoodGood.UnidadMedida;
+using FoodGood.Usuario;
+using FoodGood.Modulo.BLL;
+using FoodGood.UnidadMedida.BLL;
 using log4net;
 using SearchComponent;
 using System;
@@ -17,13 +19,65 @@ public partial class Administracion_Inventario_UnidadMedida_ListaUnidadMedida : 
         if (!IsPostBack)
         {
             cargarListaUnidadMedida("");
+            validarUsuario();
         }
     }
 
+
+    public void validarUsuario()
+    {
+        try
+        {
+            Usuario objUsuario = LoginUtilities.GetUserLogged();
+            if (objUsuario != null)
+            {
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Unidad_Medida) &&
+          !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Unidad_Medida) &&
+          !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Unidad_Medida) &&
+          !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Unidad_Medida))
+                {
+                    Response.Redirect("~/Administracion/Error.aspx");
+                }
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Unidad_Medida))
+                {
+                    NewUnidadMedidaButton.Visible = false;
+                }
+
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Unidad_Medida))
+                {
+                    ListaUnidadMedidaGridView.Visible = false;
+                }
+                else
+                {
+
+                    if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Unidad_Medida))
+                    {
+                        this.ListaUnidadMedidaGridView.Columns[0].Visible = false;
+                    }
+                    if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Unidad_Medida))
+                    {
+                        this.ListaUnidadMedidaGridView.Columns[1].Visible = false;
+                    }
+                }
+            }
+            else
+            {
+                Response.Redirect("~/Autentificacion/Login.aspx");
+            }
+
+        }
+        catch (Exception ex)
+        {
+            log.Error("erro al validar al Usuario");
+            throw ex;
+        }
+    }
+
+
     public void cargarListaUnidadMedida(string query)
     {
-        List<UnidadMedida> listaArea = UnidadMedidaBLL.GetUnidadMedidaListForSearch(query);
-        if (listaArea.Count > 0)
+        List<UnidadMedida> listaUnidadMedida = UnidadMedidaBLL.GetUnidadMedidaListForSearch(query);
+        if (listaUnidadMedida.Count > 0)
         {
             errorUsuario.Visible = false;
         }
@@ -31,7 +85,7 @@ public partial class Administracion_Inventario_UnidadMedida_ListaUnidadMedida : 
         {
             errorUsuario.Visible = true;
         }
-        ListaUnidadMedidaGridView.DataSource = listaArea;
+        ListaUnidadMedidaGridView.DataSource = listaUnidadMedida;
         ListaUnidadMedidaGridView.DataBind();
 
     }
@@ -43,7 +97,7 @@ public partial class Administracion_Inventario_UnidadMedida_ListaUnidadMedida : 
     }
     public Searcher consultaSql(string query)
     {
-        Searcher searcher = new Searcher(new BusquedaArea());
+        Searcher searcher = new Searcher(new BusquedaUnidadMedida());
         searcher.Query = query;
         return searcher;
     }
@@ -55,9 +109,6 @@ public partial class Administracion_Inventario_UnidadMedida_ListaUnidadMedida : 
         string query = consultaSql(armadoDeQuery).SqlQuery();
         cargarListaUnidadMedida(query);
     }
-
-
-
 
     protected void ListaUnidadMedidaGridView_RowCommand(object sender, GridViewCommandEventArgs e)
     {

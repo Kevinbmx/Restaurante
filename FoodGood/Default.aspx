@@ -4,8 +4,8 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="Server">
-    <div class="header-fondo">
-        <div class="header-content">
+    <div  class="header-fondo">
+        <div class="header-content fondo-content">
             <div class="header-content-inner">
                 <h1 id="homeHeading">BIENVENIDO A FOOGOOD</h1>
                 <hr />
@@ -18,10 +18,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Quieres algo rico? est&aacutes en el lugar</h2>
+                    <h2 class="section-heading">¿Quieres algo rico? est&aacutes en el lugar</h2>
                     <hr class="light" />
                     <p class="text-faded">Saborearas la mejor comida jamas Imaginada</p>
-                    <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Ver Menu</a>
+                    <a href="Menu.aspx" class="page-scroll btn btn-default btn-xl sr-button">Ver Menu</a>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Service</h2>
+                    <h2 class="section-heading">Servicio</h2>
                     <hr class="primary" />
                 </div>
             </div>
@@ -40,28 +40,28 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-diamond" aria-hidden="true"></i>
+                        <i class="fa fa-4x fa fa-diamond text-primary sr-icons" aria-hidden="true"></i>
                         <h3>Glamour</h3>
                         <p class="text-muted">Te sentiras igual o a&uacuten mejor que en tu casa</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-4x fa-paper-plane text-primary sr-icons"></i>
+                        <i class="fa fa-4x fa-cutlery text-primary sr-icons"></i>
                         <h3>Atencion</h3>
                         <p class="text-muted">como jamas Imaginado y al instante</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
+                        <i class="fa fa-4x fa-map-marker text-primary sr-icons"></i>
                         <h3>Pide donde estes</h3>
                         <p class="text-muted">quedate y pide que "FOODGOOD" te lo lleva</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
-                        <i class="fa fa-4x fa-heart text-primary sr-icons"></i>
+                        <i class="fa fa-4x fa-thumbs-o-up text-primary sr-icons"></i>
                         <h3>Comodidad</h3>
                         <p class="text-muted">Que no querras no irte</p>
                     </div>
@@ -70,12 +70,36 @@
         </div>
     </section>
 
-    <section class="no-padding" id="portfolio">
-        <div class="container-fluid">
-            <div class="row no-gutter popup-gallery">
-                <div class="col-lg-4 col-sm-6">
-                    <a href="img/portfolio/fullsize/1.jpg" class="portfolio-box">
-                        <img src="img/portfolio/thumbnails/1.jpg" class="img-responsive" alt="" />
+    <section class="no-padding" id="Categoria">
+        <div class="container-fluid colo-menu">
+            <div class="row no-gutter ">
+                <asp:Repeater runat="server" ID="FamiliaRepeater" OnItemDataBound="FamiliaRepeater_ItemDataBound">
+                    <ItemTemplate>
+                        <div class="col-lg-4 col-sm-6">
+                            <asp:HyperLink runat="server" ID="FamiliaId" CssClass="portfolio-box" NavigateUrl='<%#"~/Menu.aspx?id="+Eval("familiaId") %>'>
+                                <%--<a class="portfolio-box">--%>
+                                <asp:Label runat="server" ID="Imagen"></asp:Label>
+                                <asp:Label runat="server" ID="imagenlabel" Text='<%#Eval("ImagenId") %>'></asp:Label>
+                                <%--<img src='<%# "img/ImgRestaurante/"+ Eval("titulo") %>' class="img-responsive" alt="" />--%>
+                                <div class="portfolio-box-caption">
+                                    <div class="portfolio-box-caption-content">
+                                        <div class="project-category text-faded">
+                                            Categoria
+                                        </div>
+                                        <div class="project-name">
+                                            <%# Eval("Descripcion") %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%--</a>--%>
+                            </asp:HyperLink>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+
+                <%--<div class="col-lg-4 col-sm-6">
+                    <a class="portfolio-box">
+                        <img src="img/Fondo4.jpg" class="img-responsive" alt="" />
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-category text-faded">
@@ -87,10 +111,10 @@
                             </div>
                         </div>
                     </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="img/portfolio/fullsize/2.jpg" class="portfolio-box">
-                        <img src="img/portfolio/thumbnails/2.jpg" class="img-responsive" alt="" />
+                </div>--%>
+                <%--  <div class="col-lg-4 col-sm-6">
+                    <a class="portfolio-box">
+                        <img src="img/adornos1.jpg" class="img-responsive" alt="" />
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-category text-faded">
@@ -102,10 +126,10 @@
                             </div>
                         </div>
                     </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="img/portfolio/fullsize/3.jpg" class="portfolio-box">
-                        <img src="img/portfolio/thumbnails/3.jpg" class="img-responsive" alt="" />
+                </div>--%>
+                <%--   <div class="col-lg-4 col-sm-6">
+                    <a href="img/adornos2.jpg" class="portfolio-box">
+                        <img src="img/adornos2.jpg" class="img-responsive" alt="" />
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-category text-faded">
@@ -117,10 +141,10 @@
                             </div>
                         </div>
                     </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="img/portfolio/fullsize/4.jpg" class="portfolio-box">
-                        <img src="img/portfolio/thumbnails/4.jpg" class="img-responsive" alt="" />
+                </div>--%>
+                <%--  <div class="col-lg-4 col-sm-6">
+                    <a class="portfolio-box">
+                        <img src="img/postre.jpg" class="img-responsive" alt="" />
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-category text-faded">
@@ -132,8 +156,8 @@
                             </div>
                         </div>
                     </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
+                </div>--%>
+                <%-- <div class="col-lg-4 col-sm-6">
                     <a href="img/portfolio/fullsize/5.jpg" class="portfolio-box">
                         <img src="img/portfolio/thumbnails/5.jpg" class="img-responsive" alt="" />
                         <div class="portfolio-box-caption">
@@ -147,10 +171,10 @@
                             </div>
                         </div>
                     </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="img/portfolio/fullsize/6.jpg" class="portfolio-box">
-                        <img src="img/portfolio/thumbnails/6.jpg" class="img-responsive" alt="" />
+                </div>--%>
+                <%--<div class="col-lg-4 col-sm-6">
+                    <a href="img/fachada.png" class="portfolio-box">
+                        <img src="img/fachada.png" class="img-responsive" alt="" />
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-category text-faded">
@@ -162,7 +186,7 @@
                             </div>
                         </div>
                     </a>
-                </div>
+                </div>--%>
             </div>
         </div>
     </section>
@@ -170,8 +194,8 @@
     <aside class="bg-dark">
         <div class="container text-center">
             <div class="call-to-action">
-                <h2>Free Download at Start Bootstrap!</h2>
-                <a href="http://startbootstrap.com/template-overviews/creative/" class="btn btn-default btn-xl sr-button">Download Now!</a>
+                <h2>Escoja una de estas deliciosas categorias</h2>
+                <%--<a href="http://startbootstrap.com/template-overviews/creative/" class="btn btn-default btn-xl sr-button">Download Now!</a>--%>
             </div>
         </div>
     </aside>

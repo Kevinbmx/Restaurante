@@ -1,9 +1,9 @@
-﻿using Foodgood.Familias.Clase;
-using Foodgood.Productos.Clase;
-using Foodgood.UnidadesMedidas.Clase;
-using FoodGood.Familias.BLL;
-using FoodGood.Productos.BLL;
-using FoodGood.UnidadesMedidas.BLL;
+﻿using FoodGood.Familia;
+using FoodGood.Producto;
+using FoodGood.UnidadMedida;
+using FoodGood.Familia.BLL;
+using FoodGood.Producto.BLL;
+using FoodGood.UnidadMedida.BLL;
 using log4net;
 using System;
 using System.Collections.Generic;

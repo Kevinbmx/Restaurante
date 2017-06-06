@@ -1,7 +1,7 @@
-﻿using Foodgood.User.Clase;
-using FoodGood.Modulos.BLL;
-using FoodGood.TipoUser.BLL;
-using FoodGood.User.BLL;
+﻿using FoodGood.Usuario;
+using FoodGood.Modulo.BLL;
+using FoodGood.TipoUsuario.BLL;
+using FoodGood.Usuario.BLL;
 using log4net;
 using SearchComponent;
 using System;
@@ -11,6 +11,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using FoodGood.TipoUsuario;
 
 public partial class Administracion_Usuario_ListaUsuario : System.Web.UI.Page
 {
@@ -179,6 +180,8 @@ public partial class Administracion_Usuario_ListaUsuario : System.Web.UI.Page
     protected void ListaUsuariosGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         ListaUsuariosGridView.PageIndex = e.NewPageIndex;
-        cargarListaUsuario("");
+        string armadoDeQuery = "@descripcion Administrador";
+        string query = consultaSql(armadoDeQuery).SqlQuery();
+        cargarListaUsuario(query);
     }
 }

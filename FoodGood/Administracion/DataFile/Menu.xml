@@ -105,6 +105,13 @@ class:         if the menu is not public, the name of the class that the user
        public="true"
        url="~/Administracion/Inventario/Producto/ListaProducto.aspx">
     </Menu>
+    
+     <Menu resourceFile="InitMasterPage"
+       resourceItem="MenuListaImageProducto"
+       public="true"
+       url="~/Administracion/Inventario/ImagenProducto/ListaImagenProducto.aspx">
+    </Menu>
+
 
     <!--<Menu resourceFile="InitMasterPage"
         resourceItem="MenuTipoArticuloOfertanga"

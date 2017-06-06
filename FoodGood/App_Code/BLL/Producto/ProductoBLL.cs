@@ -1,11 +1,11 @@
-﻿using Foodgood.Productos.Clase;
+﻿using FoodGood.Producto;
 using log4net;
 using ProductoDSTableAdapters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-namespace FoodGood.Productos.BLL
+namespace FoodGood.Producto.BLL
 {
     /// <summary>
     /// Summary description for ProductoBLL
@@ -40,6 +40,34 @@ namespace FoodGood.Productos.BLL
                 throw q;
             }
         }
+
+        //------------------------------------------paginacion-----------------------------------------------------
+        public static int SearchProductoPaginacion(ref List<Producto> articulos, string where, int pageSize, int firstRow, string ordenar)
+        {
+            try
+            {
+                int? totalRows = 0;
+                ProductoTableAdapter localAdapter = new ProductoTableAdapter();
+                ProductoDS.ProductoDataTable theTable = localAdapter.GetSearchForProducto(where, pageSize, firstRow, ref totalRows, ordenar);
+
+                if (theTable != null && theTable.Rows.Count > 0)
+                {
+                    foreach (ProductoDS.ProductoRow row in theTable.Rows)
+                    {
+                        articulos.Add(FillProdutowithImagenRecord(row));
+                    }
+                }
+                return (int)totalRows;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        //------------------------------------------------------------------------------------------------------------------
+
+
 
         public static void UpdateProducto(Producto objProducto)
         {
@@ -99,7 +127,7 @@ namespace FoodGood.Productos.BLL
                 if (table != null && table.Rows.Count > 0)
                 {
                     ProductoDS.ProductoRow row = table[0];
-                    theUser = FillProdutoRecord(row);
+                    theUser = FillProdutowithImagenRecord(row);
                 }
             }
             catch (Exception q)
@@ -128,14 +156,14 @@ namespace FoodGood.Productos.BLL
                 {
                     foreach (ProductoDS.ProductoRow row in table.Rows)
                     {
-                        theUser = FillProdutoRecord(row);
+                        theUser = FillProdutowithImagenRecord(row);
                         theList.Add(theUser);
                     }
                 }
             }
             catch (Exception q)
             {
-                log.Error("el error ocurrio mientras obtenia la lista de los usuarios de la base de datos", q);
+                log.Error("el error ocurrio mientras obtenia la lista de los productos de la base de datos", q);
                 return null;
             }
             return theList;
@@ -152,6 +180,20 @@ namespace FoodGood.Productos.BLL
                 row.precio,
                 row.stock,
                 row.familiaId);
+            return theNewRecord;
+        }
+
+        private static Producto FillProdutowithImagenRecord(ProductoDS.ProductoRow row)
+        {
+            Producto theNewRecord = new Producto(
+                row.productoId,
+                row.IsdescripcionNull() ? "" : row.nombre,
+                row.IsdescripcionNull() ? "" : row.descripcion,
+                row.IsdescripcionNull() ? "" : row.unidadMedidaId,
+                row.precio,
+                row.stock,
+                row.familiaId,
+                row.IsImagenIdNull() ? 0 : row.ImagenId);
             return theNewRecord;
         }
 

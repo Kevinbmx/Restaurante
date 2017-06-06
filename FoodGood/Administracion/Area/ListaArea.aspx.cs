@@ -1,7 +1,7 @@
-﻿using Foodgood.Areas.Clase;
-using Foodgood.User.Clase;
-using FoodGood.Areas.BLL;
-using FoodGood.Modulos.BLL;
+﻿using FoodGood.Area;
+using FoodGood.Usuario;
+using FoodGood.Area.BLL;
+using FoodGood.Modulo.BLL;
 using log4net;
 using SearchComponent;
 using System;
@@ -25,36 +25,45 @@ public partial class Administracion_Area_ListaArea : System.Web.UI.Page
 
     public void validarUsuario()
     {
-        Usuario objUsuario = LoginUtilities.GetUserLogged();
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Area) &&
-            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Area) &&
-            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Area) &&
-            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Area))
-        {
-            Response.Redirect("~/Administracion/Error.aspx");
-        }
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Area))
-        {
-            NewAreaButton.Visible = false;
-        }
 
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Area))
+        Usuario objUsuario = LoginUtilities.GetUserLogged();
+        if (objUsuario != null)
         {
-            ListaAreaGridView.Visible = false;
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Area) &&
+                !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Area) &&
+                !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Area) &&
+                !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Area))
+            {
+                Response.Redirect("~/Administracion/Error.aspx");
+            }
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Area))
+            {
+                NewAreaButton.Visible = false;
+            }
+
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Area))
+            {
+                ListaAreaGridView.Visible = false;
+            }
+            else
+            {
+
+
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Area))
+                {
+                    this.ListaAreaGridView.Columns[0].Visible = false;
+                }
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Area))
+                {
+                    this.ListaAreaGridView.Columns[1].Visible = false;
+                }
+            }
         }
         else
         {
-
-
-            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Area))
-            {
-                this.ListaAreaGridView.Columns[0].Visible = false;
-            }
-            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Area))
-            {
-                this.ListaAreaGridView.Columns[1].Visible = false;
-            }
+            Response.Redirect("~/Autentificacion/Login.aspx");
         }
+
     }
 
 

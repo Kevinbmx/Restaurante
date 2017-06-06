@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
-namespace Foodgood.UnidadesMedidas.Clase
+namespace FoodGood.UnidadMedida
 {
     /// <summary>
     /// Summary description for UnidadMedida

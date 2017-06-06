@@ -19,7 +19,7 @@ public class BusquedaUnidadMedida : ConfigColumns
         this.Cols.Add(col);
 
         //BUSCAR POR EL ID DE LA AREA
-        col = new Column("um.[descripcion]", "descripcion", Column.ColumnType.Numeric);
+        col = new Column("um.[descripcion]", "descripcion", Column.ColumnType.String);
         col.AppearInStandardSearch = true;
         col.DisplayHelp = true;
         this.Cols.Add(col);

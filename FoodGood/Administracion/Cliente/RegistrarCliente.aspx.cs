@@ -1,6 +1,5 @@
-﻿using Foodgood.User.Clase;
-using FoodGood.TipoUser.BLL;
-using FoodGood.User.BLL;
+﻿using FoodGood.Usuario;
+using FoodGood.Usuario.BLL;
 using log4net;
 using SearchComponent;
 using System;
@@ -19,7 +18,6 @@ public partial class Administracion_Cliente_RegistrarCliente : System.Web.UI.Pag
         if (!IsPostBack)
         {
             ProcessSessionParameteres();
-            //IdentificartipoUsuario();
             if (!string.IsNullOrEmpty(UsuarioIdHiddenField.Value))
             {
                 cargarDatosUsuario();

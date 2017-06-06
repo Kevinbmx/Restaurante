@@ -1,8 +1,7 @@
-﻿using Foodgood.Accesos.Clase;
-using Foodgood.User.Clase;
-using FoodGood.Modulos.BLL;
-using FoodGood.TipoUser.BLL;
-using FoodGood.User.BLL;
+﻿using FoodGood.Usuario;
+using FoodGood.Modulo.BLL;
+using FoodGood.TipoUsuario.BLL;
+using FoodGood.Usuario.BLL;
 using log4net;
 using SearchComponent;
 using System;
@@ -12,6 +11,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using FoodGood.TipoUsuario;
 
 public partial class Administracion_Cliente_ListaCliente : System.Web.UI.Page
 {
@@ -34,35 +34,51 @@ public partial class Administracion_Cliente_ListaCliente : System.Web.UI.Page
 
     public void validarUsuario()
     {
-        Usuario objUsuario = LoginUtilities.GetUserLogged();
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Cliente) &&
-            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Cliente) &&
-            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Cliente) &&
-            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Cliente))
+        try
         {
-            Response.Redirect("~/Administracion/Error.aspx");
-        }
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Cliente))
-        {
-            NewUsuarioButton.Visible = false;
-        }
-
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Cliente))
-        {
-            ListaUsuariosGridView.Visible = false;
-        }
-        else
-        {
-
-
-            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Cliente))
+            Usuario objUsuario = LoginUtilities.GetUserLogged();
+            if (objUsuario != null)
             {
-                this.ListaUsuariosGridView.Columns[0].Visible = false;
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Cliente) &&
+          !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Cliente) &&
+          !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Cliente) &&
+          !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Cliente))
+                {
+                    Response.Redirect("~/Administracion/Error.aspx");
+                }
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Cliente))
+                {
+                    NewUsuarioButton.Visible = false;
+                }
+
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Cliente))
+                {
+                    ListaUsuariosGridView.Visible = false;
+                }
+                else
+                {
+
+
+                    if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Cliente))
+                    {
+                        this.ListaUsuariosGridView.Columns[0].Visible = false;
+                    }
+                    if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Cliente))
+                    {
+                        this.ListaUsuariosGridView.Columns[1].Visible = false;
+                    }
+                }
             }
-            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Cliente))
+            else
             {
-                this.ListaUsuariosGridView.Columns[1].Visible = false;
+                Response.Redirect("~/Autentificacion/Login.aspx");
             }
+
+        }
+        catch (Exception ex)
+        {
+            log.Error("erro al validar al Usuario");
+            throw ex;
         }
     }
 
@@ -172,6 +188,8 @@ public partial class Administracion_Cliente_ListaCliente : System.Web.UI.Page
     protected void ListaUsuariosGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         ListaUsuariosGridView.PageIndex = e.NewPageIndex;
-        cargarListaUsuario("");
+        string armadoDeQuery = "@tipousuarioId IN(2,3)";
+        string query = consultaSql(armadoDeQuery).SqlQuery();
+        cargarListaUsuario(query);
     }
 }

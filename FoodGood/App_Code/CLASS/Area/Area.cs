@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
-namespace Foodgood.Areas.Clase
+namespace FoodGood.Area
 {
     /// <summary>
     /// Summary description for Area

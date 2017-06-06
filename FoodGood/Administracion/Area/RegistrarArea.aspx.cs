@@ -1,5 +1,5 @@
-﻿using Foodgood.Areas.Clase;
-using FoodGood.Areas.BLL;
+﻿using FoodGood.Area;
+using FoodGood.Area.BLL;
 using log4net;
 using System;
 using System.Collections.Generic;

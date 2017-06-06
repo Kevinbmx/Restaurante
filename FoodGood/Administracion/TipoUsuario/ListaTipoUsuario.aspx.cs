@@ -1,4 +1,5 @@
-﻿using FoodGood.TipoUser.BLL;
+﻿using FoodGood.TipoUsuario;
+using FoodGood.TipoUsuario.BLL;
 using log4net;
 using SearchComponent;
 using System;

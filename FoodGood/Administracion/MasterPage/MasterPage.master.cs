@@ -1,4 +1,4 @@
-﻿using FoodGood.Menus.BLL;
+﻿using FoodGood.Menu.BLL;
 //using Foodgood.Menus.Clase;
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,7 @@ public partial class Administracion_MasterPage_MasterPage : System.Web.UI.Master
             LoadMainMenuScript();
             IsUserAuthorizedPage();
             ConstructMenu();
+
         }
     }
 
@@ -61,19 +62,8 @@ public partial class Administracion_MasterPage_MasterPage : System.Web.UI.Master
              "~Administracion/Acceso/ListaAcceso.aspx",
              "~/Administracion/Inventario/UnidadMedida/ListaUnidadMedida.aspx",
              "~/Administracion/Inventario/Familia/ListaFamilia.aspx",
-             "~/Administracion/Inventario/Producto/ListaProducto.aspx"
-             //"~/Administration/Inventario/Caracteristica/AddCaracteristica.aspx",
-             //"~/Administration/Inventario/Caracteristica/ListaProductoCaracteristica.aspx",
-             //"~/Administration/Inventario/Caracteristica/ProductoCaracteristica.aspx",
-             //"~/Administration/Inventario/ImageArticulo/ListaImageArticulo.aspx",
-             //"~/Administration/Inventario/ImageArticulo/ImageArticulo.aspx",
-             //"~/Administration/Inventario/TiposArticulosOfertanga/RegistroOfertanga.aspx",
-             //"~/Administration/Inventario/TiposArticulos/EditarTipoArticulo.aspx",
-             //"~/Administration/Pedido/ListaPedidos.aspx",
-             //"~/Administration/Pedido/DetallePedido.aspx",
-             //"~/Administration/Pedido/ListaPedidosAsignados.aspx",
-             //"~/Administration/Pedido/DetallePedidoAsignado.aspx",
-             //"~/Administration/Suscripcion/ListaSuscripciones.aspx"
+             "~/Administracion/Inventario/Producto/ListaProducto.aspx",
+             "~/Administracion/Inventario/ImagenProducto/ListaImagenProducto.aspx"
         };
 
         for (int i = 0; i < openPages.Length; i++)
@@ -105,8 +95,8 @@ public partial class Administracion_MasterPage_MasterPage : System.Web.UI.Master
 
     private void ConstructMenu()
     {
-        List<Foodgood.Menus.Clase.Menu> theMenu;
-        List<Foodgood.Menus.Clase.Menu> theVisibleMenu;
+        List<FoodGood.Menu.Menu> theMenu;
+        List<FoodGood.Menu.Menu> theVisibleMenu;
         theMenu = MenuBLL.ReadMenuFromXMLConfiguration();
 
         List<string> theClases = new List<string>();

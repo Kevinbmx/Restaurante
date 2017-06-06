@@ -5,9 +5,8 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.XPath;
-using Foodgood.Menus.Clase;
 
-namespace FoodGood.Menus.BLL
+namespace FoodGood.Menu.BLL
 {
     /// <summary>
     /// Process menu items

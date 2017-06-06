@@ -3,8 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cp" runat="Server">
-
-
     <div class="ibox float-e-margins">
         <div class="ibox-title">
             <h5>
@@ -70,10 +68,5 @@
     </div>
 
     <asp:HiddenField runat="server" ID="ProductoIdHiddenField" />
-
-
-
-
-
 </asp:Content>
 

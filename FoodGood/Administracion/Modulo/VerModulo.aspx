@@ -20,18 +20,16 @@
                             <i class='fa fa-arrow-left'></i> Ir a la Lista de Modulos
                     </asp:HyperLink>
                 </div>
-                <div class="col-md-12">
+                <%-- <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="search-form">
-                                <%--<input type="text" class="search-textbox" />--%>
                                 <asp:TextBox ID="busquedaModuloTxt" runat="server" CssClass="form-control"></asp:TextBox>
                                 <asp:LinkButton ID="busquedaBtn" CssClass="btn-search" runat="server" OnClick="busquedaBtn_Click"><i class="fa fa-search" ></i></asp:LinkButton>
-                                <%--<a class="btn-search"><i class="fa fa-search" aria-hidden="true"></i></a>--%>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>--%>
                 <div class="col-md-12">
                     <div class="table-responsive">
                         <asp:GridView runat="server" ID="ListaModuloAreaGridView" CssClass="table table-striped" AutoGenerateColumns="false" OnRowCommand="ListaModuloAreaGridView_RowCommand"
@@ -44,7 +42,7 @@
                                     <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                     <ItemStyle VerticalAlign="Middle"></ItemStyle>
                                 </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Eliminar" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
+                                <asp:TemplateField HeaderText="Eliminar" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
                                     <ItemTemplate>
                                         <asp:LinkButton ID="DeleteImageButton" runat="server" CommandName="Eliminar" CssClass="text-danger img-buttons" Text="<i class='fa fa-trash-o'></i>"
                                             CommandArgument='<%# Eval("moduloId") %>'
@@ -55,7 +53,6 @@
                                 </asp:TemplateField>
 
                                 <asp:BoundField DataField="DescripcionForDisplay" HeaderText="Descripcion" />
-                                <%--<asp:BoundField DataField="AreaId" HeaderText="cantidad de modulos asignados" />--%>
                             </Columns>
                         </asp:GridView>
                         <asp:Panel ID="errorUsuario" runat="server" Visible="false">

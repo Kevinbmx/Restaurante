@@ -68,6 +68,7 @@
             </div>
         </div>
     </div>
+    
 
     <%-- <telerik:RadSkinManager ID="RadSkinManager1" runat="server" ShowChooser="true" />
     <div class="demo-container size-wide">

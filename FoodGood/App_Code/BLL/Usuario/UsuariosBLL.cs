@@ -1,12 +1,11 @@
-﻿using Foodgood.User.Clase;
-using log4net;
+﻿using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UsuarioDSTableAdapters;
 
-namespace FoodGood.User.BLL
+namespace FoodGood.Usuario.BLL
 {
     /// <summary>
     /// Summary description for UsuariosBLL

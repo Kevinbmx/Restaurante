@@ -1,7 +1,5 @@
-﻿using Foodgood.Areas.Clase;
-using Foodgood.Modulo.Clase;
-using FoodGood.Areas.BLL;
-using FoodGood.Modulos.BLL;
+﻿using FoodGood.Modulo;
+using FoodGood.Modulo.BLL;
 using log4net;
 using System;
 using System.Collections.Generic;

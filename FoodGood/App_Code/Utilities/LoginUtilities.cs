@@ -1,5 +1,5 @@
-﻿using Foodgood.User.Clase;
-using FoodGood.User.BLL;
+﻿using FoodGood.Usuario;
+using FoodGood.Usuario.BLL;
 using FoodGood.Utilities.Security;
 using SearchComponent;
 using System;

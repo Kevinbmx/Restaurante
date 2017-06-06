@@ -129,8 +129,17 @@
   <data name="Crear_Cliente" xml:space="preserve">
     <value>crear cliente</value>
   </data>
+  <data name="Crear_Lista_Producto" xml:space="preserve">
+    <value>crear lista producto</value>
+  </data>
   <data name="Crear_Modulo" xml:space="preserve">
     <value>crear modulo</value>
+  </data>
+  <data name="Crear_Tipo_Caracteristica" xml:space="preserve">
+    <value>crear tipo caracteristica</value>
+  </data>
+  <data name="Crear_Unidad_Medida" xml:space="preserve">
+    <value>crear unidad medida</value>
   </data>
   <data name="Crear_Usuario" xml:space="preserve">
     <value>crear usuario</value>
@@ -141,8 +150,17 @@
   <data name="Editar_Cliente" xml:space="preserve">
     <value>editar cliente</value>
   </data>
+  <data name="Editar_Lista_Producto" xml:space="preserve">
+    <value>editar lista producto</value>
+  </data>
   <data name="Editar_Modulo" xml:space="preserve">
     <value>editar modulo</value>
+  </data>
+  <data name="Editar_Tipo_Caracteristica" xml:space="preserve">
+    <value>editar tipo caracteristica</value>
+  </data>
+  <data name="Editar_Unidad_Medida" xml:space="preserve">
+    <value>editar unidad medida</value>
   </data>
   <data name="Editar_Ususario" xml:space="preserve">
     <value>editar usuario</value>
@@ -156,8 +174,17 @@
   <data name="Eliminar_Cliente" xml:space="preserve">
     <value>eliminar cliente</value>
   </data>
+  <data name="Eliminar_Lista_Producto" xml:space="preserve">
+    <value>eliminar lista producto</value>
+  </data>
   <data name="Eliminar_Modulo" xml:space="preserve">
     <value>eliminar modulo</value>
+  </data>
+  <data name="Eliminar_Tipo_Caracteristica" xml:space="preserve">
+    <value>eliminar tipo caracteristica</value>
+  </data>
+  <data name="Eliminar_Unidad_Medida" xml:space="preserve">
+    <value>eliminar unidad medida</value>
   </data>
   <data name="Eliminar_Usuario" xml:space="preserve">
     <value>eliminar usuario</value>
@@ -171,8 +198,17 @@
   <data name="Ver_Cliente" xml:space="preserve">
     <value>ver cliente</value>
   </data>
+  <data name="Ver_Lista_Producto" xml:space="preserve">
+    <value>ver lista producto</value>
+  </data>
   <data name="Ver_Modulo" xml:space="preserve">
     <value>ver modulo</value>
+  </data>
+  <data name="Ver_Tipo_Caracteristica" xml:space="preserve">
+    <value>ver tipo caracteristica</value>
+  </data>
+  <data name="Ver_Unidad_Medida" xml:space="preserve">
+    <value>ver unidad medida</value>
   </data>
   <data name="Ver_Usuario" xml:space="preserve">
     <value>ver usuario</value>

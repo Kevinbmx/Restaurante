@@ -1,8 +1,8 @@
-﻿using Foodgood.Areas.Clase;
-using Foodgood.Modulo.Clase;
-using Foodgood.User.Clase;
-using FoodGood.Areas.BLL;
-using FoodGood.Modulos.BLL;
+﻿using FoodGood.Area;
+using FoodGood.Modulo;
+using FoodGood.Usuario;
+using FoodGood.Area.BLL;
+using FoodGood.Modulo.BLL;
 using log4net;
 using SearchComponent;
 using System;

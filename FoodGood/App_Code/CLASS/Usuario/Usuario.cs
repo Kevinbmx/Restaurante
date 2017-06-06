@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
-namespace Foodgood.User.Clase
+namespace FoodGood.Usuario
 {
     /// <summary>
     /// Summary description for Usuario
