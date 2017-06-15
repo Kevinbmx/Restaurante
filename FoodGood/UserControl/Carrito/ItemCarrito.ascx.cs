@@ -8,6 +8,8 @@ using System.Web.Script.Serialization;
 using System.Web.Services;
 using System.Globalization;
 using FoodGood.Utilities;
+using FoodGood.Imagen;
+using FoodGood.Imagen.BLL;
 
 public partial class UserControls_Carrito_ItemCarrito : System.Web.UI.UserControl
 {
@@ -116,28 +118,29 @@ public partial class UserControls_Carrito_ItemCarrito : System.Web.UI.UserContro
 
     protected void PedidolistRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        //bool carritoEnCuota = PedidoUtilities.GetCarritoEnCuotas();
+        try
+        {
+            HiddenField ImagenId = (HiddenField)e.Item.FindControl("ImagenId");
+            Image ProductImage = (Image)e.Item.FindControl("ProductImage");
+            int imagenId = Convert.ToInt32(ImagenId.Value);
+            Imagen objImagen = ImagenBLL.GetImagenById(imagenId);
+            if (objImagen == null)
+            {
+                //imagenlabel.Text = "<img src='img/ImgRestaurante/noImage.jpg' class='img-responsive' alt='no Imagen'/>";
+                ProductImage.ImageUrl = "~/img/ImgRestaurante/noImage.jpg";
+                ProductImage.AlternateText = "no hay imagen";
+            }
+            else
+            {
+                ProductImage.ImageUrl = "~/img/ImgRestaurante/" + objImagen.Titulo;
+                ProductImage.AlternateText = objImagen.Titulo;
+                //imagenlabel.Text = "<img src='img/ImgRestaurante/" + objImagen.Titulo + "' class='img-responsive' alt='" + objImagen.Titulo + "'/>";
+            }
+        }
+        catch (Exception ex)
+        {
 
-        //Panel precioPanel = (Panel)e.Item.FindControl("precioPanel");
-        //Panel subtotalPanel = (Panel)e.Item.FindControl("subtotalPanel");
-        //Panel cuotasPanel = (Panel)e.Item.FindControl("CuotaPanel");
-
-        ////Panel cantidadProducto = (Panel)e.Item.FindControl("CantidadProductoPanel");
-        //Panel TextboxPanel = (Panel)e.Item.FindControl("TextboxPanel");
-
-        //if (carritoEnCuota)
-        //{
-        //    precioPanel.Visible = false;
-        //    subtotalPanel.Visible = true;
-        //    cuotasPanel.Visible = true;
-        //    //cantidadProducto.Visible = true;
-        //    TextboxPanel.Visible = true;
-        //    totalCarritoPanel.Visible = false;
-        //}
-        //else
-        //{
-        //    cuotasPanel.Visible = false;
-        //    //cantidadProducto.Visible = false;
-        //}
+            throw ex;
+        }
     }
 }

@@ -10,6 +10,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using FoodGood.Familia;
+using FoodGood.Familia.BLL;
 
 public partial class Administracion_Inventario_Producto_ListaProducto : System.Web.UI.Page
 {
@@ -137,7 +139,22 @@ public partial class Administracion_Inventario_Producto_ListaProducto : System.W
 
     protected void ListaProductosGridView_RowDataBound(object sender, GridViewRowEventArgs e)
     {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                string numeroIdFamilia = e.Row.Cells[7].Text;
+                int id = Convert.ToInt32(numeroIdFamilia);
+                Familia listaFamilia = FamiliaBLL.GetFamiliaById(id);
 
+                e.Row.Cells[7].Text = listaFamilia.Descripcion;
+
+            }
+        }
+        catch (Exception ex)
+        {
+            log.Error("Error al conseguir la descripcion de la familia", ex);
+        }
     }
 
     protected void ListaProductosGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)

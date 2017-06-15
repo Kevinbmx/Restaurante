@@ -42,6 +42,16 @@ public partial class Administracion_MasterPage_MasterPage : System.Web.UI.Master
         scriptText.Append("<script src=\"");
         scriptText.Append(ResolveClientUrl("~/Administracion/Script/jquery.slimscroll.min.js"));
         scriptText.Append("\" type=\"text/javascript\"></script>\n");
+
+        scriptText.Append("<script src=\"");
+        scriptText.Append(ResolveClientUrl("~/Administracion/Script/Moment.js"));
+        scriptText.Append("\" type=\"text/javascript\"></script>\n");
+
+        scriptText.Append("<script src=\"");
+        scriptText.Append(ResolveClientUrl("~/Administracion/Script/bootstrap-datetimepicker.js"));
+        scriptText.Append("\" type=\"text/javascript\"></script>\n");
+
+
         JqueryAndMainMenuScript.Text = scriptText.ToString();
     }
 
@@ -63,7 +73,9 @@ public partial class Administracion_MasterPage_MasterPage : System.Web.UI.Master
              "~/Administracion/Inventario/UnidadMedida/ListaUnidadMedida.aspx",
              "~/Administracion/Inventario/Familia/ListaFamilia.aspx",
              "~/Administracion/Inventario/Producto/ListaProducto.aspx",
-             "~/Administracion/Inventario/ImagenProducto/ListaImagenProducto.aspx"
+             "~/Administracion/Inventario/ImagenProducto/ListaImagenProducto.aspx",
+             "~/Administracion/Dosificacion/ListaDosificacion.aspx",
+             "~/Administracion/Dosificacion/RegistrarDosificacion.aspx"
         };
 
         for (int i = 0; i < openPages.Length; i++)

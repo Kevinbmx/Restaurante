@@ -148,6 +148,12 @@
                                             OnClientClick="return confirm('¿Esta seguro que desas añadir esta imagen al articulo?')"
                                             CommandArgument='<%# Eval("ImagenId") %>' CssClass="btn "></asp:LinkButton>
                                     </div>
+
+                                    <div>
+                                        <asp:LinkButton runat="server" ID="EliminarImagenButton" CommandName="removeImage" Text="Eliminar"
+                                            OnClientClick="return confirm('¿Esta seguro que desea eliminar esta imagen?')"
+                                            CommandArgument='<%# Eval("ImagenId") %>' CssClass="btn "></asp:LinkButton>
+                                    </div>
                                 </div>
                             </div>
                         </ItemTemplate>

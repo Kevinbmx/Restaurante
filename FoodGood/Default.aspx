@@ -4,7 +4,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="Server">
-    <div  class="header-fondo">
+    <div class="header-fondo">
         <div class="header-content fondo-content">
             <div class="header-content-inner">
                 <h1 id="homeHeading">BIENVENIDO A FOOGOOD</h1>
@@ -79,7 +79,8 @@
                             <asp:HyperLink runat="server" ID="FamiliaId" CssClass="portfolio-box" NavigateUrl='<%#"~/Menu.aspx?id="+Eval("familiaId") %>'>
                                 <%--<a class="portfolio-box">--%>
                                 <asp:Label runat="server" ID="Imagen"></asp:Label>
-                                <asp:Label runat="server" ID="imagenlabel" Text='<%#Eval("ImagenId") %>'></asp:Label>
+                                <asp:HiddenField runat="server" ID="imagenlabel" Value='<%#Eval("ImagenId") %>'></asp:HiddenField>
+                                <asp:Image runat="server" ID="imagenFamilia" CssClass="img-responsive ajustarimag" />
                                 <%--<img src='<%# "img/ImgRestaurante/"+ Eval("titulo") %>' class="img-responsive" alt="" />--%>
                                 <div class="portfolio-box-caption">
                                     <div class="portfolio-box-caption-content">
@@ -96,97 +97,6 @@
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
-
-                <%--<div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box">
-                        <img src="img/Fondo4.jpg" class="img-responsive" alt="" />
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>--%>
-                <%--  <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box">
-                        <img src="img/adornos1.jpg" class="img-responsive" alt="" />
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>--%>
-                <%--   <div class="col-lg-4 col-sm-6">
-                    <a href="img/adornos2.jpg" class="portfolio-box">
-                        <img src="img/adornos2.jpg" class="img-responsive" alt="" />
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>--%>
-                <%--  <div class="col-lg-4 col-sm-6">
-                    <a class="portfolio-box">
-                        <img src="img/postre.jpg" class="img-responsive" alt="" />
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>--%>
-                <%-- <div class="col-lg-4 col-sm-6">
-                    <a href="img/portfolio/fullsize/5.jpg" class="portfolio-box">
-                        <img src="img/portfolio/thumbnails/5.jpg" class="img-responsive" alt="" />
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>--%>
-                <%--<div class="col-lg-4 col-sm-6">
-                    <a href="img/fachada.png" class="portfolio-box">
-                        <img src="img/fachada.png" class="img-responsive" alt="" />
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>--%>
             </div>
         </div>
     </section>

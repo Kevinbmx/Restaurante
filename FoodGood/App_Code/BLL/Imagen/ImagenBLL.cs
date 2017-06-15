@@ -50,7 +50,7 @@ namespace FoodGood.Imagen.BLL
 
 
 
-        public static void UpdateProducto(Imagen objImagen)
+        public static void UpdateImagen(Imagen objImagen)
         {
             if (objImagen.ImagenId <= 0)
                 throw new ArgumentException("el id de la Imagen no puede ser menor o igual a cero.");
@@ -75,7 +75,7 @@ namespace FoodGood.Imagen.BLL
             }
         }
 
-        public static void DeleteProducto(int productoId)
+        public static void DeleteImagen(int productoId)
         {
             if (productoId <= 0)
                 throw new ArgumentException("El producto no puede ser menor o igual a cero.");
@@ -91,18 +91,47 @@ namespace FoodGood.Imagen.BLL
             }
         }
 
-        public static Imagen GetProductoById(int Idprocuto)
+        //public static Imagen GetProductoById(int Idprocuto)
+        //{
+        //    ImagenTableAdapter localAdapter = new ImagenTableAdapter();
+
+        //    if (Idprocuto <= 0)
+        //        return null;
+
+        //    Imagen theUser = null;
+
+        //    try
+        //    {
+        //        ImagenDS.ImagenDataTable table = localAdapter.GetImagenById(Idprocuto);
+
+        //        if (table != null && table.Rows.Count > 0)
+        //        {
+        //            ImagenDS.ImagenRow row = table[0];
+        //            theUser = FillImagenRecord(row);
+        //        }
+        //    }
+        //    catch (Exception q)
+        //    {
+        //        log.Error("Un error ocurrio mientras obtenia el modulo de la base de dato", q);
+        //        return null;
+        //    }
+
+        //    return theUser;
+        //}
+
+
+        public static Imagen GetImagenById(int IdImagenId)
         {
             ImagenTableAdapter localAdapter = new ImagenTableAdapter();
 
-            if (Idprocuto <= 0)
+            if (IdImagenId <= 0)
                 return null;
 
             Imagen theUser = null;
 
             try
             {
-                ImagenDS.ImagenDataTable table = localAdapter.GetImagenById(Idprocuto);
+                ImagenDS.ImagenDataTable table = localAdapter.GetImagenById(IdImagenId);
 
                 if (table != null && table.Rows.Count > 0)
                 {
@@ -112,7 +141,7 @@ namespace FoodGood.Imagen.BLL
             }
             catch (Exception q)
             {
-                log.Error("Un error ocurrio mientras obtenia el modulo de la base de dato", q);
+                log.Error("Un error ocurrio mientras obtenia la imagen de la base de dato", q);
                 return null;
             }
 

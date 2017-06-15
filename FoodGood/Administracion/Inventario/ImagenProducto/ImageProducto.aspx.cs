@@ -106,6 +106,8 @@ public partial class Administracion_Inventario_ImagenProducto_ImageProducto : Sy
                 FileUpload1.PostedFile.SaveAs(fullPath);
 
                 System.IO.FileInfo info = new System.IO.FileInfo(fullPath);
+                //info.Delete
+                //D:\Kevin\Universidad\taller\Restaurante\FoodGood\img\ImgRestaurante
                 objImagen.Directorio = fullPath;
                 objImagen.Extencion = info.Extension;
                 objImagen.Titulo = tituloImagen;
@@ -265,6 +267,24 @@ public partial class Administracion_Inventario_ImagenProducto_ImageProducto : Sy
                 log.Error("La imagen no pudo ser insertada al articulo", ex);
                 return;
                 //throw ex;
+            }
+        }
+        if (e.CommandName == "removeImage")
+        {
+            try
+            {
+                ImagenProducto data = new ImagenProducto();
+                int imagenId = Convert.ToInt32(e.CommandArgument.ToString());
+                Imagen objImagen = ImagenBLL.GetImagenById(imagenId);
+                System.IO.FileInfo info = new System.IO.FileInfo(objImagen.Directorio);
+                info.Delete();
+                ImagenBLL.DeleteImagen(imagenId);
+                cargarImagenesRepeateLista();
+            }
+            catch (Exception ex)
+            {
+                log.Error("La imagen no pudo ser insertada al articulo", ex);
+                return;
             }
         }
     }

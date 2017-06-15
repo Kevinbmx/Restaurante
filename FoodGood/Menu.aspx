@@ -23,7 +23,7 @@
                                         <div class="col-md-12">
                                             <div class="carousel-content text-center">
                                                 <h2><%# Eval("Descripcion") %></h2>
-                                                <p>Categoria</p>
+                                                <asp:HyperLink runat="server" ID="linkFamilia" Text="conocer" CssClass="btn btn-primary" NavigateUrl='<%#"~/Menu.aspx?id="+ Eval("FamiliaId")%>'></asp:HyperLink>
                                             </div>
                                         </div>
                                     </div>
@@ -41,10 +41,6 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <asp:Image runat="server" ID="menuImagen" CssClass="menuImagen" ImageUrl="~/img/menu.png" />
                     <h2 runat="server" id="tituloFamilia"></h2>
-
-                    <%--  <hr class="light" />
-                    <p class="text-faded">Saborearas la mejor comida jamas Imaginada</p>
-                    <a href="Menu.aspx" class="page-scroll btn btn-default btn-xl sr-button">Ver Menu</a>--%>
                 </div>
             </div>
         </div>
@@ -94,5 +90,6 @@
         </div>--%>
     <%--</div>--%>
     <asp:HiddenField runat="server" ID="familiaIdHiddenField" Value="0" />
+
 </asp:Content>
 

@@ -150,11 +150,9 @@
   <data name="MenuListaProducto" xml:space="preserve">
     <value>Lista Productos</value>
   </data>
-
   <data name="MenuListaImageProducto" xml:space="preserve">
     <value>Lista Imagen Productos</value>
   </data>
-
   <data name="MenuListaTipoUsuairo" xml:space="preserve">
     <value>Lista Tipo Usuario</value>
   </data>
@@ -172,5 +170,11 @@
   </data>
   <data name="NoJScriptLabel" xml:space="preserve">
     <value>Para esta aplicación es imprescindible tener javascript habilitado.</value>
+  </data>
+  <data name="MenuListaDosificacion" xml:space="preserve">
+    <value>Lista Dosificacion</value>
+  </data>
+  <data name="MenuVenta" xml:space="preserve">
+    <value>Venta</value>
   </data>
 </root>

@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ItemCarrito.ascx.cs" Inherits="UserControls_Carrito_ItemCarrito" %>
-
 <div id="carritoRight" class="col-md-4 col-xs-12 col-sm-8 col-lg-3">
     <div class="panelHeader redContainer" id="carritoTitle">
         <div id="carritoIco"></div>
@@ -24,11 +23,12 @@
             <ItemTemplate>
                 <div id='<%# "ItemCarrito_P_" +Eval("ProductoId") %>' class="itemCarrito">
                     <div class="row">
-                        <div class="col-xs-3">
-                            <asp:Image ID="ProductImage" runat="server" AlternateText='<%# Eval("ImagenId") %>'
-                                ImageUrl="~/img/ImgRestaurante/noImage.jpg" CssClass="img-responsive" />
+                        <div class="col-xs-4">
+                            <asp:HiddenField ID="ImagenId" runat="server" Value='<%# Eval("ImagenId") %>' />
+                            <asp:Image ID="ProductImage" runat="server"
+                                CssClass="img-responsive" Width="100" Height="100" />
                         </div>
-                        <div class="col-xs-7">
+                        <div class="col-xs-6">
                             <a class="nombreCarrito" href='<%# "UnProducto.aspx?id=" + Eval("ProductoId") %>'>
                                 <asp:Literal ID="NombreItem" runat="server" Text='<%# Eval("Nombre")%>'></asp:Literal>
                             </a>
@@ -170,7 +170,12 @@
                         success: function (mydata) {
                             //console.log(mydata);
                             $("#<%= TotalLiteral.ClientID %>").html(formatNumber.new(total.toFixed(2)));
+                            $("#ContentPlaceHolder2_TotalLiteral").html(formatNumber.new(total.toFixed(2)));
+                            $("#ContentPlaceHolder2_total2").html(formatNumber.new(total.toFixed(2)));
+
                             $("#<%= CartHiddenField.ClientID %>").val(mydata.d);
+                            $("#ContentPlaceHolder2_CartHiddenField").val(mydata.d);
+
                         }
                     });
                 });

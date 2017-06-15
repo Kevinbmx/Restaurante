@@ -98,19 +98,21 @@ class:         if the menu is not public, the name of the class that the user
 					public="true"
 					url="~/Administracion/Inventario/Familia/ListaFamilia.aspx">
     </Menu>
-   
+
 
     <Menu resourceFile="InitMasterPage"
        resourceItem="MenuListaProducto"
        public="true"
        url="~/Administracion/Inventario/Producto/ListaProducto.aspx">
     </Menu>
-    
-     <Menu resourceFile="InitMasterPage"
-       resourceItem="MenuListaImageProducto"
-       public="true"
-       url="~/Administracion/Inventario/ImagenProducto/ListaImagenProducto.aspx">
+
+    <Menu resourceFile="InitMasterPage"
+      resourceItem="MenuListaImageProducto"
+      public="true"
+      url="~/Administracion/Inventario/ImagenProducto/ListaImagenProducto.aspx">
     </Menu>
+
+
 
 
     <!--<Menu resourceFile="InitMasterPage"
@@ -124,7 +126,7 @@ class:         if the menu is not public, the name of the class that the user
           public="true"
           url="~/Administracion/Inventario/Caracteristica/AddCaracteristica.aspx">
     </Menu>-->
-     <!--Suscripciones 
+    <!--Suscripciones 
     <Menu resourceFile="InitMasterPage"
 					resourceItem="MenuSuscripciones"
 					public="true"
@@ -132,7 +134,16 @@ class:         if the menu is not public, the name of the class that the user
     </Menu>-->
 
   </Menu>
-
+  <Menu resourceFile="InitMasterPage"
+        resourceItem="MenuVenta"
+        public="true"
+        icon="fa fa-user-secret">
+    <Menu resourceFile="InitMasterPage"
+        resourceItem="MenuListaDosificacion"
+        public="true"
+        url="~/Administracion/Dosificacion/ListaDosificacion.aspx">
+    </Menu>
+  </Menu>
   <!-- Fifth Menu: My Account -->
   <!--<Menu resourceFile="InitMasterPage"
 			  resourceItem="MenuAccount"

@@ -33,8 +33,6 @@ public partial class Menu : System.Web.UI.Page
             cargarFamiliaRepeater();
 
         }
-
-        //addCartArticleButton.NavigateUrl = "javascript:addItem(false, " + OfertangaId + ", true)";
     }
 
     private void cargarProductoLista()
@@ -84,7 +82,7 @@ public partial class Menu : System.Web.UI.Page
                 PedidoUtilities.SetupShoppingCart();
             }
             //bool carritoEnCuota = PedidoUtilities.GetCarritoEnCuotas();
-            Dictionary<string, DatorProductoCarrito> carrito = new Dictionary<string, DatorProductoCarrito>();
+            Dictionary<string, DatorProductoCarrito> carrito = PedidoUtilities.GetCarrito();
             //string carritoEnCuota = PedidoUtilities.GetCarritoEnCuotas();
 
             //if (itemEnCuota == carritoEnCuota)
@@ -184,11 +182,23 @@ public partial class Menu : System.Web.UI.Page
         }
     }
 
-
-
-
-
-
+    [WebMethod]
+    public static Imagen obtenerDireccionImagen(string idImagen)
+    {
+        try
+        {
+            Imagen objImagen = ImagenBLL.GetImagenById(Convert.ToInt32(idImagen));
+            if (objImagen == null)
+            {
+                return null;
+            }
+            return objImagen;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
 
     public Searcher consultaSql(string query)
     {
@@ -221,7 +231,7 @@ public partial class Menu : System.Web.UI.Page
             HiddenField ImagenIdParaFondo = (HiddenField)e.Item.FindControl("ImagenIdParaFondo");
             Panel SliderImagen = (Panel)e.Item.FindControl("SliderImagen");
             int imagenId = Convert.ToInt32(ImagenIdParaFondo.Value);
-            Imagen objImagen = ImagenBLL.GetProductoById(imagenId);
+            Imagen objImagen = ImagenBLL.GetImagenById(imagenId);
             if (objImagen == null)
             {
                 SliderImagen.BackImageUrl = "img/ImgRestaurante/noImage.jpg";

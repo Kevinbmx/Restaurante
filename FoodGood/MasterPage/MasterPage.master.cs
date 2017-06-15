@@ -14,15 +14,22 @@ public partial class MasterPage_MasterPage : System.Web.UI.MasterPage
         if (!IsPostBack)
         {
             LoadMainMenuScript();
+            LoadMenuScript();
             string currentPage = Page.Request.AppRelativeCurrentExecutionFilePath;
             if (currentPage.Equals("~/Autentificacion/Login.aspx") || currentPage.Equals("~/Autentificacion/Registrar.aspx") || currentPage.Equals("~/Menu.aspx"))
             {
                 listaDefaultd.Visible = false;
             }
 
-            if (currentPage.Equals("~/Menu.aspx"))
+            if (currentPage.Equals("~/Carrito.aspx"))
             {
-                LoadMenuScript();
+                listaDefaultd.Visible = false;
+                headerCarrito.Visible = false;
+            }
+
+            if (currentPage.Equals("~/Default.aspx"))
+            {
+                listaEnlace.Visible = false;
             }
             string valorCookies = LoginUtilities.ObtenerLoginCookies();
             if (!string.IsNullOrEmpty(valorCookies))
@@ -52,14 +59,26 @@ public partial class MasterPage_MasterPage : System.Web.UI.MasterPage
         scriptText.Append(ResolveClientUrl("~/Script/bootstrap.min.js"));
         scriptText.Append("\" type=\"text/javascript\"></script>\n");
 
+        //scriptText.Append("<script src=\"");
+        //scriptText.Append(ResolveClientUrl("~/Script/FoodGood.js"));
+        //scriptText.Append("\" type=\"text/javascript\"></script>\n");
+
         scriptText.Append("<script src=\"");
-        scriptText.Append(ResolveClientUrl("~/Script/FoodGood.js"));
+        scriptText.Append(ResolveClientUrl("~/Script/scrollreveal.min.js"));
         scriptText.Append("\" type=\"text/javascript\"></script>\n");
+
+
+
+        //scriptText.Append("<script src=\"");
+        //scriptText.Append(ResolveClientUrl("~/Script/owl.carousel.min.js"));
+        //scriptText.Append("\" type=\"text/javascript\"></script>\n");
 
 
         scriptText.Append("<script src=\"");
         scriptText.Append(ResolveClientUrl("~/Script/jquery.bootstrap-touchspin.min.js"));
         scriptText.Append("\" type=\"text/javascript\"></script>\n");
+
+
 
         StringBuilder imagText = new StringBuilder("<img src=\"");
         imagText.Append(ResolveClientUrl("~/img/gorroChef.png"));
@@ -73,12 +92,12 @@ public partial class MasterPage_MasterPage : System.Web.UI.MasterPage
     private void LoadMenuScript()
     {
         StringBuilder scriptText = new StringBuilder("<script src=\"");
-        scriptText.Append(ResolveClientUrl("~/Script/scrollreveal.min.js"));
-        scriptText.Append("\" type=\"text/javascript\"></script>\n");
-
-        scriptText.Append("<script src=\"");
         scriptText.Append(ResolveClientUrl("~/Script/jquery.easing.1.3.js"));
         scriptText.Append("\" type=\"text/javascript\"></script>\n");
+
+        //scriptText.Append("<script src=\"");
+        //scriptText.Append(ResolveClientUrl("~/Script/jquery.easing.1.3.js"));
+        //scriptText.Append("\" type=\"text/javascript\"></script>\n");
 
         scriptText.Append("<script src=\"");
         scriptText.Append(ResolveClientUrl("~/Script/jquery.magnific-popup.min.js"));

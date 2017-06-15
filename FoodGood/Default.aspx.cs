@@ -41,16 +41,21 @@ public partial class _Default : System.Web.UI.Page
     {
         try
         {
-            Label imagenlabel = (Label)e.Item.FindControl("imagenlabel");
-            int imagenId = Convert.ToInt32(imagenlabel.Text);
-            Imagen objImagen = ImagenBLL.GetProductoById(imagenId);
+            HiddenField imagenlabel = (HiddenField)e.Item.FindControl("imagenlabel");
+            Image imagenFamilia = (Image)e.Item.FindControl("imagenFamilia");
+            int imagenId = Convert.ToInt32(imagenlabel.Value);
+            Imagen objImagen = ImagenBLL.GetImagenById(imagenId);
             if (objImagen == null)
             {
-                imagenlabel.Text = "<img src='img/ImgRestaurante/noImage.jpg' class='img-responsive' alt='no Imagen'/>";
+                //imagenlabel.Text = "<img src='img/ImgRestaurante/noImage.jpg' class='img-responsive' alt='no Imagen'/>";
+                imagenFamilia.ImageUrl = "~/img/ImgRestaurante/noImage.jpg";
+                imagenFamilia.AlternateText = "no hay imagen";
             }
             else
             {
-                imagenlabel.Text = "<img src='img/ImgRestaurante/" + objImagen.Titulo + "' class='img-responsive' alt='" + objImagen.Titulo + "'/>";
+                imagenFamilia.ImageUrl = "~/img/ImgRestaurante/" + objImagen.Titulo;
+                imagenFamilia.AlternateText = objImagen.Titulo;
+                //imagenlabel.Text = "<img src='img/ImgRestaurante/" + objImagen.Titulo + "' class='img-responsive' alt='" + objImagen.Titulo + "'/>";
             }
         }
         catch (Exception ex)

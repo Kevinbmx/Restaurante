@@ -85,7 +85,7 @@ public partial class UserControl_Producto_Producto : System.Web.UI.UserControl
         {
             if (ImagenId != 0 || !ImagenId.Equals(""))
             {
-                Imagen objImagen = ImagenBLL.GetProductoById(ImagenId);
+                Imagen objImagen = ImagenBLL.GetImagenById(ImagenId);
                 if (objImagen == null)
                 {
                     ImagenProducto.ImageUrl = "~/img/ImgRestaurante/noImage.jpg";
