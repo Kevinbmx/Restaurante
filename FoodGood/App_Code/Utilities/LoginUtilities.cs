@@ -12,8 +12,8 @@ using System.Web;
 /// </summary>
 public class LoginUtilities
 {
-    public static string LoginCookieName { get { return "login"; } }
-    public static string NombreUsuario { get { return "usuario"; } }
+    //public static string LoginCookieName { get { return "login"; } }
+    //public static string NombreUsuario { get { return "usuario"; } }
 
     public LoginUtilities()
     { }
@@ -41,6 +41,7 @@ public class LoginUtilities
     {
         try
         {
+            string LoginCookieName = "login";
             HttpCookie loginCookie = context.Request.Cookies[LoginCookieName];
 
             bool itsNew = loginCookie == null;
@@ -60,22 +61,47 @@ public class LoginUtilities
         }
     }
 
-
-
     public static string ObtenerLoginCookies()
+    {
+        return ObtenerLoginCookies(HttpContext.Current);
+    }
+
+    public static string ObtenerLoginCookies(HttpContext context)
     {
         try
         {
-            HttpCookie loginCookie = HttpContext.Current.Request.Cookies[LoginCookieName];
-            if (loginCookie == null)
+            string valor = "";
+            string LoginCookieName = "login";
+            if (context.Request.Cookies[LoginCookieName] != null)
             {
-                loginCookie = new HttpCookie(LoginCookieName, "");
+                HttpCookie cookie = context.Request.Cookies[LoginCookieName];
+                valor = cookie.Value;
+                return valor;
+            }
+            else
+            {
+                HttpCookie loginCookie = new HttpCookie(LoginCookieName, "");
                 loginCookie.Expires = DateTime.Now.AddDays(1d);
                 HttpContext.Current.Response.Cookies.Add(loginCookie);
+                return valor;
             }
-            string value = "";
-            value = loginCookie.Value;
-            return value;
+            //return null;
+
+
+
+
+
+
+            //HttpCookie loginCookie = HttpContext.Current.Request.Cookies[LoginCookieName];
+            //if (loginCookie == null)
+            //{
+            //    loginCookie = new HttpCookie(LoginCookieName, "");
+            //    loginCookie.Expires = DateTime.Now.AddDays(1d);
+            //    HttpContext.Current.Response.Cookies.Add(loginCookie);
+            //}
+            //string value = "";
+            //value = loginCookie.Value;
+            //return value;
 
         }
         catch (Exception ex)
@@ -115,15 +141,19 @@ public class LoginUtilities
             string query = consultaSqlUsuario(armadoDeQuery).SqlQuery();
             List<Usuario> lista = UsuariosBLL.GetUsuarioListForSearch(query);
             string usuario = "";
-            for (int i = 0; i < lista.Count; i++)
+            if (lista != null)
             {
-                usuario = CryptographyFunctions.SHA1HashTheString(lista[i].Email + lista[i].Password);
-                if (usuario.ToLower().Equals(EmailPassword.ToLower()))
+                for (int i = 0; i < lista.Count; i++)
                 {
-                    ActualizarLoginCookies(EmailPassword);
-                    return lista[i];
+                    usuario = CryptographyFunctions.SHA1HashTheString(lista[i].Email + lista[i].Password);
+                    if (usuario.ToLower().Equals(EmailPassword.ToLower()))
+                    {
+                        ActualizarLoginCookies(EmailPassword);
+                        return lista[i];
+                    }
                 }
             }
+
             ActualizarLoginCookies("");
             return null;
         }
@@ -131,11 +161,31 @@ public class LoginUtilities
         {
             throw ex;
         }
+
     }
+
+
 
     public static void CloseSesion()
     {
-        ActualizarLoginCookies("");
+        CloseSesion(HttpContext.Current);
+        //ActualizarUsuarioCookies(texto, HttpContext.Current);
+    }
+
+    public static void CloseSesion(HttpContext context)
+    {
+        string LoginCookieName = "login";
+        HttpCookie myCookie = new HttpCookie(LoginCookieName);
+        myCookie.Expires = DateTime.Now.AddDays(-1d);
+        context.Response.Cookies.Add(myCookie);
+
+        string cookieName = "FoodGoodCartId";
+
+        myCookie = new HttpCookie(cookieName);
+        myCookie.Expires = DateTime.Now.AddDays(-1d);
+        context.Response.Cookies.Add(myCookie);
+
+        //ActualizarLoginCookies("");
         return;
     }
 

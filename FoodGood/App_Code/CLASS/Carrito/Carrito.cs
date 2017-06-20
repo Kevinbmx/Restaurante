@@ -13,6 +13,7 @@ namespace FoodGood.Carrito
         public int? UsuarioId { get; set; }
         public string Contenido { get; set; }
         public DateTime Fecha { get; set; }
+        public string EstadoVenta { get; set; }
 
         public Carrito()
         {
@@ -21,13 +22,13 @@ namespace FoodGood.Carrito
             //
         }
 
-        public Carrito(String carritoId, int? usuarioId, string contenido, DateTime fecha)
+        public Carrito(String carritoId, int? usuarioId, string contenido, DateTime fecha, string estadoVenta)
         {
             CarritoId = carritoId;
             UsuarioId = usuarioId;
             Contenido = contenido;
             Fecha = fecha;
-
+            EstadoVenta = estadoVenta;
         }
     }
 }

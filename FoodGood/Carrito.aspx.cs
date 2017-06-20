@@ -1,5 +1,6 @@
 ﻿using FoodGood.Imagen;
 using FoodGood.Imagen.BLL;
+using FoodGood.Usuario;
 using FoodGood.Utilities;
 using log4net;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -15,7 +17,10 @@ public partial class Carrito : System.Web.UI.Page
     private static readonly ILog log = LogManager.GetLogger("Standard");
     protected void Page_Load(object sender, EventArgs e)
     {
+
         cargarItemArticulo();
+        //string url = HttpContext.Current.Request.Url.AbsoluteUri;
+        cargarQRCode("Kevin Delgadillo Salazar");
     }
 
     //private void CargarCarrito()
@@ -113,6 +118,31 @@ public partial class Carrito : System.Web.UI.Page
 
     }
 
+    [WebMethod]
+    public static string ExisteUsuarioIniciado()
+    {
+        try
+        {
+            string loginCookie = LoginUtilities.ObtenerLoginCookies();
+
+            if (string.IsNullOrEmpty(loginCookie))
+            {
+                return null;
+            }
+            return loginCookie;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    //[WebMethod]
+    public void hacerElPedidoVenta()
+    {
+
+    }
+
     protected void Page_PreRender(object sender, EventArgs e)
     {
 
@@ -154,9 +184,14 @@ public partial class Carrito : System.Web.UI.Page
         }
     }
 
-    protected void Pase3_Click(object sender, EventArgs e)
+    private void cargarQRCode(string url)
     {
+        ImageQRCode.ImageUrl = "~/GeneradoQR/QRGenerator.aspx" + "?qrcode=" + url;
+    }
 
+    protected void Paso3Button_Click(object sender, EventArgs e)
+    {
+        Page.ClientScript.RegisterStartupScript(this.GetType(), "cargarPaso3", "javascript:paso3();", true);
     }
 
     protected void CiudadComboBox_DataBound(object sender, EventArgs e)
@@ -164,5 +199,28 @@ public partial class Carrito : System.Web.UI.Page
         CiudadComboBox.Items.Clear();
         CiudadComboBox.Items.Insert(0, new ListItem("SANTA CRUZ", "3"));
         CiudadComboBox.Items.Insert(0, new ListItem("-- Seleccione una Ciudad --", ""));
+    }
+
+    protected void valorLogin_Click(object sender, EventArgs e)
+    {
+        escribirvalor.Text = LoginUtilities.ObtenerLoginCookies();
+    }
+
+    protected void paso4Button_Click(object sender, EventArgs e)
+    {
+        Page.ClientScript.RegisterStartupScript(this.GetType(), "cargarPaso3", "javascript:paso4();", true);
+
+    }
+
+    protected void ModalidaPagoButton_Click(object sender, EventArgs e)
+    {
+        if (radioCuotas.SelectedValue.Equals("1"))
+        {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "cargarPaso3", "javascript:paso3();", true);
+        }
+        else if (radioCuotas.SelectedValue.Equals("2"))
+        {
+            hacerElPedidoVenta();
+        }
     }
 }

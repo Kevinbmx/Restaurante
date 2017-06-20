@@ -701,6 +701,9 @@ a {
     .page-footer {
         padding-top: 30px;
         padding-bottom: 30px;
+        bottom: 0;
+        position: inherit;
+        width: 100%;
     }
 
     .footer-text {
@@ -1115,4 +1118,12 @@ a {
 .row.no-gutters {
     margin-right: 0;
     margin-left: 0;
+}
+
+.margen-alrededor {
+    margin: 15px;
+}
+
+.compraHecha {
+    padding: 30px;
 }

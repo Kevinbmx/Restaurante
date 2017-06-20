@@ -107,7 +107,9 @@ namespace FoodGood.Utilities
                     return cookie.Value;
                 }
                 else
+                {
                     return null;
+                }
             }
             catch (Exception ex)
             {
@@ -162,6 +164,7 @@ namespace FoodGood.Utilities
                     {
                         try
                         {
+                            string valorLogin = LoginUtilities.ObtenerLoginCookies();
                             JavaScriptSerializer js = new JavaScriptSerializer();
                             Dictionary<string, DatorProductoCarrito> carritoNuevo = PedidoUtilities.GetCarrito();
                             Dictionary<string, DatorProductoCarrito> carritoAntiguo = js.Deserialize<Dictionary<string, DatorProductoCarrito>>(objCarrito.Contenido);
@@ -170,7 +173,7 @@ namespace FoodGood.Utilities
                                 if (!carritoNuevo.ContainsKey(recorrido.Key))
                                 {
                                     carritoNuevo.Add(recorrido.Key, recorrido.Value);
-                                    PedidoUtilities.UpdateCarrito(carritoNuevo);
+                                    UpdateCarrito(carritoNuevo);
                                 }
                             }
                             CarritoBLL.DeleteCarrito(objCarrito.CarritoId);
@@ -181,14 +184,14 @@ namespace FoodGood.Utilities
                             throw ex;
                         }
                     }
-                    string cookieEmailName = "KomodoSuscription";
-                    HttpCookie cookieEmail = context.Request.Cookies[cookieEmailName];
-                    if (cookieEmail == null)
-                    {
-                        cookie = new HttpCookie(cookieEmailName, cookieEmailName);
-                        cookie.Expires = DateTime.Now.AddDays(365);
-                        context.Response.Cookies.Add(cookie);
-                    }
+                    //string cookieEmailName = "KomodoSuscription";
+                    //HttpCookie cookieEmail = context.Request.Cookies[cookieEmailName];
+                    //if (cookieEmail == null)
+                    //{
+                    //    cookie = new HttpCookie(cookieEmailName, cookieEmailName);
+                    //    cookie.Expires = DateTime.Now.AddDays(365);
+                    //    context.Response.Cookies.Add(cookie);
+                    //}
                     existeCarrito = true;
                 }
                 return existeCarrito;
@@ -372,5 +375,6 @@ namespace FoodGood.Utilities
         //    catch (Exception ex)
         //    { log.Error("Error sending email to client", ex); }
         //}
+
     }
 }

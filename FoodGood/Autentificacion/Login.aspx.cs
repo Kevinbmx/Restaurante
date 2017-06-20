@@ -1,4 +1,5 @@
 ﻿using FoodGood.Usuario;
+using FoodGood.Utilities;
 using FoodGood.Utilities.Security;
 using System;
 using System.Collections.Generic;
@@ -62,9 +63,16 @@ public partial class Autentificacion_Login : System.Web.UI.Page
             {
                 Response.Redirect("~/Administracion/MainPages.aspx");
             }
-            else
+            if (user.TipoUsuarioId == 3)
             {
-                Response.Redirect("~/Default.aspx");
+                if (PedidoUtilities.GetCarritoIdForUsuarioIniciado(user.UsuarioId))
+                {
+                    Response.Redirect("~/Carrito.aspx");
+                }
+                else
+                {
+                    Response.Redirect("~/Default.aspx");
+                }
             }
         }
     }

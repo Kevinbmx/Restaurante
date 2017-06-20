@@ -75,7 +75,7 @@ public partial class Menu : System.Web.UI.Page
     {
         try
         {
-            string cookieName = "KomodoCartId";
+            string cookieName = "FoodGoodCartId";
             bool cookieExists = HttpContext.Current.Request.Cookies[cookieName] != null;
             if (!cookieExists)
             {

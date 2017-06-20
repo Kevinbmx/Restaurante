@@ -230,10 +230,11 @@ namespace FoodGood.Carrito.BLL
         private static Carrito FillCarritoRecord(CarritoDS.CarritoRow row)
         {
             Carrito theNewRecord = new Carrito(
-                row.carritoId, 
+                row.carritoId,
                 row.IsusuarioIdNull() ? 0 : row.usuarioId,
                 row.contenido,
-                row.fecha);
+                row.fecha,
+                row.estadoVenta);
             return theNewRecord;
         }
     }
