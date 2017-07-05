@@ -288,6 +288,20 @@ namespace FoodGood.Utilities
             catch (Exception ex)
             { log.Error("Error al actualizar el carrito en la base de datos", ex); }
         }
+        public static void borrarCarritoIdCookie()
+        {
+            borrarCarritoIdCookie(HttpContext.Current);
+        }
+
+        public static void borrarCarritoIdCookie(HttpContext context)
+        {
+
+            string cookieName = "FoodGoodCartId";
+            HttpCookie myCookie = new HttpCookie(cookieName);
+            myCookie = new HttpCookie(cookieName);
+            myCookie.Expires = DateTime.Now.AddDays(-1d);
+            context.Response.Cookies.Add(myCookie);
+        }
 
         //public static void CloneAndRemoveOldCart(string email, int? userId)
         //{

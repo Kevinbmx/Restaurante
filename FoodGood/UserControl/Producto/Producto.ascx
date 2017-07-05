@@ -2,7 +2,7 @@
 
 <div class="col-sm-6 col-md-4 size-item-Menu">
     <div class="thumbnail">
-        <asp:Image runat="server" ID="ImagenProducto" />
+        <asp:Image runat="server"  ID="ImagenProducto" />
         <div class="caption">
             <asp:Panel ID="Panel_Titulo_Producto" runat="server">
                 <h3>

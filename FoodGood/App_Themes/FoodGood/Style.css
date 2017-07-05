@@ -699,15 +699,15 @@ a {
     /*footer*/
 
     .page-footer {
-        padding-top: 30px;
-        padding-bottom: 30px;
+        padding-top: 80px;
+        padding-bottom: 80px;
         bottom: 0;
         position: inherit;
         width: 100%;
     }
 
     .footer-text {
-        font-size: 14px;
+        font-size: 16px;
     }
 
 
@@ -1126,4 +1126,75 @@ a {
 
 .compraHecha {
     padding: 30px;
+}
+
+
+
+.summary-box-header, .summary-box-content {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+/*.summary-box-content {
+    margin-bottom: 30px;
+}*/
+
+.summary-box-header {
+    padding-bottom: 0px;
+    background-color: #EAE9E9;
+}
+
+
+/*.step1Content {
+    margin: 0px 30px;
+}*/
+
+.step1Content .totalCarrito {
+    text-align: right;
+}
+
+
+.ancho-Factura {
+    /*margin-top: 50px;*/
+    width: 350px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.head-factura {
+    display: flex;
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+    text-align: center;
+}
+
+.dato-factura {
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid;
+    display: flex;
+}
+
+    .dato-factura span {
+        margin-bottom: 15px;
+    }
+
+.dato-cliente {
+    padding: 10px 0 10px 0;
+}
+
+.dato-Cliente {
+    display: flex;
+    padding: 0px 0 10px 0;
+    border-bottom: 1px solid;
+}
+
+.detalle-pedido {
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid;
+}
+
+
+.detalle-Precio {
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid;
 }

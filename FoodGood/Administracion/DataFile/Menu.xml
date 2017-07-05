@@ -135,6 +135,16 @@ class:         if the menu is not public, the name of the class that the user
 
   </Menu>
   <Menu resourceFile="InitMasterPage"
+      resourceItem="MenuPedido"
+      public="true"
+      icon="fa fa-user-secret">
+    <Menu resourceFile="InitMasterPage"
+        resourceItem="MenuListaPedido"
+        public="true"
+        url="~/Administracion/Pedido/ListaPedido.aspx">
+    </Menu>
+  </Menu>
+  <Menu resourceFile="InitMasterPage"
         resourceItem="MenuVenta"
         public="true"
         icon="fa fa-user-secret">

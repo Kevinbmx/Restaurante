@@ -118,29 +118,29 @@ public partial class UserControls_Carrito_ItemCarrito : System.Web.UI.UserContro
 
     protected void PedidolistRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        try
-        {
-            HiddenField ImagenId = (HiddenField)e.Item.FindControl("ImagenId");
-            Image ProductImage = (Image)e.Item.FindControl("ProductImage");
-            int imagenId = Convert.ToInt32(ImagenId.Value);
-            Imagen objImagen = ImagenBLL.GetImagenById(imagenId);
-            if (objImagen == null)
-            {
-                //imagenlabel.Text = "<img src='img/ImgRestaurante/noImage.jpg' class='img-responsive' alt='no Imagen'/>";
-                ProductImage.ImageUrl = "~/img/ImgRestaurante/noImage.jpg";
-                ProductImage.AlternateText = "no hay imagen";
-            }
-            else
-            {
-                ProductImage.ImageUrl = "~/img/ImgRestaurante/" + objImagen.Titulo;
-                ProductImage.AlternateText = objImagen.Titulo;
-                //imagenlabel.Text = "<img src='img/ImgRestaurante/" + objImagen.Titulo + "' class='img-responsive' alt='" + objImagen.Titulo + "'/>";
-            }
-        }
-        catch (Exception ex)
-        {
+        //try
+        //{
+        //    HiddenField ImagenId = (HiddenField)e.Item.FindControl("ImagenId");
+        //    Image ProductImage = (Image)e.Item.FindControl("ProductImage");
+        //    int imagenId = Convert.ToInt32(ImagenId.Value);
+        //    Imagen objImagen = ImagenBLL.GetImagenById(imagenId);
+        //    if (objImagen == null)
+        //    {
+        //        //imagenlabel.Text = "<img src='img/ImgRestaurante/noImage.jpg' class='img-responsive' alt='no Imagen'/>";
+        //        ProductImage.ImageUrl = "~/img/ImgRestaurante/noImage.jpg";
+        //        ProductImage.AlternateText = "no hay imagen";
+        //    }
+        //    else
+        //    {
+        //        ProductImage.ImageUrl = "~/img/ImgRestaurante/" + objImagen.Titulo;
+        //        ProductImage.AlternateText = objImagen.Titulo;
+        //        //imagenlabel.Text = "<img src='img/ImgRestaurante/" + objImagen.Titulo + "' class='img-responsive' alt='" + objImagen.Titulo + "'/>";
+        //    }
+        //}
+        //catch (Exception ex)
+        //{
 
-            throw ex;
-        }
+        //    throw ex;
+        //}
     }
 }

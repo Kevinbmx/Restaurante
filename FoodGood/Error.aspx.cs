@@ -22,4 +22,10 @@ public partial class Error : System.Web.UI.Page
         //string llave = "/((\"·)·Q\"$U)·U)=\"UEQW)DK==\"·$(Q·\"@#@·(·$(3489qskfjf3294u829342";
         //codigoControl.Text = CodigoControl.generateControlCode("263401700008676", "1", "1028241027", "20170607", "25981,6", llave);
     }
+
+    protected void botonFehca_Click(object sender, EventArgs e)
+    {
+        fechaActual.Text = Convert.ToString(DateTime.Now);
+        fechaActualCorta.Text = DateTime.Now.ToString("yyyyMMdd");
+    }
 }

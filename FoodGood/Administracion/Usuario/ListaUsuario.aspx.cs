@@ -31,33 +31,41 @@ public partial class Administracion_Usuario_ListaUsuario : System.Web.UI.Page
     public void validarUsuario()
     {
         Usuario objUsuario = LoginUtilities.GetUserLogged();
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Usuario) &&
-            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Ususario) &&
-            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Usuario) &&
-            !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Usuario))
+        if (objUsuario != null)
         {
-            Response.Redirect("~/Administracion/Error.aspx");
-        }
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Usuario))
-        {
-            NewUsuarioButton.Visible = false;
-        }
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Usuario) &&
+       !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Ususario) &&
+       !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Usuario) &&
+       !ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Usuario))
+            {
+                Response.Redirect("~/Administracion/Error.aspx");
+            }
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Crear_Usuario))
+            {
+                NewUsuarioButton.Visible = false;
+            }
 
-        if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Usuario))
-        {
-            ListaUsuariosGridView.Visible = false;
+            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Ver_Usuario))
+            {
+                ListaUsuariosGridView.Visible = false;
+            }
+            else
+            {
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Ususario))
+                {
+                    this.ListaUsuariosGridView.Columns[0].Visible = false;
+                }
+                if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Usuario))
+                {
+                    this.ListaUsuariosGridView.Columns[1].Visible = false;
+                }
+            }
         }
         else
         {
-            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Ususario))
-            {
-                this.ListaUsuariosGridView.Columns[0].Visible = false;
-            }
-            if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Eliminar_Usuario))
-            {
-                this.ListaUsuariosGridView.Columns[1].Visible = false;
-            }
+            Response.Redirect("~/Autentificacion/Login.aspx");
         }
+
     }
 
 

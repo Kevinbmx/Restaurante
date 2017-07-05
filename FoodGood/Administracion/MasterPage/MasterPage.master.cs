@@ -74,6 +74,7 @@ public partial class Administracion_MasterPage_MasterPage : System.Web.UI.Master
              "~/Administracion/Inventario/Familia/ListaFamilia.aspx",
              "~/Administracion/Inventario/Producto/ListaProducto.aspx",
              "~/Administracion/Inventario/ImagenProducto/ListaImagenProducto.aspx",
+             "~/Administracion/Pedido/ListaPedido.aspx",
              "~/Administracion/Dosificacion/ListaDosificacion.aspx",
              "~/Administracion/Dosificacion/RegistrarDosificacion.aspx"
         };

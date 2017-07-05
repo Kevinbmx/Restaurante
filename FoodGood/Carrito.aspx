@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/MasterPage.master" AutoEventWireup="true" CodeFile="Carrito.aspx.cs" Inherits="Carrito" %>
 
+<%@ Register Src="~/UserControl/OrderDetails/OrderDetails.ascx" TagName="OrderDetails" TagPrefix="app" %>
 <%@ Register TagPrefix="app" TagName="GpsSelector" Src="~/UserControl/Mapa/GpsSelector.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript"
@@ -7,6 +8,7 @@
     </script>
     <%--<script src="Script/google-map.js"></script>--%>
     <script src="Script/gpsMapSelector.js"></script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="Server">
 
@@ -20,8 +22,11 @@
             </div>
         </div>
     </section>
-    <asp:LinkButton runat="server" ID="valorLogin" OnClick="valorLogin_Click" Text="ver valor"></asp:LinkButton>
-    <asp:Label ID="escribirvalor" runat="server"></asp:Label>
+    <%--<asp:Label ID="txtnuevomonto"  runat="server" Text=""></asp:Label>--%>
+    <%--<asp:LinkButton runat="server" ID="verNuevoMonto" OnClick="verNuevoMonto_Click">presionar</asp:LinkButton>--%>
+
+    <%--  <asp:LinkButton runat="server" ID="valorLogin" OnClick="valorLogin_Click" Text="ver valor"></asp:LinkButton>
+    <asp:Label ID="escribirvalor" runat="server"></asp:Label>--%>
     <div style="width: 100%;" class="row no-gutters">
         <div class="col-md-3" style="padding-bottom: 260px;">
             <div id="carritoWizardHeader">
@@ -33,18 +38,19 @@
                         Detalle del pedido
                     </div>
                     <div id="cantItemsWizard">
-                        <asp:Label ID="cantItem2" runat="server" class="CantItem" Text="0"></asp:Label>
+                        <asp:Label ID="cantItem2" runat="server" CssClass="CantItem" Text="0"></asp:Label>
                         items 
                     </div>
                 </div>
             </div>
             <div id="carritoWizardSteps" class="container-fluid">
                 <div class="row">
-                    <div class="carritoWizardOneStep">
+                    <div id="detallePaso1" class="carritoWizardOneStep">
                         <a href="javascript:paso1()" class="stepButton">Items</a>
                         <div class="stepDetails">
                             <asp:Panel ID="totalPasosPanel" CssClass="totalCarrito" runat="server">
-                                Total (<asp:Label ID="CantItem1" runat="server" Text="0" CssClass="CantItem"></asp:Label>
+                                Total (
+                                <asp:Label ID="CantItem1" runat="server" Text="0" CssClass="CantItem"></asp:Label>
                                 items): 
                               <span class="precioTotalCarrito">Bs.
                 <asp:Label ID="total2" runat="server" Text="0" CssClass="total"></asp:Label></span>
@@ -67,13 +73,13 @@
                         <div class="stepDetails hidden">
                         </div>
                     </div>
-                    <div id="detallePaso6" class="carritoWizardOneStep hidden">
-                        <a href="javascript:cargarPaso6()" class="stepButton">Detalles de Pago en Cuotas</a>
+                    <div id="detallePaso5" class="carritoWizardOneStep hidden">
+                        <a href="javascript:paso5()" class="stepButton">Detalles de tu pedido</a>
                         <div class="stepDetails hidden">
                         </div>
                     </div>
-                    <div id="detallePaso7" class="carritoWizardOneStep hidden">
-                        <a href="javascript:cargarPaso7()" class="stepButton">Medio de Pago</a>
+                    <div id="detallepagoTarjeta" class="carritoWizardOneStep hidden">
+                        <a href="javascript:pagoTarjeta()" class="stepButton">Pago con Tarjeta</a>
                         <div class="stepDetails hidden">
                         </div>
                     </div>
@@ -98,11 +104,7 @@
                     </div>
                 </asp:Panel>
             </div>--%>
-                    <asp:Image ID="ImageQRCode" runat="server"
-                        AlternateText="Image text"
-                        ImageAlign="right"
-                        ImageUrl="~/GeneradoQR/QRGenerator.aspx" />
-                    <div style="clear: both;"></div>
+
 
                     <div id="carritoProductsList">
                         <%--AQUI VA LA LISTA DE LOS ITEM DE LOS ARTICULOS PRODUCTOS DEL CARRITO--%>
@@ -113,9 +115,9 @@
                                 <div id='<%# "ItemCarrito_G_" +Eval("ProductoId") %>' class="itemCarrito">
                                     <div class="row">
                                         <div class="col-xs-3">
-                                            <asp:HiddenField ID="ImagenId" runat="server" Value='<%# Eval("ImagenId") %>' />
-                                            <asp:Image ID="ProductImage" runat="server"
-                                                CssClass="img-responsive" Width="100" Height="100" />
+                                            <%--<asp:HiddenField ID="ImagenId" runat="server" Value='<%# Eval("ImagenId") %>' />--%>
+                                            <asp:Image ID="ProductImage" runat="server" ImageUrl='<%# "~/img/ImageGenerator.aspx?W=150&H=150&tId=" + Eval("ImagenId") %>' />
+                                            <%--CssClass="img-responsive" Width="100" Height="100" />--%>
                                         </div>
                                         <div class="col-xs-7">
                                             <a class="nombreCarrito" href='<%# "UnProducto.aspx?id=" + Eval("ProductoId") %>'>
@@ -237,12 +239,12 @@
                                     Display="Dynamic">
                                 </asp:CustomValidator>
                             </div>
-                            <div class="form-group">
+                            <%--  <div class="form-group">
                                 <label class="fancy-checkbox">
                                     <asp:CheckBox ID="ChkGuardarDireccion" runat="server" />
                                     <span class="btn btn-link">Guardar en Mis Direcciones</span>
                                 </label>
-                            </div>
+                            </div>--%>
                             <div class="text-right">
                                 <%--<a id="Pase3" class=" btn-primary btn">Siguiente Paso</a>--%>
                                 <asp:LinkButton ID="Paso3Button" CssClass=" btn-primary btn" runat="server" OnClick="Paso3Button_Click" Text="Añadir y Seleccionar Dirección" ValidationGroup="Direccion" />
@@ -263,19 +265,43 @@
                                         <label>Factura a nombre de:</label>
                                         <asp:TextBox CssClass="form-control txtNombreFactura" runat="server" ID="txtNombreFactura" />
                                     </div>
+                                    <div class="validation">
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtNombreFactura"
+                                            ErrorMessage="Debe ingresar el nombre de la factura"
+                                            ForeColor="Red"
+                                            ValidationGroup="factura"
+                                            Display="Dynamic">
+                                        </asp:RequiredFieldValidator>
+                                    </div>
                                     <div class="form-group">
                                         <label>Factura con apellido de:</label>
                                         <asp:TextBox CssClass="form-control txtNombreFactura" runat="server" ID="TextApellido" />
+                                    </div>
+                                    <div class="validation">
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="TextApellido"
+                                            ErrorMessage="Debe ingresar el apellido a la factura"
+                                            ForeColor="Red"
+                                            ValidationGroup="factura"
+                                            Display="Dynamic">
+                                        </asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group">
                                         <label>NIT:</label>
                                         <asp:TextBox ID="txtNit" CssClass="form-control txtNit" runat="server" Text="" />
                                     </div>
+                                    <div class="validation">
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtNit"
+                                            ErrorMessage="Debe ingresar el Nit para la factura"
+                                            ForeColor="Red"
+                                            ValidationGroup="factura"
+                                            Display="Dynamic">
+                                        </asp:RequiredFieldValidator>
+                                    </div>
                                     <div class="form-group">
                                         <%--<a class="margen btn btn-primary col-md-3 boton-continuar" id="ContinuarAFacturacionButton">Siguiente</a>--%>
                                         <%--                                    <asp:LinkButton ID="ingresar_direccion" runat="server" CssClass="margen btn btn-primary col-md-8 boton-continuar" OnClick="ingresar_direccion_Click" Text="Ingresar direcci&oacute;n para entrega de factura" />--%>
                                         <%--<a class="btn btn-primary col-md-8" href="javascript:cargarPaso4()" style="margin-left: 15px;">Ingresar direcci&oacute;n para entrega de factura</a>--%>
-                                        <asp:LinkButton ID="paso4Button" Text="Continuar" CssClass="margen btn btn-primary col-md-3 boton-continuar" runat="server" OnClick="paso4Button_Click" />
+                                        <asp:LinkButton ID="paso4Button" Text="Continuar" CssClass="margen btn btn-primary col-md-3 boton-continuar" runat="server" OnClick="paso4Button_Click" ValidationGroup="factura" />
                                     </div>
                                 </div>
                             </div>
@@ -299,6 +325,10 @@
                                         <span><i class="fa fa-credit-card fa-2x" aria-hidden="true"></i></span>
                                         Pago al contado con tarjeta
                                         </asp:ListItem>
+                                        <asp:ListItem Value="3">
+                                        <span><i class="fa fa-credit-card fa-2x" aria-hidden="true"></i></span>
+                                        Pago a credito con tarjeta
+                                        </asp:ListItem>
                                         <asp:ListItem Value="2">
                                         <span><i class="fa fa-truck fa-2x" aria-hidden="true"></i></span>
                                         Pago personalmente contra entrega
@@ -313,18 +343,130 @@
                     </div>
                 </div>
 
+                <div id="pagoTarjeta" style="display: none">
+                    <div class="col-md-9">
+                        <div class="margen-alrededor">
+                            <div class="row no-gutters titleInCart">
+                                <div class="formTitle">Pago con tarjeta</div>
+                                <div class="borderBottom"></div>
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-md-6">
+                                    <asp:Label runat="server" Text="Ingrese el nombre de tarjeta"></asp:Label>
+                                    <asp:TextBox runat="server" CssClass="form-control" ID="txtNombreTarjeta"></asp:TextBox>
+
+                                    <asp:Label runat="server" Text="Ingrese el numero de su tarjeta"></asp:Label>
+                                    <asp:TextBox runat="server" ID="txtNumeroTarjeta" CssClass="form-control txtNumeroTarjeta" />
+
+                                    <asp:Label runat="server" Text="Monto a pagar"></asp:Label>
+                                    <asp:TextBox runat="server" ID="MontoPagar" CssClass="form-control montoPagar" />
+
+                                    <div>
+                                        <%--<asp:LinkButton ID="pagaTarjetaButton" CssClass="btn-primary btn" runat="server" OnClick="pagaTarjetaButton_Click">Pagar</asp:LinkButton>--%>
+                                        <asp:LinkButton ID="pagarDeudaButton" CssClass="btn-primary btn" runat="server" OnClick="pagarDeudaButton_Click">Pagar Deuda</asp:LinkButton>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ultimoPaso" style="display: none">
+                    <div class="col-md-9">
+                        <asp:Panel runat="server" ID="CompraHecha_pnl">
+                            <div>
+                                <div class="row">
+                                    <h1>Muchas Gracias</h1>
+                                    <ul>
+                                        <li>Se ha enviado un correo a:                                                   
+                                                    <asp:HyperLink NavigateUrl="#" runat="server" ID="CorreoResumenCarrito" />
+                                            <br />
+                                            Certificando la compra con la información para el seguimiento.<br />
+                                        </li>
+                                        <li>Si desea ver el estado de su pedido:
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="text-left" style="padding: 10px">
+                                    <asp:HyperLink NavigateUrl="#" runat="server" ID="VerOrdenLink" CssClass="btn btn-primary " Text="Ver estado" />
+                                    <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx" CssClass="btn btn-default">Volver a la Pagina Principal</asp:HyperLink>
+                                    <asp:LinkButton runat="server" ID="verFactura" Text="Ver Factura" CssClass="btn btn-default" OnClick="verFactura_Click"></asp:LinkButton>
+                                </div>
+                            </div>
+                            <%--RESUMEN CARRITO--%>
+                            <asp:Panel ID="ResumenPanel" runat="server">
+                                <div class="row">
+                                    <h3>Resumen</h3>
+                                    <div>
+                                        <div class="summary-box-header">
+                                            <h5><strong>Datos de Envío</strong></h5>
+                                        </div>
+                                        <div class="summary-box-content">
+                                            <label>Ciudad :</label><br />
+                                            <asp:Literal ID="CiudadResumenLiteral" Text="nombre de ciudad" runat="server" />
+                                            <br />
+                                            <label>Dirección :</label><br />
+                                            <asp:Literal ID="DireccionResumenLiteral" Text="texto direccion" runat="server" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="summary-box-header">
+                                            <h5><strong>Datos de Facturacón</strong> </h5>
+                                        </div>
+                                        <div class="summary-box-content">
+                                            <label>Razón Social :</label><br />
+                                            <asp:Literal ID="RazonSocialResumenLiteral" Text="text" runat="server" />
+                                            <br />
+                                            <label>NIT :</label><br />
+                                            <asp:Literal ID="NitResumenLiteral" Text="text" runat="server" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="summary-box-header">
+                                        <h5><strong>Articulos del Pedido</strong></h5>
+                                    </div>
+                                    <div class="summary-box-content" style="margin-bottom: 30px;">
+                                        <div class="step1Content">
+                                            <app:OrderDetails ID="DetallePedidoResumen_uc" runat="server" />
+                                            <asp:Panel ID="totalPagoResumen" CssClass="totalCarrito" runat="server">
+                                                <div style="text-align: right;">
+                                                    Total:  Bs.
+                                        <asp:Label ID="totalResumenLabel" runat="server" Text="0"></asp:Label>
+                                                </div>
+                                            </asp:Panel>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </asp:Panel>
+
+                            <%--FIN RESUMEN CARRITO--%>
+                        </asp:Panel>
+                        <asp:HiddenField ID="DireccionIdSelectedHF" runat="server" />
+                        <asp:HiddenField ID="RazonSocialSelectedHF" runat="server" />
+                        <asp:HiddenField ID="NitSelectedHF" runat="server" />
+                        <asp:HiddenField ID="FacturaIdInsertadoHiddenField" runat="server" />
+                    </div>
+                </div>
+                <%--     <asp:Label runat="server" ID="monto" Text="Monto Letra: "></asp:Label>
+                <asp:Label runat="server" ID="montoLetra"></asp:Label>--%>
+
+                <asp:HiddenField ID="LoginCookiesIdHiddenField" runat="server" />
+                <asp:HiddenField ID="modalidadPagoId" runat="server" />
+                <asp:HiddenField ID="ventaIdHiddenfiel" runat="server" />
+                <asp:HiddenField ID="pedidoIdHiddenField" runat="server" />
             </div>
         </div>
     </div>
-    <asp:HiddenField ID="LoginCookiesIdHiddenField" runat="server" />
 
 
 
 
     <script>
         $(document).ready(function () {
-            //$("#paso2").fadeOut();
-            //$("#paso3").fadeOut();
+            $(".txtNumeroTarjeta").mask("9999-9999-9999-9999", { placeholder: "_____-_____-_____-_____" });
+            //verDeudaUsuario();
         });
         function miUbicacion() {
             if (navigator.geolocation) {
@@ -374,6 +516,11 @@
                 }
             });
         }
+
+
+
+
+
         function paso3() {
             $("#paso1").fadeOut();
             $("#paso2").fadeOut();
@@ -393,9 +540,32 @@
             $("#detallePaso4").removeClass("hidden");
         }
 
-        <%-- function hacerLacompra() {
-            $("<%= GpsSelectorControl.ClientID %>")
-        }--%>
+        function pagoTarjeta() {
+            $("#paso1").fadeOut();
+            $("#paso2").fadeOut();
+            $("#paso3").fadeOut();
+            $("#paso4").fadeOut();
+            $("#pagoTarjeta").fadeIn();
+            $("#detallePaso2").removeClass("hidden");
+            $("#detallePaso3").removeClass("hidden");
+            $("#detallePaso4").removeClass("hidden");
+            $("#detallepagoTarjeta").removeClass("hidden");
+        }
+
+
+
+        function Ultimopaso() {
+            $("#paso1").fadeOut();
+            $("#paso2").fadeOut();
+            $("#paso3").fadeOut();
+            $("#paso4").fadeOut();
+            $("#ultimoPaso").fadeIn();
+            $("#detallePaso2").removeClass("hidden");
+            $("#detallePaso3").removeClass("hidden");
+            $("#detallePaso4").removeClass("hidden");
+            $("#detallePaso5").removeClass("hidden");
+
+        }
 
     </script>
 </asp:Content>

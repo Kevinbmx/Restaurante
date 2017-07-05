@@ -20,12 +20,19 @@ namespace FoodGood.Venta.BLL
             //
         }
 
-        public static void InsertVenta(Venta objVenta)
+        public static int InsertVenta(Venta objVenta)
         {
             try
             {
+                if (objVenta == null)
+                {
+                    throw new ArgumentException("La venta no puede ser nulo o vacío.");
+                }
+
+                int? VentaId = 0;
                 VentaTableAdapter localAdapter = new VentaTableAdapter();
                 object resutl = localAdapter.InsertVenta(
+                    ref VentaId,
                     objVenta.NombreCliente,
                     objVenta.ApellidoCliente,
                     objVenta.Nit,
@@ -34,13 +41,14 @@ namespace FoodGood.Venta.BLL
                     objVenta.MontoCambio,
                     objVenta.MontoDescuento,
                     objVenta.FechaPedido,
-                    objVenta.FechaEntrega,
-                    objVenta.FechaAnulacion,
+                    //objVenta.FechaEntrega,
+                    //objVenta.FechaAnulacion,
                     objVenta.Estado,
                     objVenta.Latitud,
                     objVenta.Longitud);
 
                 log.Debug("Se insertó la venta al nombre de: " + objVenta.NombreCliente);
+                return (int)VentaId;
             }
             catch (Exception q)
             {
@@ -161,19 +169,19 @@ namespace FoodGood.Venta.BLL
         {
             Venta theNewRecord = new Venta(
                 row.ventaId,
-                row.nombreCliente,
-                row.apellidoCliente,
+                row.IsnombreClienteNull() ? "" : row.nombreCliente,
+                row.IsapellidoClienteNull() ? "" : row.apellidoCliente,
                 row.nit,
                 row.montoTotal,
-                row.pagoTotal,
-                row.montoCambio,
-                row.montoDescuento,
-                row.fechaPedido,
-                row.fechaEntrega,
-                row.fechaAnulacion,
-                row.estado,
-                row.latitud,
-                row.longitud);
+                row.IspagoTotalNull() ? 0 : row.pagoTotal,
+                row.IsmontoDescuentoNull() ? 0 : row.montoCambio,
+                row.IsmontoDescuentoNull() ? 0 : row.montoDescuento,
+                row.IsfechaPedidoNull() ? DateTime.MinValue : row.fechaPedido,
+                row.IsfechaEntregaNull() ? DateTime.MinValue : row.fechaEntrega,
+                row.IsfechaAnulacionNull() ? DateTime.MinValue : row.fechaAnulacion,
+                row.IsestadoNull() ? "" : row.estado,
+                row.IslatitudNull() ? 0 : row.latitud,
+                row.IslongitudNull() ? 0 : row.longitud);
             return theNewRecord;
         }
     }

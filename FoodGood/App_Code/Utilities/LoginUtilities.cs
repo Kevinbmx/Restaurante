@@ -1,5 +1,6 @@
 ﻿using FoodGood.Usuario;
 using FoodGood.Usuario.BLL;
+using FoodGood.Utilities;
 using FoodGood.Utilities.Security;
 using SearchComponent;
 using System;
@@ -172,6 +173,7 @@ public class LoginUtilities
         //ActualizarUsuarioCookies(texto, HttpContext.Current);
     }
 
+
     public static void CloseSesion(HttpContext context)
     {
         string LoginCookieName = "login";
@@ -179,11 +181,12 @@ public class LoginUtilities
         myCookie.Expires = DateTime.Now.AddDays(-1d);
         context.Response.Cookies.Add(myCookie);
 
-        string cookieName = "FoodGoodCartId";
+        PedidoUtilities.borrarCarritoIdCookie();
+        //string cookieName = "FoodGoodCartId";
 
-        myCookie = new HttpCookie(cookieName);
-        myCookie.Expires = DateTime.Now.AddDays(-1d);
-        context.Response.Cookies.Add(myCookie);
+        //myCookie = new HttpCookie(cookieName);
+        //myCookie.Expires = DateTime.Now.AddDays(-1d);
+        //context.Response.Cookies.Add(myCookie);
 
         //ActualizarLoginCookies("");
         return;

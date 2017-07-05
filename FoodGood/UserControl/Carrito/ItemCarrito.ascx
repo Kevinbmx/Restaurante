@@ -24,8 +24,8 @@
                 <div id='<%# "ItemCarrito_P_" +Eval("ProductoId") %>' class="itemCarrito">
                     <div class="row">
                         <div class="col-xs-4">
-                            <asp:HiddenField ID="ImagenId" runat="server" Value='<%# Eval("ImagenId") %>' />
-                            <asp:Image ID="ProductImage" runat="server"
+                            <%--<asp:HiddenField ID="ImagenId" runat="server" Value='<%# Eval("ImagenId") %>' />--%>
+                            <asp:Image ID="ProductImage" runat="server" ImageUrl='<%# "~/img/ImageGenerator.aspx?W=150&H=150&tId=" + Eval("ImagenId") %>'
                                 CssClass="img-responsive" Width="100" Height="100" />
                         </div>
                         <div class="col-xs-6">

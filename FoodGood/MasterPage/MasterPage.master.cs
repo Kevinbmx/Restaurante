@@ -16,7 +16,8 @@ public partial class MasterPage_MasterPage : System.Web.UI.MasterPage
             LoadMainMenuScript();
             LoadMenuScript();
             string currentPage = Page.Request.AppRelativeCurrentExecutionFilePath;
-            if (currentPage.Equals("~/Autentificacion/Login.aspx") || currentPage.Equals("~/Autentificacion/Registrar.aspx") || currentPage.Equals("~/Menu.aspx"))
+            if (currentPage.Equals("~/Autentificacion/Login.aspx") || currentPage.Equals("~/Autentificacion/Registrar.aspx") || currentPage.Equals("~/Menu.aspx")
+                || currentPage.Equals("~/Cuenta/MisPedidos.aspx"))
             {
                 listaDefaultd.Visible = false;
             }
@@ -25,6 +26,7 @@ public partial class MasterPage_MasterPage : System.Web.UI.MasterPage
             {
                 listaDefaultd.Visible = false;
                 headerCarrito.Visible = false;
+                headerDeuda.Visible = false;
             }
 
             if (currentPage.Equals("~/Default.aspx"))
@@ -44,7 +46,6 @@ public partial class MasterPage_MasterPage : System.Web.UI.MasterPage
             {
                 usuarioNoLogueado.Visible = true;
                 opcionesUsuairo.Visible = false;
-
             }
         }
     }
@@ -69,9 +70,9 @@ public partial class MasterPage_MasterPage : System.Web.UI.MasterPage
 
 
 
-        //scriptText.Append("<script src=\"");
-        //scriptText.Append(ResolveClientUrl("~/Script/owl.carousel.min.js"));
-        //scriptText.Append("\" type=\"text/javascript\"></script>\n");
+        scriptText.Append("<script src=\"");
+        scriptText.Append(ResolveClientUrl("~/Script/jquery.mask.min.js"));
+        scriptText.Append("\" type=\"text/javascript\"></script>\n");
 
 
         scriptText.Append("<script src=\"");

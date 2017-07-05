@@ -48,7 +48,6 @@ public partial class Administracion_Area_ListaArea : System.Web.UI.Page
             else
             {
 
-
                 if (!ModuloBLL.validarSiExisteModulo(objUsuario.UsuarioId, Resources.Validacion.Editar_Area))
                 {
                     this.ListaAreaGridView.Columns[0].Visible = false;
@@ -63,11 +62,7 @@ public partial class Administracion_Area_ListaArea : System.Web.UI.Page
         {
             Response.Redirect("~/Autentificacion/Login.aspx");
         }
-
     }
-
-
-
 
     public void cargarListaAreas(string query)
     {
@@ -82,7 +77,6 @@ public partial class Administracion_Area_ListaArea : System.Web.UI.Page
         }
         ListaAreaGridView.DataSource = listaArea;
         ListaAreaGridView.DataBind();
-
     }
 
     protected void NewAreaButton_Click(object sender, EventArgs e)
@@ -104,9 +98,6 @@ public partial class Administracion_Area_ListaArea : System.Web.UI.Page
         string query = consultaSql(armadoDeQuery).SqlQuery();
         cargarListaAreas(query);
     }
-
-
-
 
     protected void ListaAreaGridView_RowCommand(object sender, GridViewCommandEventArgs e)
     {

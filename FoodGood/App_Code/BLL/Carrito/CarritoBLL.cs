@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
+
 namespace FoodGood.Carrito.BLL
 {
     /// <summary>
@@ -59,6 +61,24 @@ namespace FoodGood.Carrito.BLL
             }
         }
 
+
+        public static void UpdateCarrtioADeshabilitado(string carritoId)
+        {
+            if (string.IsNullOrEmpty(carritoId))
+                throw new ArgumentException("El CarritoId no puede ser nulo.");
+            try
+            {
+                CarritoTableAdapter localAdapter = new CarritoTableAdapter();
+                object resutl = localAdapter.actualizarAVentaCarrito(carritoId);
+
+                log.Debug("Se actualizo el Carrito con el id a deshabilitado" + carritoId);
+            }
+            catch (Exception q)
+            {
+                log.Error("Ocurrió un error al actualizar el Carrito a deshabilitado", q);
+                throw q;
+            }
+        }
         public static void DeleteCarrito(string carritoId)
         {
             if (string.IsNullOrEmpty(carritoId))
@@ -121,6 +141,26 @@ namespace FoodGood.Carrito.BLL
             }
             return theUser;
         }
+
+        //public void obtnerDatosProducto(string CarritoId)
+        //{
+        //    JavaScriptSerializer js = new JavaScriptSerializer();
+        //    string carritoSerializado = js.Serialize(carrito);
+        //    obtnerDatosProducto(CarritoId);
+        //}
+
+        //public static Dictionary<string, DatorProductoCarrito> obtnerDatosProducto(string CarritoId)
+        //{
+        //    string cartJson = "";
+        //    if (!string.IsNullOrEmpty(CarritoId))
+        //    {
+        //        cartJson = CarritoBLL.GetCarritoById(CarritoId).Contenido;
+        //    }
+        //    JavaScriptSerializer js = new JavaScriptSerializer();
+        //    Dictionary<string, DatorProductoCarrito> carrito = js.Deserialize<Dictionary<string, DatorProductoCarrito>>(cartJson);
+        //    return carrito.Values;
+        //}
+
         public static List<Carrito> GetCarritoListForSearch(string whereSql)
         {
             if (string.IsNullOrEmpty(whereSql))

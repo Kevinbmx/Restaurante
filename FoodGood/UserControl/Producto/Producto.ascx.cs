@@ -85,15 +85,15 @@ public partial class UserControl_Producto_Producto : System.Web.UI.UserControl
         {
             if (ImagenId != 0 || !ImagenId.Equals(""))
             {
-                Imagen objImagen = ImagenBLL.GetImagenById(ImagenId);
-                if (objImagen == null)
-                {
-                    ImagenProducto.ImageUrl = "~/img/ImgRestaurante/noImage.jpg";
-                }
-                else
-                {
-                    ImagenProducto.ImageUrl = "~/img/ImgRestaurante/" + objImagen.Titulo;
-                }
+                //Imagen objImagen = ImagenBLL.GetImagenById(ImagenId);
+                //if (objImagen == null)
+                //{
+                //    ImagenProducto.ImageUrl = "~/img/ImgRestaurante/noImage.jpg";
+                //}
+                //else
+                //{
+                ImagenProducto.ImageUrl = "~/img/ImageGenerator.aspx?W=370&H=300&tId=" + ImagenId;
+                //}
             }
         }
         catch (Exception ex)

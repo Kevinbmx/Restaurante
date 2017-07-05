@@ -177,4 +177,28 @@
   <data name="MenuVenta" xml:space="preserve">
     <value>Venta</value>
   </data>
+  <data name="NombreFactura" xml:space="preserve">
+    <value>FoodGood</value>
+  </data>
+  <data name="Entregado" xml:space="preserve">
+    <value>entregado</value>
+  </data>
+  <data name="Nit" xml:space="preserve">
+    <value>3658745014</value>
+  </data>
+  <data name="PendienteEnvio" xml:space="preserve">
+    <value>pendiente_envio</value>
+  </data>
+  <data name="DireccionEmpresa" xml:space="preserve">
+    <value>Av. Grigota entre 3er y 4to anillo </value>
+  </data>
+  <data name="TelefonoEmpresa" xml:space="preserve">
+    <value>35478851</value>
+  </data>
+  <data name="MenuListaPedido" xml:space="preserve">
+    <value>Lista Pedido</value>
+  </data>
+  <data name="MenuPedido" xml:space="preserve">
+    <value>Pedido</value>
+  </data>
 </root>

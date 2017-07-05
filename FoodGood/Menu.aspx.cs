@@ -250,6 +250,6 @@ public partial class Menu : System.Web.UI.Page
 
     protected void Pager1_PageChanged(int row)
     {
-
+        cargarProductoLista();
     }
 }

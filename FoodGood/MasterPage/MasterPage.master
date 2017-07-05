@@ -44,9 +44,9 @@
                                                 <asp:HyperLink runat="server" NavigateUrl="~/Autentificacion/Login.aspx" Text="Iniciar Sesión   - "></asp:HyperLink>
                                             </li>
 
-                                            <li class="register-option login">
+                                            <%-- <li class="register-option login">
                                                 <asp:HyperLink runat="server" NavigateUrl="~/Autentificacion/Registrar.aspx" Text="Regístrate"></asp:HyperLink>
-                                            </li>
+                                            </li>--%>
                                         </ul>
                                     </div>
                                 </div>
@@ -58,12 +58,12 @@
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
                                             <ul class="dropdown-menu" role="menu">
+                                                <%--<li>
+                                                    <asp:HyperLink runat="server" NavigateUrl="~/Cuenta/MisDatos.aspx">Mis Datos</asp:HyperLink></li>
                                                 <li>
-                                                    <asp:HyperLink runat="server" NavigateUrl="~/Account/ClientData.aspx">Mis Datos</asp:HyperLink></li>
+                                                    <asp:HyperLink runat="server" NavigateUrl="~/Cuenta/CambiarContraseña.aspx">Cambiar Contraseña</asp:HyperLink></li>--%>
                                                 <li>
-                                                    <asp:HyperLink runat="server" NavigateUrl="~/UserAccount/ChangePassword.aspx">Cambiar Contraseña</asp:HyperLink></li>
-                                                <li>
-                                                    <asp:HyperLink runat="server" NavigateUrl="~/Account/Orders.aspx">Mis Pedidos</asp:HyperLink></li>
+                                                    <asp:HyperLink runat="server" NavigateUrl="~/Cuenta/MisPedidos.aspx">Mis Pedidos</asp:HyperLink></li>
                                                 <li>
                                                     <asp:LinkButton runat="server" ID="CerrarSesion" Text="Cerrar Secion" OnClick="CerrarSesion_Click"></asp:LinkButton>
                                                 </li>
@@ -107,6 +107,18 @@
                                             <asp:Literal Text="carrito" runat="server" />
                                             (<span class="CantItem" style="padding: 0px; margin: 0px;"></span>)
                                         </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div runat="server" id="headerDeuda" style="display: none">
+                                <ul class="nav navbar-nav navbar-right" style="margin-top: 10px;">
+                                    <li>
+                                        <asp:HyperLink runat="server" NavigateUrl="~/Carrito.aspx">
+                                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                            <asp:Literal Text="Debe" runat="server" />
+                                            (<span class="MontoDebe" style="padding: 0px; margin: 0px;"></span>Bs)
+                                        </asp:HyperLink>
+
                                     </li>
                                 </ul>
                             </div>
@@ -209,7 +221,10 @@
     <script>
 
         //$(document).ready(function () {
-
+        $(document).ready(function () {
+            //$(".txtNumeroTarjeta").mask("9999-9999-9999-9999", { placeholder: "_____-_____-_____-_____" });
+            verDeudaUsuario();
+        });
         function doResize() {
             var rightMenu = $('#rightMenu');
             var header = $('#header');
@@ -348,7 +363,7 @@
         }
 
 
-        function agregarRutaImagen(imagenId) {
+        <%--function agregarRutaImagen(imagenId) {
             var obj = {
                 idImagen: imagenId,
             };
@@ -369,7 +384,7 @@
                 }
             });
 
-        }
+        }--%>
 
 
         function cargarCarritoAlContado() {
@@ -383,11 +398,11 @@
                     '<div id="ItemCarrito_P_' + carrito[i].ProductoId + '" class="itemCarrito">' +
                         '<div class="row">' +
                             '<div class="col-xs-4">' +
-                                '<img id="itemCarrito_PedidolistRepeater_ProductImage_' + carrito[i].ImagenId + '" src="~/img/ImgRestaurante/noImage.jpg" alt="' + carrito[i].ImagenId + '" CssClass="img-responsive" style="height:100px;width:100px;">' +
+                                '<img id="itemCarrito_PedidolistRepeater_ProductImage_' + carrito[i].ImagenId + '" src="img/ImageGenerator.aspx?W=150&H=150&tId=' + carrito[i].ImagenId + '" alt="imagen de Prducto" CssClass="img-responsive" style="height:100px;width:100px;">' +
 
                             '</div>' +
                             '<div class="col-xs-6">' +
-                                '<a class="nombreCarrito" href="UnProducto.aspx?id=' + carrito[i].ProductoId + '">' + carrito[i].Nombre + '</a>' +
+                                '<a class="nombreCarrito" href="~/Menu.aspx?id=' + carrito[i].ProductoId + '">' + carrito[i].Nombre + '</a>' +
                                 //'<div class="modeloCarrito">' + carrito[i].modelo + '</div>' +
                                 '<div id="itemCarrito_PedidolistRepeater_precioPanel_0" class="precioCarrito alinear-precio">Bs. ' + carrito[i].PrecioForDisplay + '</div>' +
                                 '<div id="itemCarrito_PedidolistRepeater_subtotalPanel_0">' +
@@ -409,7 +424,7 @@
                         '<div class="row borderBottom"></div>' +
                     '</div>'
                 );
-                agregarRutaImagen(carrito[i].ImagenId)
+                //agregarRutaImagen(carrito[i].ImagenId)
             }
         }
 
@@ -498,7 +513,53 @@
                 }
             });
         }
+
+
+        function verDeudaUsuario() {
+            $.ajax({
+                url: "<%= VirtualPathUtility.ToAbsolute("~/Carrito.aspx/verSiDebeAlgunPedido") %>",
+                //data: "",
+                //dataType: 'json',
+                type: 'POST',
+                async: true,
+                contentType: 'application/json; charset=utf-8',
+                success: function (mydata) {
+                    if (mydata.d.SaldoPagar == 0) {
+                        //$("#paso1").fadeOut();
+                        //$("#paso2").fadeOut();
+                        //$("#paso3").fadeOut();
+                        //$("#paso4").fadeOut();
+                        //$("#pagoTarjeta").fadeIn();
+                        //$("#detallePaso1").addClass("hidden");
+                        //$("#detallepagoTarjeta").removeClass("hidden");
+                        ////mostrar deuda
+                        //$("#headerDeuda").fadeIn();
+                        ////ocultar carrito
+                        //$("#headerCarrito").fadeOut();
+                        //$(".MontoDebe").text(mydata.d.SaldoPagar + " bs");
+                        ////$(".montoPagar").val(mydata.d.SaldoPagar);
+
+                    } else {
+                        $("#paso1").fadeOut();
+                        $("#paso2").fadeOut();
+                        $("#paso3").fadeOut();
+                        $("#paso4").fadeOut();
+                        $("#pagoTarjeta").fadeIn();
+                        $("#detallePaso1").addClass("hidden");
+                        $("#detallepagoTarjeta").removeClass("hidden");
+                        //$(".montoPagar").text($(".total").text());
+                        //mostrar deuda
+                        $("#headerDeuda").fadeIn();
+                        //ocultar carrito
+                        $("#headerCarrito").fadeOut();
+                        $(".MontoDebe").text(mydata.d.SaldoPagar + " ");
+
+                    }
+                }
+            });
+        }
         //}
+
 
     </script>
     <asp:Literal ID="loadScripMenuliteral" runat="server"></asp:Literal>
